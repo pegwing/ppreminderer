@@ -6,13 +6,49 @@
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
-#import "PPRScheduleViewController.h"
+#import "PPRScheduleTableViewController.h"
+#import "PPRActionViewController.h"
 
-@interface PPRScheduleViewController ()
+NSString * const kDueKey =  @"Due";
+NSString * const kActionKey = @"Action";
+NSString * const kStatusKey = @"Status";
+
+@interface PPRScheduleTableViewController ()
 
 @end
 
-@implementation PPRScheduleViewController
+@implementation PPRScheduleTableViewController{
+    NSArray *_scheduleEntries;
+    NSMutableDictionary *_currentAction;
+}
+
+- (IBAction)tick:(UIStoryboardSegue *) sender
+{
+    _currentAction[@"Status"] = @"Done";
+    [self.tableView reloadData];
+}
+
+- (IBAction)cross:(UIStoryboardSegue *) sender
+{
+    _currentAction[@"Status"] = @"";
+    [self.tableView reloadData];
+}
+
+- (IBAction)postpone:(UIStoryboardSegue *)sender
+{
+    _currentAction[@"Status"] = @"Postponed";
+    [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *dest = [segue destinationViewController];
+    if ([dest isKindOfClass:[PPRActionViewController class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        _currentAction = _scheduleEntries[indexPath.row];
+        [(PPRActionViewController *)dest setDetails:_currentAction];
+    }
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,6 +62,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _scheduleEntries
+    = @[
+        [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Fred",@"Name",  @"Medication",@"Action", @"14:35",@"Due", @"",@"Status",nil],
+        [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Izzy",@"Name",  @"Irrigation",@"Action", @"15:15",@"Due", @"",@"Status",nil],
+        [NSMutableDictionary dictionaryWithObjectsAndKeys:@"David",@"Name", @"Start Feed",@"Action", @"15:30",@"Due", @"",@"Status",nil],
+        ];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,28 +87,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [_scheduleEntries count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"ActionCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    NSDictionary *item = _scheduleEntries[indexPath.row];
+    
+    [cell.textLabel setText:item[kNameKey]];
+    
+    [cell.detailTextLabel setText:item[kDueKey]];
+    
+    if ([item[kStatusKey] isEqualToString:@"Done"]) {
+        [cell setBackgroundColor: [UIColor greenColor]];
+    }
     
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

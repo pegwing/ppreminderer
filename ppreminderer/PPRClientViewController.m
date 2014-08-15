@@ -32,10 +32,11 @@ NSString * const kAgeKey = @"Age";
 
 - (void)viewDidLoad
 {
-        [super viewDidLoad];
+    [super viewDidLoad];
         
-        [self.nameCell.detailTextLabel setText:self.details[kNameKey]];
-        [self.ageCell.detailTextLabel setText:self.details[kAgeKey]];
+    [self.nameCell.detailTextLabel setText:self.details[kNameKey]];
+    [self.ageCell.detailTextLabel setText:self.details[kAgeKey]];
+
 }
 
 - (void)didReceiveMemoryWarning
