@@ -9,9 +9,9 @@
 #import "PPRScheduleTableViewController.h"
 #import "PPRActionViewController.h"
 
-NSString * const kDueKey =  @"Due";
-NSString * const kActionKey = @"Action";
-NSString * const kStatusKey = @"Status";
+NSString * const kDueKey =      @"Due";
+NSString * const kActionKey =   @"Action";
+NSString * const kStatusKey =   @"Status";
 
 @interface PPRScheduleTableViewController ()
 
@@ -108,8 +108,12 @@ NSString * const kStatusKey = @"Status";
     
     [cell.detailTextLabel setText:item[kDueKey]];
     
-    if ([item[kStatusKey] isEqualToString:@"Done"]) {
-        [cell setBackgroundColor: [UIColor greenColor]];
+    if ([item[kStatusKey] isEqualToString:        @"Done"]){
+        [cell setBackgroundColor: [UIColor                          greenColor  ]];
+    } else if ([item[kStatusKey] isEqualToString: @"Postponed"]){
+        [cell setBackgroundColor: [UIColor                          grayColor   ]];
+    } else if ([item[kStatusKey] isEqualToString: @""]){
+        [cell setBackgroundColor: [UIColor                          whiteColor  ]];
     }
     
     return cell;
