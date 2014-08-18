@@ -24,8 +24,9 @@
 		205BF537199B0B320070358A /* ppremindererTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF536199B0B320070358A /* ppremindererTests.m */; };
 		205BF541199B0C300070358A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 205BF540199B0C300070358A /* Main.storyboard */; };
 		205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF543199B10030070358A /* PPRClientTableViewController.m */; };
-		205BF547199B10AB0070358A /* PPRScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF546199B10AB0070358A /* PPRScheduleViewController.m */; };
+		205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */; };
 		205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF549199B20B30070358A /* PPRClientViewController.m */; };
+		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,11 +61,13 @@
 		205BF540199B0C300070358A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		205BF542199B10030070358A /* PPRClientTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClientTableViewController.h; sourceTree = "<group>"; };
 		205BF543199B10030070358A /* PPRClientTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClientTableViewController.m; sourceTree = "<group>"; };
-		205BF545199B10AB0070358A /* PPRScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRScheduleViewController.h; sourceTree = "<group>"; };
-		205BF546199B10AB0070358A /* PPRScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRScheduleViewController.m; sourceTree = "<group>"; };
+		205BF545199B10AB0070358A /* PPRScheduleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRScheduleTableViewController.h; sourceTree = "<group>"; };
+		205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRScheduleTableViewController.m; sourceTree = "<group>"; };
 		205BF548199B20B30070358A /* PPRClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClientViewController.h; sourceTree = "<group>"; };
 		205BF549199B20B30070358A /* PPRClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClientViewController.m; sourceTree = "<group>"; };
 		205BF54B199B23640070358A /* StringKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringKeys.h; sourceTree = "<group>"; };
+		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
+		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,13 +133,15 @@
 				205BF51C199B0B310070358A /* PPRAppDelegate.h */,
 				205BF51D199B0B320070358A /* PPRAppDelegate.m */,
 				205BF540199B0C300070358A /* Main.storyboard */,
+				205BF54B199B23640070358A /* StringKeys.h */,
 				205BF548199B20B30070358A /* PPRClientViewController.h */,
 				205BF549199B20B30070358A /* PPRClientViewController.m */,
-				205BF54B199B23640070358A /* StringKeys.h */,
 				205BF542199B10030070358A /* PPRClientTableViewController.h */,
 				205BF543199B10030070358A /* PPRClientTableViewController.m */,
-				205BF546199B10AB0070358A /* PPRScheduleViewController.m */,
-				205BF545199B10AB0070358A /* PPRScheduleViewController.h */,
+				6307EAED199D977900E721FB /* PPRActionViewController.h */,
+				6307EAEE199D977900E721FB /* PPRActionViewController.m */,
+				205BF545199B10AB0070358A /* PPRScheduleTableViewController.h */,
+				205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */,
 				205BF522199B0B320070358A /* Images.xcassets */,
 				205BF51F199B0B320070358A /* ppreminderer.xcdatamodeld */,
 				205BF514199B0B310070358A /* Supporting Files */,
@@ -274,11 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */,
-				205BF547199B10AB0070358A /* PPRScheduleViewController.m in Sources */,
+				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
 				205BF521199B0B320070358A /* ppreminderer.xcdatamodeld in Sources */,
 				205BF51A199B0B310070358A /* main.m in Sources */,
 				205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */,
 				205BF51E199B0B320070358A /* PPRAppDelegate.m in Sources */,
+				6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +485,7 @@
 				205BF53C199B0B320070358A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		205BF53D199B0B320070358A /* Build configuration list for PBXNativeTarget "ppremindererTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +494,7 @@
 				205BF53F199B0B320070358A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

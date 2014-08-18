@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PPRScheduleViewController : UITableViewController
+@interface PPRScheduleTableViewController : UITableViewController
 
 @end

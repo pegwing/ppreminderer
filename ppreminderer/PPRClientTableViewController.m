@@ -14,8 +14,8 @@
 @end
 
 @implementation PPRClientTableViewController {
-    NSMutableArray *_clientEntries;
-
+    // NSMutableArray *_clientEntries;
+    NSArray *_clientEntries;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -41,7 +41,12 @@
 {
     [super viewDidLoad];
     
-    _clientEntries = @[ @{@"Name": @"Fred", @"Age": @"10"}];
+    _clientEntries
+        = @[
+            @{@"Name": @"Fred", @"Age": @"10"},
+            @{@"Name": @"Izzy", @"Age": @"10"},
+            @{@"Name": @"Dave", @"Age": @"50"},
+            ];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
