@@ -1,55 +1,18 @@
 //
-//  PPRScheduleViewController.m
+//  PPRFacilitySelectionViewController.m
 //  ppreminderer
 //
-//  Created by David Bernard on 13/08/2014.
+//  Created by David Bernard on 19/08/2014.
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
-#import "PPRScheduleTableViewController.h"
-#import "PPRActionViewController.h"
+#import "PPRFacilitySelectionViewController.h"
 
-NSString * const kDueKey =      @"Due";
-NSString * const kActionKey =   @"Action";
-NSString * const kStatusKey =   @"Status";
-NSString * const kClientKey = @"Client";
-
-@interface PPRScheduleTableViewController ()
+@interface PPRFacilitySelectionViewController ()
 
 @end
 
-@implementation PPRScheduleTableViewController{
-    NSArray *_scheduleEntries;
-    NSMutableDictionary *_currentAction;
-}
-
-- (IBAction)tick:(UIStoryboardSegue *) sender
-{
-    _currentAction[@"Status"] = @"Done";
-    [self.tableView reloadData];
-}
-
-- (IBAction)cross:(UIStoryboardSegue *) sender
-{
-    _currentAction[@"Status"] = @"";
-    [self.tableView reloadData];
-}
-
-- (IBAction)postpone:(UIStoryboardSegue *)sender
-{
-    _currentAction[@"Status"] = @"Postponed";
-    [self.tableView reloadData];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    UIViewController *dest = [segue destinationViewController];
-    if ([dest isKindOfClass:[PPRActionViewController class]]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        _currentAction = _scheduleEntries[indexPath.row];
-        [(PPRActionViewController *)dest setDetails:_currentAction];
-    }
-}
+@implementation PPRFacilitySelectionViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -63,34 +26,14 @@ NSString * const kClientKey = @"Client";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _scheduleEntries
-    = @[
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Fred", kAgeKey: @"10"}, kClientKey,
-         @"Medication",kActionKey,
-         @"14:35", kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Izzy", kAgeKey: @"10"},kClientKey,
-         @"Irrigation",kActionKey,
-         @"15:15",kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Dave", kAgeKey: @"50"}, kClientKey,
-         @"Start Feed",kActionKey,
-         @"15:30",kDueKey,
-         @"",kStatusKey,
-         nil],
-        ];
+    [self.tableView reloadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,28 +53,18 @@ NSString * const kClientKey = @"Client";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_scheduleEntries count];
+    return self.facilities.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ActionCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"facilityCell" forIndexPath:indexPath];
     
-    NSDictionary *item = _scheduleEntries[indexPath.row];
-    
-    [cell.textLabel setText:item[kClientKey][kNameKey]];
-    
-    [cell.detailTextLabel setText:item[kDueKey]];
-    
-    if ([item[kStatusKey] isEqualToString:        @"Done"]){
-        [cell setBackgroundColor: [UIColor                          greenColor  ]];
-    } else if ([item[kStatusKey] isEqualToString: @"Postponed"]){
-        [cell setBackgroundColor: [UIColor                          grayColor   ]];
-    } else if ([item[kStatusKey] isEqualToString: @""]){
-        [cell setBackgroundColor: [UIColor                          whiteColor  ]];
-    }
-    
+    // Configure the cell...
+    NSDictionary *facility = self.facilities.allValues[indexPath.row];
+    [cell.textLabel setText:facility[@"Name"]];
+    [cell.detailTextLabel setText:facility[@"Address"]];
     return cell;
 }
 
