@@ -13,6 +13,7 @@ extern NSString * const kNameKey;
 extern NSString * const kAgeKey;
 extern NSString * const kDueKey;
 extern NSString * const kActionKey;
+extern NSString * const kClientKey;
 
 
 #endif

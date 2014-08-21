@@ -26,6 +26,8 @@
 		205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF543199B10030070358A /* PPRClientTableViewController.m */; };
 		205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */; };
 		205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF549199B20B30070358A /* PPRClientViewController.m */; };
+		2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452719A30E9300E2FF65 /* PPRShiftViewController.m */; };
+		2097452B19A318A100E2FF65 /* PPRFacilitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,10 @@
 		205BF548199B20B30070358A /* PPRClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClientViewController.h; sourceTree = "<group>"; };
 		205BF549199B20B30070358A /* PPRClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClientViewController.m; sourceTree = "<group>"; };
 		205BF54B199B23640070358A /* StringKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringKeys.h; sourceTree = "<group>"; };
+		2097452619A30E9300E2FF65 /* PPRShiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRShiftViewController.h; sourceTree = "<group>"; };
+		2097452719A30E9300E2FF65 /* PPRShiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRShiftViewController.m; sourceTree = "<group>"; };
+		2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRFacilitySelectionViewController.h; sourceTree = "<group>"; };
+		2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRFacilitySelectionViewController.m; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +139,10 @@
 				205BF51C199B0B310070358A /* PPRAppDelegate.h */,
 				205BF51D199B0B320070358A /* PPRAppDelegate.m */,
 				205BF540199B0C300070358A /* Main.storyboard */,
+				2097452619A30E9300E2FF65 /* PPRShiftViewController.h */,
+				2097452719A30E9300E2FF65 /* PPRShiftViewController.m */,
+				2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */,
+				2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */,
 				205BF54B199B23640070358A /* StringKeys.h */,
 				205BF548199B20B30070358A /* PPRClientViewController.h */,
 				205BF549199B20B30070358A /* PPRClientViewController.m */,
@@ -280,11 +290,13 @@
 			files = (
 				205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */,
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
+				2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */,
 				205BF521199B0B320070358A /* ppreminderer.xcdatamodeld in Sources */,
 				205BF51A199B0B310070358A /* main.m in Sources */,
 				205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */,
 				205BF51E199B0B320070358A /* PPRAppDelegate.m in Sources */,
 				6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */,
+				2097452B19A318A100E2FF65 /* PPRFacilitySelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +393,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -404,10 +416,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppreminderer/ppreminderer-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8e6455fa-c939-430e-b0b5-23e1ddcf5c78";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -417,11 +432,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppreminderer/ppreminderer-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8e6455fa-c939-430e-b0b5-23e1ddcf5c78";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

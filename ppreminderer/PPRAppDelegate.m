@@ -16,7 +16,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [(UITabBarController *)self.window.rootViewController setSelectedIndex:1];
+    [(UITabBarController *)self.window.rootViewController setSelectedIndex:2];
+    
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (notification) {
+        NSLog(@"Local notification on launch %@", [notification.userInfo objectForKey: @"Stuff"]);
+    } else {
+        NSLog(@"Scheduling local notification");
+        notification = [[UILocalNotification alloc] init];
+        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        notification.alertBody = [NSString stringWithFormat:@"Stuff has arrived %@", notification.fireDate.description];
+        notification.userInfo = @{@"Stuff": @"Stuffed"};
+        notification.applicationIconBadgeNumber = 1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
     return YES;
 }
 
@@ -24,6 +38,10 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+}
+
+- (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"Received local notification %@", notification.userInfo[@"Stuff"]);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -61,6 +79,7 @@
         } 
     }
 }
+
 
 #pragma mark - Core Data stack
 

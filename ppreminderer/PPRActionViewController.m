@@ -7,11 +7,12 @@
 //
 
 #import "PPRActionViewController.h"
+#import "PPRClientViewController.h"
 
 @interface PPRActionViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *actionDetails;
-
+@property (nonatomic, weak) IBOutlet UIButton *client;
 @end
 
 @implementation PPRActionViewController
@@ -29,7 +30,8 @@
 {
     [super viewDidLoad];
     
-    [self.actionDetails setText: [NSString stringWithFormat:@"Client %@\n%@\n%@", self.details[kNameKey], self.details[kActionKey], self.details[kDueKey]]];
+    [self.client setTitle:self.details[kClientKey][kNameKey] forState: UIControlStateNormal] ;
+    [self.actionDetails setText: [NSString stringWithFormat:@"%@\n%@", self.details[kActionKey], self.details[kDueKey]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,15 +40,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
+    UIViewController *dest =  [segue destinationViewController];
+    if ( [dest isKindOfClass: [PPRClientViewController class]]) {
+        ((PPRClientViewController *)dest).details = self.details[kClientKey];
+    }
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end
