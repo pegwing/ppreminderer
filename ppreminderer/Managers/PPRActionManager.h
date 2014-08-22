@@ -11,5 +11,6 @@
 @interface PPRActionManager : NSObject
 + (PPRActionManager *)sharedClient;
 
-- (void) getAction: (id)action success: (void(^)(NSArray *))success failure: (void(^)(NSError *)) failure;
+- (void) getAction:    (NSDictionary *)action success: (void(^)(NSArray *))success             failure: (void(^)(NSError *)) failure;
+- (void) updateAction: (NSMutableDictionary *)action success: (void(^)(NSMutableDictionary *))success failure: (void(^)(NSError *)) failure;
 @end

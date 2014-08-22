@@ -15,5 +15,6 @@ extern NSString * const kDueKey;
 extern NSString * const kActionKey;
 extern NSString * const kClientKey;
 extern NSString * const kStatusKey;
+extern NSString * const kIdKey;
 
 #endif

@@ -10,10 +10,11 @@
 #import "PPRActionViewController.h"
 #import "PPRActionManager.h"
 
-NSString * const kDueKey =      @"Due";
-NSString * const kActionKey =   @"Action";
-NSString * const kStatusKey =   @"Status";
+NSString * const kDueKey =    @"Due";
+NSString * const kActionKey = @"Action";
+NSString * const kStatusKey = @"Status";
 NSString * const kClientKey = @"Client";
+NSString * const kIdKey =     @"Key";
 
 @interface PPRScheduleTableViewController ()
 
@@ -27,19 +28,28 @@ NSString * const kClientKey = @"Client";
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
     _currentAction[@"Status"] = @"Done";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+        updateAction:_currentAction
+        success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+        failure:^(NSError * dummy)              { } ];
 }
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
     _currentAction[@"Status"] = @"";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+     updateAction:_currentAction
+     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+     failure:^(NSError * dummy)              { } ];
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
     _currentAction[@"Status"] = @"Postponed";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+     updateAction:_currentAction
+     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+     failure:^(NSError * dummy)              { } ];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
