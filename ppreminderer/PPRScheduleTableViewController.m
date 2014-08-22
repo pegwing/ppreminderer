@@ -8,11 +8,13 @@
 
 #import "PPRScheduleTableViewController.h"
 #import "PPRActionViewController.h"
+#import "PPRActionManager.h"
 
-NSString * const kDueKey =      @"Due";
-NSString * const kActionKey =   @"Action";
-NSString * const kStatusKey =   @"Status";
+NSString * const kDueKey =    @"Due";
+NSString * const kActionKey = @"Action";
+NSString * const kStatusKey = @"Status";
 NSString * const kClientKey = @"Client";
+NSString * const kIdKey =     @"Key";
 
 @interface PPRScheduleTableViewController ()
 
@@ -26,19 +28,28 @@ NSString * const kClientKey = @"Client";
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
     _currentAction[@"Status"] = @"Done";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+        updateAction:_currentAction
+        success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+        failure:^(NSError * dummy)              { } ];
 }
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
     _currentAction[@"Status"] = @"";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+     updateAction:_currentAction
+     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+     failure:^(NSError * dummy)              { } ];
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
     _currentAction[@"Status"] = @"Postponed";
-    [self.tableView reloadData];
+    [[PPRActionManager sharedClient]
+     updateAction:_currentAction
+     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
+     failure:^(NSError * dummy)              { } ];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -64,27 +75,10 @@ NSString * const kClientKey = @"Client";
 {
     [super viewDidLoad];
     
-    _scheduleEntries
-    = @[
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Fred", kAgeKey: @"10"}, kClientKey,
-         @"Medication",kActionKey,
-         @"14:35", kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Izzy", kAgeKey: @"10"},kClientKey,
-         @"Irrigation",kActionKey,
-         @"15:15",kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Dave", kAgeKey: @"50"}, kClientKey,
-         @"Start Feed",kActionKey,
-         @"15:30",kDueKey,
-         @"",kStatusKey,
-         nil],
-        ];
+    [[PPRActionManager sharedClient]
+        getAction:nil
+        success:^(NSArray * actions) { _scheduleEntries = actions;}
+        failure:^(NSError * dummy)   { } ];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
