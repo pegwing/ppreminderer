@@ -8,6 +8,7 @@
 
 #import "PPRScheduleTableViewController.h"
 #import "PPRActionViewController.h"
+#import "PPRActionManager.h"
 
 NSString * const kDueKey =      @"Due";
 NSString * const kActionKey =   @"Action";
@@ -64,27 +65,10 @@ NSString * const kClientKey = @"Client";
 {
     [super viewDidLoad];
     
-    _scheduleEntries
-    = @[
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Fred", kAgeKey: @"10"}, kClientKey,
-         @"Medication",kActionKey,
-         @"14:35", kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Izzy", kAgeKey: @"10"},kClientKey,
-         @"Irrigation",kActionKey,
-         @"15:15",kDueKey,
-         @"",kStatusKey,
-         nil],
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{kNameKey: @"Dave", kAgeKey: @"50"}, kClientKey,
-         @"Start Feed",kActionKey,
-         @"15:30",kDueKey,
-         @"",kStatusKey,
-         nil],
-        ];
+    [[PPRActionManager sharedClient]
+        getAction:nil
+        success:^(NSArray * actions) { _scheduleEntries = actions;}
+        failure:^(NSError * dummy)   { } ];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
