@@ -30,6 +30,7 @@
 		2097452B19A318A100E2FF65 /* PPRFacilitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */; };
 		20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
+		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
@@ -78,6 +79,8 @@
 		2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRFacilitySelectionViewController.m; sourceTree = "<group>"; };
 		20EAAD4319A6DD5A00BDF78A /* PPRClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientManager.h; path = Managers/PPRClientManager.h; sourceTree = "<group>"; };
 		20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClientManager.m; path = Managers/PPRClientManager.m; sourceTree = "<group>"; };
+		20EAAD4719A6F2AC00BDF78A /* PPRFacilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRFacilityManager.h; path = Managers/PPRFacilityManager.h; sourceTree = "<group>"; };
+		20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRFacilityManager.m; path = Managers/PPRFacilityManager.m; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
@@ -202,6 +205,10 @@
 			children = (
 				20EAAD4319A6DD5A00BDF78A /* PPRClientManager.h */,
 				20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */,
+				20EAAD4719A6F2AC00BDF78A /* PPRFacilityManager.h */,
+				20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */,
+				8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */,
+				8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -311,6 +318,7 @@
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
 				2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */,
 				205BF521199B0B320070358A /* ppreminderer.xcdatamodeld in Sources */,
+				20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */,
 				205BF51A199B0B310070358A /* main.m in Sources */,
 				205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */,
 				205BF51E199B0B320070358A /* PPRAppDelegate.m in Sources */,

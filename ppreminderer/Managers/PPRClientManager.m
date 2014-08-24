@@ -20,9 +20,9 @@
         _sharedClient.clients =
         
         [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @{@"Id": @"1", @"Name": @"Fred", @"Age": @"10"}, @"Fred",
-            @{@"Id": @"2", @"Name": @"Izzy", @"Age": @"10"}, @"Izzy",
-            @{@"Id": @"3", @"Name": @"Dave", @"Age": @"50"}, @"Dave",
+            @{@"Id": @"CLI1", @"Name": @"Fred", @"Age": @"10", @"Facility":@"FAC1"}, @"CLI1",
+            @{@"Id": @"CLI2", @"Name": @"Izzy", @"Age": @"10", @"Facility":@"FAC2"}, @"CLI2",
+            @{@"Id": @"CLI3", @"Name": @"Dave", @"Age": @"50", @"Facility":@"FAC1"}, @"CLI3",
             nil];
         
     });
@@ -32,7 +32,20 @@
     if ( client == nil) {
         success(self.clients.allValues);
     } else {
-        success(self.clients[client[@"Id"]]);
+        if (client[@"Facility"] != nil) {
+            NSSet *clientSet = [self.clients keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+                return  (self.clients[key][@"Facility"] == client[@"Facility"]);
+            }];
+            
+            success([self.clients objectsForKeys:[clientSet allObjects] notFoundMarker:@{@"Id":@""}]);
+        }
+        else if (client[@"Id"] != nil){
+            success([self.clients objectsForKeys:@[client[@"Id"]] notFoundMarker:@{@"Id":@""}]);
+        }
+        else {
+            NSLog(@"Unsupported client query %@", client.description);
+            failure([[NSError alloc] init]);
+        }
     }
 }
 
