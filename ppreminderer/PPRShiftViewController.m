@@ -8,6 +8,9 @@
 
 #import "PPRShiftViewController.h"
 #import "PPRFacilitySelectionViewController.h"
+#import "PPRFacilityManager.h"
+
+NSString * const kDefaultsFacilityIdKey =     @"Facility";
 
 @interface PPRShiftViewController ()
 -(IBAction)onShift:(id)sender;
@@ -16,7 +19,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *status;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableDictionary * facilities;
+@property (nonatomic, strong) NSDictionary * facilities;
 @property (nonatomic, strong) NSDictionary * facility;
 
 @end
@@ -39,70 +42,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.facilities =
-       [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"Group Home 1",
-            @"Name",
-            @"1 Smith Street Camperdown",
-          @"Address",
-          [NSMutableDictionary dictionaryWithObjectsAndKeys:
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"07:00",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Breakfast",
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"12:00",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Lunch",
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"17:00",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Dinner",
-           nil ], @"Events",
-           nil],
-        @"Group Home 1",
-         [NSMutableDictionary dictionaryWithObjectsAndKeys:
-          @"Group Home 2",
-          @"Name",
-          @"32 Orange Street Belmont Hills",
-          @"Address",
-          [NSMutableDictionary dictionaryWithObjectsAndKeys:
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"07:30",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Breakfast",
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"12:30",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Lunch",
-           [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @"17:30",
-            @"StartTime",
-            @"0:45",
-            @"Duration",
-            nil],
-           @"Dinner",
-           nil ], @"Events",
-          nil],
-         @"Group Home 2",nil];
+    
+    [[PPRFacilityManager sharedClient] getFacility:nil success:^(NSDictionary *facilities) {
+        self.facilities = facilities;
+    } failure:^(NSError *error) {
+        
+    }];
 
     self.facility = self.facilities.allValues[0];
+    // FIXME
+    [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
     [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];
     self.tableView.dataSource = self;
     [self.tableView reloadData];
@@ -147,6 +96,8 @@
         PPRFacilitySelectionViewController *fsvc = ((PPRFacilitySelectionViewController *)(sender.sourceViewController));
         long selectedRow = fsvc.tableView.indexPathForSelectedRow.row;
         self.facility = self.facilities.allValues[selectedRow];
+        [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Facility" object:self userInfo:@{@"Facility" : self.facility[@"Id"]}];
         [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];
         [self.tableView reloadData];
     }

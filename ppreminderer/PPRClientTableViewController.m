@@ -8,6 +8,7 @@
 
 #import "PPRClientTableViewController.h"
 #import "PPRClientViewController.h"
+#import "PPRClientManager.h"
 
 @interface PPRClientTableViewController ()
 
@@ -41,13 +42,23 @@
 {
     [super viewDidLoad];
     
-    _clientEntries
-        = @[
-            @{@"Name": @"Fred", @"Age": @"10"},
-            @{@"Name": @"Izzy", @"Age": @"10"},
-            @{@"Name": @"Dave", @"Age": @"50"},
-            ];
+    NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
+    [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
+        _clientEntries = clients;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"Facility" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
+        [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
+            _clientEntries = clients;
+            [self.tableView reloadData];
+        } failure:^(NSError *error) {
+        }];
+    }];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
