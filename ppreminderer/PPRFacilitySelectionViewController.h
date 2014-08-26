@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PPRFacilitySelectionViewController : UITableViewController
-@property (nonatomic, weak) NSDictionary* facilities;
+@property (nonatomic, weak) NSArray* facilities;
 
 
 

@@ -90,11 +90,12 @@
     });
     return _sharedClient;
 }
-- (void)getFacility:(NSDictionary *) facility success:(void (^)(NSDictionary *)) success failure:(void (^)(NSError *)) failure {
+- (void)getFacility:(NSDictionary *) facility success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure {
     if ( facility == nil) {
-        success(self.facilities);
+        success(self.facilities.allValues);
     } else {
-        success(self.facilities[facility[@"Id"]]);
+        // FIXME handle more keys.
+        success([NSArray arrayWithObject:self.facilities[facility[@"Id"]]]);
     }
 }
 @end

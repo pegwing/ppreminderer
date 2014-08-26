@@ -40,6 +40,7 @@
             success([self.clients objectsForKeys:[clientSet allObjects] notFoundMarker:@{@"Id":@""}]);
         }
         else if (client[@"Id"] != nil){
+            // FIXME what should be returned if Id not found - Fail?
             success([self.clients objectsForKeys:@[client[@"Id"]] notFoundMarker:@{@"Id":@""}]);
         }
         else {

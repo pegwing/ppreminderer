@@ -38,6 +38,16 @@
                ReferencedContainer = "container:ppreminderer.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "20EAAD4D19AB0D5100BDF78A"
+               BuildableName = "ppremindererTests copy.xctest"
+               BlueprintName = "ppremindererTests copy"
+               ReferencedContainer = "container:ppreminderer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

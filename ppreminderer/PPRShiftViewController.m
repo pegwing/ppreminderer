@@ -19,7 +19,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
 @property (nonatomic, weak) IBOutlet UILabel *status;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSDictionary * facilities;
+@property (nonatomic, strong) NSArray * facilities;
 @property (nonatomic, strong) NSDictionary * facility;
 
 @end
@@ -43,13 +43,13 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[PPRFacilityManager sharedClient] getFacility:nil success:^(NSDictionary *facilities) {
+    [[PPRFacilityManager sharedClient] getFacility:nil success:^(NSArray *facilities) {
         self.facilities = facilities;
     } failure:^(NSError *error) {
         
     }];
 
-    self.facility = self.facilities.allValues[0];
+    self.facility = self.facilities[0];
     // FIXME
     [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
     [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];
@@ -95,7 +95,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
     if ([sender.sourceViewController isKindOfClass:[PPRFacilitySelectionViewController class]]) {
         PPRFacilitySelectionViewController *fsvc = ((PPRFacilitySelectionViewController *)(sender.sourceViewController));
         long selectedRow = fsvc.tableView.indexPathForSelectedRow.row;
-        self.facility = self.facilities.allValues[selectedRow];
+        self.facility = self.facilities[selectedRow];
         [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Facility" object:self userInfo:@{@"Facility" : self.facility[@"Id"]}];
         [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];

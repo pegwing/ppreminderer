@@ -10,6 +10,6 @@
 
 @interface PPRFacilityManager : NSObject
 + (PPRFacilityManager *) sharedClient;
-- (void)getFacility:(NSDictionary *) client success:(void (^)(NSDictionary *)) success failure:(void (^)(NSError *)) failure;
+- (void)getFacility:(NSDictionary *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure;
 
 @end
