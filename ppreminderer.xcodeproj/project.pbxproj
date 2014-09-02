@@ -32,15 +32,20 @@
 		20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
 		20EAAD4B19AB0B9B00BDF78A /* PPRFacilityManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */; };
-		20EAAD5119AB0D5100BDF78A /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
-		20EAAD5219AB0D5100BDF78A /* PPRFacilityManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */; };
-		20EAAD5319AB0D5100BDF78A /* ppremindererTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF536199B0B320070358A /* ppremindererTests.m */; };
-		20EAAD5419AB0D5100BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
-		20EAAD5619AB0D5100BDF78A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF529199B0B320070358A /* XCTest.framework */; };
-		20EAAD5719AB0D5100BDF78A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF511199B0B310070358A /* CoreData.framework */; };
-		20EAAD5819AB0D5100BDF78A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50F199B0B310070358A /* UIKit.framework */; };
-		20EAAD5919AB0D5100BDF78A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50B199B0B310070358A /* Foundation.framework */; };
-		20EAAD5B19AB0D5100BDF78A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 205BF533199B0B320070358A /* InfoPlist.strings */; };
+		20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
+		20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452719A30E9300E2FF65 /* PPRShiftViewController.m */; };
+		20EAAD6319AB0E9400BDF78A /* PPRFacilitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */; };
+		20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF549199B20B30070358A /* PPRClientViewController.m */; };
+		20EAAD6519AB0E9D00BDF78A /* PPRClientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF543199B10030070358A /* PPRClientTableViewController.m */; };
+		20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
+		20EAAD6719AB0EA500BDF78A /* PPRScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */; };
+		20EAAD6919AC7D4700BDF78A /* PPRClientManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */; };
+		20EAAD7319AD6A1200BDF78A /* navigation.feature in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6A19AD6A1200BDF78A /* navigation.feature */; };
+		20EAAD7419AD6A1200BDF78A /* select_facility.feature in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6B19AD6A1200BDF78A /* select_facility.feature */; };
+		20EAAD7519AD6A1200BDF78A /* navigation_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6C19AD6A1200BDF78A /* navigation_steps.rb */; };
+		20EAAD7619AD6A1200BDF78A /* launch_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6D19AD6A1200BDF78A /* launch_steps.rb */; };
+		20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6E19AD6A1200BDF78A /* select_facility.rb */; };
+		20EAAD7819AD6A1200BDF78A /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD7019AD6A1200BDF78A /* env.rb */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
@@ -48,13 +53,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		205BF52E199B0B320070358A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 205BF500199B0B310070358A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 205BF507199B0B310070358A;
-			remoteInfo = ppreminderer;
-		};
-		20EAAD4F19AB0D5100BDF78A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 205BF500199B0B310070358A /* Project object */;
 			proxyType = 1;
@@ -98,9 +96,14 @@
 		20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClientManager.m; path = Managers/PPRClientManager.m; sourceTree = "<group>"; };
 		20EAAD4719A6F2AC00BDF78A /* PPRFacilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRFacilityManager.h; path = Managers/PPRFacilityManager.h; sourceTree = "<group>"; };
 		20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRFacilityManager.m; path = Managers/PPRFacilityManager.m; sourceTree = "<group>"; };
-		20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRFacilityManagerTest.m; sourceTree = "<group>"; };
-		20EAAD5F19AB0D5100BDF78A /* ppremindererTests copy.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ppremindererTests copy.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		20EAAD6019AB0D5200BDF78A /* ppremindererTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ppremindererTests copy-Info.plist"; path = "/Users/davidbernard/Projects/Pegwing/ppreminderer/ppremindererTests copy-Info.plist"; sourceTree = "<absolute>"; };
+		20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRFacilityManagerTest.m; path = ManagerTests/PPRFacilityManagerTest.m; sourceTree = "<group>"; };
+		20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClientManagerTest.m; path = ManagerTests/PPRClientManagerTest.m; sourceTree = "<group>"; };
+		20EAAD6A19AD6A1200BDF78A /* navigation.feature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navigation.feature; sourceTree = "<group>"; };
+		20EAAD6B19AD6A1200BDF78A /* select_facility.feature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = select_facility.feature; sourceTree = "<group>"; };
+		20EAAD6C19AD6A1200BDF78A /* navigation_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = navigation_steps.rb; sourceTree = "<group>"; };
+		20EAAD6D19AD6A1200BDF78A /* launch_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = launch_steps.rb; sourceTree = "<group>"; };
+		20EAAD6E19AD6A1200BDF78A /* select_facility.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = select_facility.rb; sourceTree = "<group>"; };
+		20EAAD7019AD6A1200BDF78A /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
@@ -130,28 +133,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		20EAAD5519AB0D5100BDF78A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				20EAAD5619AB0D5100BDF78A /* XCTest.framework in Frameworks */,
-				20EAAD5719AB0D5100BDF78A /* CoreData.framework in Frameworks */,
-				20EAAD5819AB0D5100BDF78A /* UIKit.framework in Frameworks */,
-				20EAAD5919AB0D5100BDF78A /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		205BF4FF199B0B310070358A = {
 			isa = PBXGroup;
 			children = (
+				20EAAD7219AD6A1200BDF78A /* features */,
 				205BF513199B0B310070358A /* ppreminderer */,
 				205BF530199B0B320070358A /* ppremindererTests */,
 				205BF50A199B0B310070358A /* Frameworks */,
 				205BF509199B0B310070358A /* Products */,
-				20EAAD6019AB0D5200BDF78A /* ppremindererTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,7 +152,6 @@
 			children = (
 				205BF508199B0B310070358A /* ppreminderer.app */,
 				205BF528199B0B320070358A /* ppremindererTests.xctest */,
-				20EAAD5F19AB0D5100BDF78A /* ppremindererTests copy.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,8 +242,39 @@
 			isa = PBXGroup;
 			children = (
 				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
+				20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */,
 			);
 			name = ManagerTests;
+			sourceTree = "<group>";
+		};
+		20EAAD6F19AD6A1200BDF78A /* step_definitions */ = {
+			isa = PBXGroup;
+			children = (
+				20EAAD6C19AD6A1200BDF78A /* navigation_steps.rb */,
+				20EAAD6D19AD6A1200BDF78A /* launch_steps.rb */,
+				20EAAD6E19AD6A1200BDF78A /* select_facility.rb */,
+			);
+			path = step_definitions;
+			sourceTree = "<group>";
+		};
+		20EAAD7119AD6A1200BDF78A /* support */ = {
+			isa = PBXGroup;
+			children = (
+				20EAAD7019AD6A1200BDF78A /* env.rb */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		20EAAD7219AD6A1200BDF78A /* features */ = {
+			isa = PBXGroup;
+			children = (
+				20EAAD6A19AD6A1200BDF78A /* navigation.feature */,
+				20EAAD6B19AD6A1200BDF78A /* select_facility.feature */,
+				20EAAD6F19AD6A1200BDF78A /* step_definitions */,
+				20EAAD7119AD6A1200BDF78A /* support */,
+			);
+			name = features;
+			path = Frank/features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,24 +315,6 @@
 			productReference = 205BF528199B0B320070358A /* ppremindererTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		20EAAD4D19AB0D5100BDF78A /* ppremindererTests copy */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 20EAAD5C19AB0D5100BDF78A /* Build configuration list for PBXNativeTarget "ppremindererTests copy" */;
-			buildPhases = (
-				20EAAD5019AB0D5100BDF78A /* Sources */,
-				20EAAD5519AB0D5100BDF78A /* Frameworks */,
-				20EAAD5A19AB0D5100BDF78A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				20EAAD4E19AB0D5100BDF78A /* PBXTargetDependency */,
-			);
-			name = "ppremindererTests copy";
-			productName = ppremindererTests;
-			productReference = 20EAAD5F19AB0D5100BDF78A /* ppremindererTests copy.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -323,9 +327,6 @@
 				TargetAttributes = {
 					205BF507199B0B310070358A = {
 						DevelopmentTeam = VY33H569Y3;
-					};
-					205BF527199B0B320070358A = {
-						TestTargetID = 205BF507199B0B310070358A;
 					};
 				};
 			};
@@ -343,7 +344,6 @@
 			targets = (
 				205BF507199B0B310070358A /* ppreminderer */,
 				205BF527199B0B320070358A /* ppremindererTests */,
-				20EAAD4D19AB0D5100BDF78A /* ppremindererTests copy */,
 			);
 		};
 /* End PBXProject section */
@@ -363,15 +363,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20EAAD7819AD6A1200BDF78A /* env.rb in Resources */,
+				20EAAD7419AD6A1200BDF78A /* select_facility.feature in Resources */,
+				20EAAD7319AD6A1200BDF78A /* navigation.feature in Resources */,
+				20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */,
 				205BF535199B0B320070358A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		20EAAD5A19AB0D5100BDF78A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				20EAAD5B19AB0D5100BDF78A /* InfoPlist.strings in Resources */,
+				20EAAD7619AD6A1200BDF78A /* launch_steps.rb in Resources */,
+				20EAAD7519AD6A1200BDF78A /* navigation_steps.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,21 +399,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20EAAD6919AC7D4700BDF78A /* PPRClientManagerTest.m in Sources */,
 				8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */,
+				20EAAD6719AB0EA500BDF78A /* PPRScheduleTableViewController.m in Sources */,
+				20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */,
 				20EAAD4B19AB0B9B00BDF78A /* PPRFacilityManagerTest.m in Sources */,
+				20EAAD6519AB0E9D00BDF78A /* PPRClientTableViewController.m in Sources */,
+				20EAAD6319AB0E9400BDF78A /* PPRFacilitySelectionViewController.m in Sources */,
 				205BF537199B0B320070358A /* ppremindererTests.m in Sources */,
+				20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */,
+				20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */,
+				20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		20EAAD5019AB0D5100BDF78A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				20EAAD5119AB0D5100BDF78A /* PPRActionManager.m in Sources */,
-				20EAAD5219AB0D5100BDF78A /* PPRFacilityManagerTest.m in Sources */,
-				20EAAD5319AB0D5100BDF78A /* ppremindererTests.m in Sources */,
-				20EAAD5419AB0D5100BDF78A /* PPRClientManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,11 +421,6 @@
 			isa = PBXTargetDependency;
 			target = 205BF507199B0B310070358A /* ppreminderer */;
 			targetProxy = 205BF52E199B0B320070358A /* PBXContainerItemProxy */;
-		};
-		20EAAD4E19AB0D5100BDF78A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 205BF507199B0B310070358A /* ppreminderer */;
-			targetProxy = 20EAAD4F19AB0D5100BDF78A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -486,7 +476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -519,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -536,6 +526,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppreminderer/ppreminderer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRANK_LIBRARY_SEARCH_PATHS)",
@@ -561,6 +552,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppreminderer/ppreminderer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8e6455fa-c939-430e-b0b5-23e1ddcf5c78";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -571,7 +563,6 @@
 		205BF53E199B0B320070358A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ppreminderer.app/ppreminderer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -585,7 +576,6 @@
 				);
 				INFOPLIST_FILE = "ppremindererTests/ppremindererTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -593,7 +583,6 @@
 		205BF53F199B0B320070358A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ppreminderer.app/ppreminderer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -603,43 +592,6 @@
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppremindererTests/ppremindererTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		20EAAD5D19AB0D5100BDF78A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ppremindererTests copy-Info.plist";
-				PRODUCT_NAME = "ppremindererTests copy";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		20EAAD5E19AB0D5100BDF78A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
-				INFOPLIST_FILE = "ppremindererTests copy-Info.plist";
-				PRODUCT_NAME = "ppremindererTests copy";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -670,15 +622,6 @@
 			buildConfigurations = (
 				205BF53E199B0B320070358A /* Debug */,
 				205BF53F199B0B320070358A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		20EAAD5C19AB0D5100BDF78A /* Build configuration list for PBXNativeTarget "ppremindererTests copy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				20EAAD5D19AB0D5100BDF78A /* Debug */,
-				20EAAD5E19AB0D5100BDF78A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

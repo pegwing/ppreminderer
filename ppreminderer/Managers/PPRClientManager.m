@@ -40,8 +40,12 @@
             success([self.clients objectsForKeys:[clientSet allObjects] notFoundMarker:@{@"Id":@""}]);
         }
         else if (client[@"Id"] != nil){
-            // FIXME what should be returned if Id not found - Fail?
-            success([self.clients objectsForKeys:@[client[@"Id"]] notFoundMarker:@{@"Id":@""}]);
+            
+            NSDictionary *foundClient = self.clients[client[@"Id"]];
+            if (foundClient)
+                success([NSArray arrayWithObject:self.clients[client[@"Id"]]]);
+            else
+                failure([NSError errorWithDomain:@"ClientMananger" code:1 userInfo:nil]);
         }
         else {
             NSLog(@"Unsupported client query %@", client.description);
