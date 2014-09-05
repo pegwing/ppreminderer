@@ -20,7 +20,9 @@
         _sharedClient.clients =
         
         [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            @{@"Id": @"CLI1", @"Name": @"Fred", @"Age": @"10", @"Facility":@"FAC1"}, @"CLI1",
+         @{@"Id": @"CLI1", @"Name": @"Fred", @"Age": @"10", @"Facility":@"FAC1", @"Schedule":
+               @{}
+           }, @"CLI1",
             @{@"Id": @"CLI2", @"Name": @"Izzy", @"Age": @"10", @"Facility":@"FAC2"}, @"CLI2",
             @{@"Id": @"CLI3", @"Name": @"Dave", @"Age": @"50", @"Facility":@"FAC1"}, @"CLI3",
             nil];

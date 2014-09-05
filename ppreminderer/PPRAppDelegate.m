@@ -7,6 +7,7 @@
 //
 
 #import "PPRAppDelegate.h"
+#import "WBErrorNoticeView.h"
 
 @implementation PPRAppDelegate
 
@@ -42,6 +43,21 @@
 
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     NSLog(@"Received local notification %@", notification.userInfo[@"Stuff"]);
+    UIView *view = [(UITabBarController *)self.window.rootViewController view];
+    WBErrorNoticeView *errorView = [[WBErrorNoticeView alloc] initWithView:view title:@"Error loading incidents."];
+    errorView.message = notification.userInfo[@"Stuff"];
+    errorView.alpha = 0.9f;
+    errorView.floating = YES;
+    [errorView show];
+    NSLog(@"Scheduling local notification");
+    notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.alertBody = [NSString stringWithFormat:@"Stuff has arrived %@", notification.fireDate.description];
+    notification.userInfo = @{@"Stuff": @"Stuffed"};
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

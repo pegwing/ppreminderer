@@ -49,6 +49,7 @@
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
+		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,8 @@
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
+		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppreminderer.xcconfig"; path = "Pods/Pods-ppreminderer.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,7 @@
 				205BF512199B0B310070358A /* CoreData.framework in Frameworks */,
 				205BF510199B0B310070358A /* UIKit.framework in Frameworks */,
 				205BF50C199B0B310070358A /* Foundation.framework in Frameworks */,
+				B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +148,7 @@
 				205BF530199B0B320070358A /* ppremindererTests */,
 				205BF50A199B0B310070358A /* Frameworks */,
 				205BF509199B0B310070358A /* Products */,
+				E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,6 +169,7 @@
 				205BF50F199B0B310070358A /* UIKit.framework */,
 				205BF511199B0B310070358A /* CoreData.framework */,
 				205BF529199B0B320070358A /* XCTest.framework */,
+				8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,23 +177,13 @@
 		205BF513199B0B310070358A /* ppreminderer */ = {
 			isa = PBXGroup;
 			children = (
+				20FDB18619B97122003BDACE /* User Interface */,
+				20FDB18519B9710B003BDACE /* Model */,
 				20EAAD4219A6DD1B00BDF78A /* Managers */,
 				205BF51C199B0B310070358A /* PPRAppDelegate.h */,
 				205BF51D199B0B320070358A /* PPRAppDelegate.m */,
 				205BF540199B0C300070358A /* Main.storyboard */,
-				2097452619A30E9300E2FF65 /* PPRShiftViewController.h */,
-				2097452719A30E9300E2FF65 /* PPRShiftViewController.m */,
-				2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */,
-				2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */,
 				205BF54B199B23640070358A /* StringKeys.h */,
-				205BF548199B20B30070358A /* PPRClientViewController.h */,
-				205BF549199B20B30070358A /* PPRClientViewController.m */,
-				205BF542199B10030070358A /* PPRClientTableViewController.h */,
-				205BF543199B10030070358A /* PPRClientTableViewController.m */,
-				6307EAED199D977900E721FB /* PPRActionViewController.h */,
-				6307EAEE199D977900E721FB /* PPRActionViewController.m */,
-				205BF545199B10AB0070358A /* PPRScheduleTableViewController.h */,
-				205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */,
 				205BF522199B0B320070358A /* Images.xcassets */,
 				205BF51F199B0B320070358A /* ppreminderer.xcdatamodeld */,
 				205BF514199B0B310070358A /* Supporting Files */,
@@ -277,6 +273,40 @@
 			path = Frank/features;
 			sourceTree = "<group>";
 		};
+		20FDB18519B9710B003BDACE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		20FDB18619B97122003BDACE /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				20FDB18719B9714D003BDACE /* Controllers */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		20FDB18719B9714D003BDACE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2097452619A30E9300E2FF65 /* PPRShiftViewController.h */,
+				2097452719A30E9300E2FF65 /* PPRShiftViewController.m */,
+				2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */,
+				205BF548199B20B30070358A /* PPRClientViewController.h */,
+				205BF549199B20B30070358A /* PPRClientViewController.m */,
+				205BF542199B10030070358A /* PPRClientTableViewController.h */,
+				205BF543199B10030070358A /* PPRClientTableViewController.m */,
+				6307EAED199D977900E721FB /* PPRActionViewController.h */,
+				6307EAEE199D977900E721FB /* PPRActionViewController.m */,
+				205BF545199B10AB0070358A /* PPRScheduleTableViewController.h */,
+				205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */,
+				2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -284,9 +314,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 205BF53A199B0B320070358A /* Build configuration list for PBXNativeTarget "ppreminderer" */;
 			buildPhases = (
+				DBEFA0B835D84FF4BA690134 /* Check Pods Manifest.lock */,
 				205BF504199B0B310070358A /* Sources */,
 				205BF505199B0B310070358A /* Frameworks */,
 				205BF506199B0B310070358A /* Resources */,
+				DBD1E03CBCA3408BA2165853 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -374,6 +406,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DBD1E03CBCA3408BA2165853 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ppreminderer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBEFA0B835D84FF4BA690134 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		205BF504199B0B310070358A /* Sources */ = {
@@ -518,6 +583,7 @@
 		};
 		205BF53B199B0B320070358A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -544,6 +610,7 @@
 		};
 		205BF53C199B0B320070358A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

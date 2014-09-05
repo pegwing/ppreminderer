@@ -63,11 +63,10 @@
     
     PPRClientManager *sharedClient = [PPRClientManager sharedClient];
     [sharedClient getClient:@{@"Id":@"CLIXXX"} success:^(NSArray *clients) {
-        XCTAssertEqual(clients.count, 0, @"Shared client should return 1 matching client");
-        return;
+        XCTFail( @"Shared client should fail if not matching client and id is specified");
+
     } failure:^(NSError *error) {
-        // FIXME
-        XCTFail("getClient with unknown client should not fail");
+        return;
     }];
     
 }
