@@ -16,7 +16,7 @@ extern NSString * const kAgeKey;    // Age of a person
 extern NSString * const kDueKey;    // when an action is Due
 extern NSString * const kActionKey; // e.g. medication, irrigation, start feeding
 extern NSString * const kClientKey; // client details (e.g. dict containing name and age)
-extern NSString * const kStatusKey; // e.g. done, postpond, or blank
+extern NSString * const kStatusKey; // e.g. done, postponed, or blank
 extern NSString * const kIdKey;                 // e.g. 1, 2, or 3 (as string)
 extern NSString * const kDefaultsFacilityIdKey; // ...?
 
