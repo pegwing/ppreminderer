@@ -7,6 +7,7 @@
 //
 
 #import "PPRClientViewController.h"
+#import "PPRClientManager.h"
 
 NSString * const kNameKey = @"Name";
 NSString * const kAgeKey = @"Age";
