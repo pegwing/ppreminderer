@@ -9,13 +9,20 @@
 #ifndef ppreminderer_StringKeys_h
 #define ppreminderer_StringKeys_h
 
-extern NSString * const kNameKey;
-extern NSString * const kAgeKey;
-extern NSString * const kDueKey;
-extern NSString * const kActionKey;
-extern NSString * const kClientKey;
-extern NSString * const kStatusKey;
-extern NSString * const kIdKey;
-extern NSString * const kDefaultsFacilityIdKey;
+// The comments to the right of the following definitions should soon be redundant.  Examples should soon be wrong.  --dav, 2014-08-31.
+
+extern NSString * const kNameKey;   // Name of a person
+extern NSString * const kAgeKey;    // Age of a person
+extern NSString * const kDueKey;    // when an action is Due
+extern NSString * const kActionKey; // e.g. medication, irrigation, start feeding
+extern NSString * const kClientKey; // client details (e.g. dict containing name and age)
+extern NSString * const kStatusKey; // e.g. done, postpond, or blank
+extern NSString * const kIdKey;                 // e.g. 1, 2, or 3 (as string)
+extern NSString * const kDefaultsFacilityIdKey; // ...?
+
+// Ditto soon redundant/wrong.
+extern NSString * const kStatusDone;
+extern NSString * const kStatusPostponed;
+extern NSString * const kStatusBlank;
 
 #endif
