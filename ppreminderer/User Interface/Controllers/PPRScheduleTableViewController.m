@@ -16,40 +16,41 @@ NSString * const kStatusKey = @"Status";
 NSString * const kClientKey = @"Client";
 NSString * const kIdKey =     @"Key";
 
+NSString * const kStatusDone =      @"Done";
+NSString * const kStatusPostponed = @"Postponed";
+NSString * const kStatusBlank =     @"";
+
+// Note about the above:  'blank' is related to a 'Not done' state, perhaps for historical reasons only.
+
 @interface PPRScheduleTableViewController ()
 
 @end
 
 @implementation PPRScheduleTableViewController{
     NSArray *_scheduleEntries;
+    NSString *_currentActionID;
     NSMutableDictionary *_currentAction;
 }
 
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
-    _currentAction[@"Status"] = @"Done";
-    [[PPRActionManager sharedClient]
-        updateAction:_currentAction
-        success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
-        failure:^(NSError * dummy)              { } ];
+    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusDone
+                                            success:^(void)            {[self.tableView reloadData];}
+                                            failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
-    _currentAction[@"Status"] = @"";
-    [[PPRActionManager sharedClient]
-     updateAction:_currentAction
-     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
-     failure:^(NSError * dummy)              { } ];
+    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusBlank
+                                            success:^(void)            {[self.tableView reloadData];}
+                                            failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
-    _currentAction[@"Status"] = @"Postponed";
-    [[PPRActionManager sharedClient]
-     updateAction:_currentAction
-     success:^(NSMutableDictionary * dummy)  { [self.tableView reloadData];}
-     failure:^(NSError * dummy)              { } ];
+    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusPostponed
+                                            success:^(void)            {[self.tableView reloadData];}
+                                            failure:^(NSError * dummy) {}];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -57,6 +58,7 @@ NSString * const kIdKey =     @"Key";
     UIViewController *dest = [segue destinationViewController];
     if ([dest isKindOfClass:[PPRActionViewController class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        _currentActionID = _scheduleEntries[indexPath.row][kIdKey];
         _currentAction = _scheduleEntries[indexPath.row];
         [(PPRActionViewController *)dest setDetails:_currentAction];
     }
@@ -118,11 +120,11 @@ NSString * const kIdKey =     @"Key";
     
     [cell.detailTextLabel setText:item[kDueKey]];
     
-    if ([item[kStatusKey] isEqualToString:        @"Done"]){
+    if ([item[kStatusKey] isEqualToString:        kStatusDone]){
         [cell setBackgroundColor: [UIColor                          greenColor  ]];
-    } else if ([item[kStatusKey] isEqualToString: @"Postponed"]){
+    } else if ([item[kStatusKey] isEqualToString: kStatusPostponed]){
         [cell setBackgroundColor: [UIColor                          grayColor   ]];
-    } else if ([item[kStatusKey] isEqualToString: @""]){
+    } else if ([item[kStatusKey] isEqualToString: kStatusBlank]){
         [cell setBackgroundColor: [UIColor                          whiteColor  ]];
     }
     

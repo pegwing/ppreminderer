@@ -19,31 +19,34 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [PPRActionManager alloc];
-        _sharedClient.actions = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        _sharedClient.actions =
+          [NSMutableDictionary dictionaryWithObjectsAndKeys:
             [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Fred", kAgeKey: @"10"}, kClientKey,
-             @"Medication",kActionKey,
-             @"14:35", kDueKey,
-             @"",kStatusKey,
-                                 @"1",kIdKey,
+             @{kNameKey: @"Fred", kAgeKey: @"10"},  kClientKey,
+             @"Medication",                         kActionKey,
+             @"14:35",                              kDueKey,
+             kStatusBlank,                          kStatusKey,
+             @"1",                                  kIdKey,
              nil],
-                                 @"1",
+            @"1",
+
             [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Izzy", kAgeKey: @"10"},kClientKey,
-             @"Irrigation",kActionKey,
-             @"15:15",kDueKey,
-             @"",kStatusKey,
-                                 @"2",kIdKey,
+             @{kNameKey: @"Izzy", kAgeKey: @"10"},  kClientKey,
+             @"Irrigation",                         kActionKey,
+             @"15:15",                              kDueKey,
+             kStatusBlank,                          kStatusKey,
+             @"2",                                  kIdKey,
              nil],
-                                 @"2",
+            @"2",
+                                 
             [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Dave", kAgeKey: @"50"}, kClientKey,
-             @"Start Feed",kActionKey,
-             @"15:30",kDueKey,
-             @"",kStatusKey,
-                                 @"3",kIdKey,
+             @{kNameKey: @"Dave", kAgeKey: @"50"},  kClientKey,
+             @"Start Feed",                         kActionKey,
+             @"15:30",                              kDueKey,
+             kStatusBlank,                          kStatusKey,
+             @"3",                                  kIdKey,
              nil],
-                                 @"3",
+            @"3",
             nil
         ];
     });
@@ -54,9 +57,11 @@
     success(self.actions.allValues);
 }
 
-- (void) updateAction: (NSMutableDictionary *)action success: (void(^)(NSMutableDictionary *))success failure: (void(^)(NSError *)) failure {
-    self.actions[action[kIdKey]] = action;
-    success(action);
-}
+- (void) updateStatusOf: (NSString *) actionID
+                     to: (NSString *) newStatus      success: (void(^)()) success                     failure: (void(^)(NSError *)) failure
+{
+    self.actions[actionID][kStatusKey] = newStatus;
+    success();
+};
 
 @end
