@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPRClient.h"
 
 @interface PPRClientManager : NSObject
 + (PPRClientManager *) sharedClient;
-- (void)getClient:(NSDictionary *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure;
+- (void)getClient:(PPRClient *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure;
+- (void)insertClient:(PPRClient *)client success:(void (^)()) success failure:(void (^)(NSError *)) failure;
 @end

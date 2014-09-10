@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRFacility.h"
 
 @interface PPRFacilitySelectionViewController : UITableViewController
 @property (nonatomic, weak) NSArray* facilities;

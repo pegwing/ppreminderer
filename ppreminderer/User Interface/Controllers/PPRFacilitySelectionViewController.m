@@ -62,9 +62,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"facilityCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    NSDictionary *facility = self.facilities[indexPath.row];
-    [cell.textLabel setText:facility[@"Name"]];
-    [cell.detailTextLabel setText:facility[@"Address"]];
+    PPRFacility *facility = self.facilities[indexPath.row];
+    [cell.textLabel setText:facility.name];
+    [cell.detailTextLabel setText:facility.address];
     return cell;
 }
 

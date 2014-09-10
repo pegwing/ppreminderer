@@ -11,7 +11,7 @@
 #import "PPRClientManager.h"
 
 @interface PPRClientTableViewController ()
-
+-(void) loadClients;
 @end
 
 @implementation PPRClientTableViewController {
@@ -38,11 +38,12 @@
     return self;
 }
 
-- (void)viewDidLoad
+-(void)loadClients
 {
-    [super viewDidLoad];
-    
-    NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
+    PPRClient * clientFilter = [[PPRClient alloc] init];
+    PPRFacility *facility = [[PPRFacility alloc] init];
+    clientFilter.facility = facility;
+    clientFilter.facility.facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
     [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
         _clientEntries = clients;
         [self.tableView reloadData];
@@ -50,13 +51,15 @@
         
     }];
     
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self loadClients];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:@"Facility" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
-        [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
-            _clientEntries = clients;
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-        }];
+        [self loadClients];
     }];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -91,12 +94,12 @@
     static NSString *CellIdentifier = @"ClientCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSDictionary *item = _clientEntries[indexPath.row];
+    PPRClient *client = _clientEntries[indexPath.row];
     
-    [cell.textLabel setText:item[kNameKey]];
+    [cell.textLabel setText:client.name];
     
-    
-    [cell.detailTextLabel setText:item[kAgeKey]];
+    // FIXME
+    [cell.detailTextLabel setText:client.birthDate.description];
     
 #ifdef DEBUG
     [cell setAccessibilityLabel:[NSString stringWithFormat:@"Section %ld Row %ld", (long)indexPath.section, (long)indexPath.row]];

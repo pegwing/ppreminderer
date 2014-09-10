@@ -7,6 +7,7 @@
 //
 
 #import "PPRAppDelegate.h"
+#import "PPRTestIntialiser.h"
 #import "WBErrorNoticeView.h"
 
 @implementation PPRAppDelegate
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [PPRTestIntialiser sharedClient];
     [(UITabBarController *)self.window.rootViewController setSelectedIndex:2];
     
     UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];

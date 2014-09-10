@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPRFacility.h"
 
 @interface PPRFacilityManager : NSObject
 + (PPRFacilityManager *) sharedClient;
-- (void)getFacility:(NSDictionary *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure;
 
+- (void)getFacility:(PPRFacility *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure;
+
+- (void)insertFacility:(PPRFacility *)facility success:(void (^)()) success failure:(void (^)(NSError *)) failure;
 @end

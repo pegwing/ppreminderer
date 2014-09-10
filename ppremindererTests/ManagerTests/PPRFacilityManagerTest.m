@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PPRFacilityManager.h"
+#import "PPRTestIntialiser.h"
 
 @interface PPRFacilityManagerTest : XCTestCase
 
@@ -18,6 +19,7 @@
 - (void)setUp
 {
     [super setUp];
+    [PPRTestIntialiser sharedClient];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -49,9 +51,11 @@
 {
     
     PPRFacilityManager *sharedClient = [PPRFacilityManager sharedClient];
-    [sharedClient getFacility:@{@"Id":@"FAC2"} success:^(NSArray *facilities) {
+    PPRFacility *facilityFilter = [[PPRFacility alloc]init];
+    facilityFilter.facilityId = @"FAC2";
+    [sharedClient getFacility:facilityFilter success:^(NSArray *facilities) {
         XCTAssertEqual(facilities.count, 1, @"Shared client should return 1 matching facilities");
-        XCTAssertEqual(facilities[0][@"Id"], @"FAC2", @"FacilityManager should return %@ but returned %@", @"FAC2", facilities[0][@"Id"]);
+        XCTAssertEqualObjects(((PPRFacility *)facilities[0]).facilityId, @"FAC2", @"FacilityManager should retrieve FAC2");
     } failure:^(NSError *error) {
         XCTFail("getFacility with nil should not fail");
     }];

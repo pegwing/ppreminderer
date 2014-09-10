@@ -9,6 +9,7 @@
 #import "PPRShiftViewController.h"
 #import "PPRFacilitySelectionViewController.h"
 #import "PPRFacilityManager.h"
+#import "PPRScheduledEvent.h"
 
 NSString * const kDefaultsFacilityIdKey =     @"Facility";
 
@@ -20,7 +21,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSArray * facilities;
-@property (nonatomic, strong) NSDictionary * facility;
+@property (nonatomic, strong) PPRFacility * facility;
 
 @end
 
@@ -51,8 +52,8 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
 
     self.facility = self.facilities[0];
     // FIXME
-    [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
-    [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];
+    [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
+    [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
     self.tableView.dataSource = self;
     [self.tableView reloadData];
  
@@ -68,7 +69,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.facility[@"Events"] count];
+    return [self.facility.events count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,9 +77,10 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    NSDictionary *event = [self.facility[@"Events"] allValues][indexPath.row];
-    [cell.textLabel setText:[self.facility[@"Events"] allKeys][indexPath.row]];
-    [cell.detailTextLabel setText:event[@"StartTime"]];
+    PPRScheduledEvent *event = self.facility.events[indexPath.row];
+    [cell.textLabel setText:event.eventName];
+    // FIXME
+    [cell.detailTextLabel setText:event.scheduled.description];
     return cell;
 }
 
@@ -96,9 +98,9 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
         PPRFacilitySelectionViewController *fsvc = ((PPRFacilitySelectionViewController *)(sender.sourceViewController));
         long selectedRow = fsvc.tableView.indexPathForSelectedRow.row;
         self.facility = self.facilities[selectedRow];
-        [[NSUserDefaults standardUserDefaults] setObject:self.facility[@"Id"] forKey:kDefaultsFacilityIdKey];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Facility" object:self userInfo:@{@"Facility" : self.facility[@"Id"]}];
-        [self.facilityButton setTitle:self.facility[@"Name"] forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Facility" object:self userInfo:@{@"Facility" : self.facility.facilityId}];
+        [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
         [self.tableView reloadData];
     }
 }

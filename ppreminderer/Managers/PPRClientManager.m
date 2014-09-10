@@ -8,7 +8,9 @@
 
 #import "PPRClientManager.h"
 @interface PPRClientManager ()
-    @property (nonatomic, strong) NSMutableDictionary *clients;
+@property (nonatomic, strong) NSMutableDictionary *clients;
+@property (atomic) int clientCount;
+
 @end
 
 @implementation PPRClientManager
@@ -17,35 +19,28 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [PPRClientManager alloc];
-        _sharedClient.clients =
-        
-        [NSMutableDictionary dictionaryWithObjectsAndKeys:
-         @{@"Id": @"CLI1", @"Name": @"Fred", @"Age": @"10", @"Facility":@"FAC1", @"Schedule":
-               @{}
-           }, @"CLI1",
-            @{@"Id": @"CLI2", @"Name": @"Izzy", @"Age": @"10", @"Facility":@"FAC2"}, @"CLI2",
-            @{@"Id": @"CLI3", @"Name": @"Dave", @"Age": @"50", @"Facility":@"FAC1"}, @"CLI3",
-            nil];
-        
+        _sharedClient.clients = [[NSMutableDictionary alloc] init];
+
     });
     return _sharedClient;
 }
-- (void)getClient:(NSDictionary *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure {
+
+- (void)getClient:(PPRClient *) client success:(void (^)(NSArray *)) success failure:(void (^)(NSError *)) failure {
     if ( client == nil) {
         success(self.clients.allValues);
     } else {
-        if (client[@"Facility"] != nil) {
+        if (client.facility != nil) {
             NSSet *clientSet = [self.clients keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-                return  (self.clients[key][@"Facility"] == client[@"Facility"]);
+                return  [((PPRClient *)(self.clients[key])).facility.facilityId  isEqualToString:client.facility.facilityId];
             }];
             
-            success([self.clients objectsForKeys:[clientSet allObjects] notFoundMarker:@{@"Id":@""}]);
+            success([self.clients objectsForKeys:[clientSet allObjects] notFoundMarker:[[PPRClient alloc] initWithName:@"Missing" birthDate:nil]]);
         }
-        else if (client[@"Id"] != nil){
+        else if (client.clientId != nil){
             
-            NSDictionary *foundClient = self.clients[client[@"Id"]];
+            NSDictionary *foundClient = self.clients[client.clientId];
             if (foundClient)
-                success([NSArray arrayWithObject:self.clients[client[@"Id"]]]);
+                success([NSArray arrayWithObject:self.clients[client.clientId]]);
             else
                 failure([NSError errorWithDomain:@"ClientMananger" code:1 userInfo:nil]);
         }
@@ -54,6 +49,14 @@
             failure([[NSError alloc] init]);
         }
     }
+}
+- (void)insertClient:(PPRClient *)client success:(void (^)())success failure:(void (^)(NSError *))failure
+{
+    self.clientCount++;
+    NSString *clientId = [NSString stringWithFormat:@"CLI%d", self.clientCount];
+    client.clientId = clientId;
+    self.clients[clientId] = client;
+    success();
 }
 
 @end

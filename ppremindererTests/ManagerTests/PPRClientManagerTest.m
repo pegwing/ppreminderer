@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PPRClientManager.h"
+#import "PPRTestIntialiser.h"
 
 @interface PPRClientManagerTest : XCTestCase
 
@@ -18,6 +19,7 @@
 - (void)setUp
 {
     [super setUp];
+    [PPRTestIntialiser sharedClient];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -50,9 +52,14 @@
 {
     
     PPRClientManager *sharedClient = [PPRClientManager sharedClient];
-    [sharedClient getClient:@{@"Id":@"CLI2"} success:^(NSArray *clients) {
+    PPRClient *clientFilter = [[PPRClient alloc]init];
+    clientFilter.clientId = @"CLI2";
+    [sharedClient getClient:clientFilter success:^(NSArray *clients) {
         XCTAssertEqual(clients.count, 1, @"Shared client should return 1 matching client");
-        XCTAssertEqual(clients[0][@"Id"], @"CLI2", @"ClientManager should return %@ but returned %@", @"CLI2", clients[0][@"Id"]);
+        XCTAssertEqualObjects(
+                       ((PPRClient *)clients[0]).clientId,
+        @"CLI2",
+        @"ClientManager should return CLI2");
     } failure:^(NSError *error) {
         XCTFail("getClient with known client should not fail");
     }];
@@ -62,7 +69,9 @@
 {
     
     PPRClientManager *sharedClient = [PPRClientManager sharedClient];
-    [sharedClient getClient:@{@"Id":@"CLIXXX"} success:^(NSArray *clients) {
+    PPRClient *clientFilter = [[PPRClient alloc]init];
+    clientFilter.clientId = @"CLIXXX";
+    [sharedClient getClient:clientFilter success:^(NSArray *clients) {
         XCTFail( @"Shared client should fail if not matching client and id is specified");
 
     } failure:^(NSError *error) {
