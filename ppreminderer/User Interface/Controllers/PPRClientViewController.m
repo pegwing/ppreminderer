@@ -35,8 +35,9 @@ NSString * const kAgeKey = @"Age";
 {
     [super viewDidLoad];
         
-    [self.nameCell.detailTextLabel setText:self.details[kNameKey]];
-    [self.ageCell.detailTextLabel setText:self.details[kAgeKey]];
+    [self.nameCell.detailTextLabel setText:self.details.name];
+    // FIXME
+    [self.ageCell.detailTextLabel setText:self.details.birthDate.description];
 
 }
 

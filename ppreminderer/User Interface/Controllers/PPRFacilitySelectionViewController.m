@@ -1,33 +1,18 @@
 //
-//  PPRClientViewControllerTableViewController.m
+//  PPRFacilitySelectionViewController.m
 //  ppreminderer
 //
-//  Created by David Bernard on 13/08/2014.
+//  Created by David Bernard on 19/08/2014.
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
-#import "PPRClientTableViewController.h"
-#import "PPRClientViewController.h"
-#import "PPRClientManager.h"
+#import "PPRFacilitySelectionViewController.h"
 
-@interface PPRClientTableViewController ()
+@interface PPRFacilitySelectionViewController ()
 
 @end
 
-@implementation PPRClientTableViewController {
-    // NSMutableArray *_clientEntries;
-    NSArray *_clientEntries;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    UIViewController *dest = [segue destinationViewController];
-    if ([dest isKindOfClass:[PPRClientViewController class]]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        [(PPRClientViewController *)dest setDetails:_clientEntries[indexPath.row]];
-    }
-}
-
+@implementation PPRFacilitySelectionViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,29 +26,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableView reloadData];
     
-    NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
-    [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
-        _clientEntries = clients;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"Facility" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        NSDictionary * clientFilter = @{@"Facility": [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey]};
-        [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
-            _clientEntries = clients;
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-        }];
-    }];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,25 +53,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_clientEntries count];
+    return self.facilities.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ClientCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"facilityCell" forIndexPath:indexPath];
     
-    NSDictionary *item = _clientEntries[indexPath.row];
-    
-    [cell.textLabel setText:item[kNameKey]];
-    
-    
-    [cell.detailTextLabel setText:item[kAgeKey]];
-    
-#ifdef DEBUG
-    [cell setAccessibilityLabel:[NSString stringWithFormat:@"Section %ld Row %ld", (long)indexPath.section, (long)indexPath.row]];
-#endif
-    
+    // Configure the cell...
+    PPRFacility *facility = self.facilities[indexPath.row];
+    [cell.textLabel setText:facility.name];
+    [cell.detailTextLabel setText:facility.address];
     return cell;
 }
 

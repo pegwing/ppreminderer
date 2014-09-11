@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRClient.h"
 
 @interface PPRClientViewController : UITableViewController
 
-@property (nonatomic, strong) NSDictionary *details;
+@property (nonatomic, strong) PPRClient *details;
 
 
 @end
