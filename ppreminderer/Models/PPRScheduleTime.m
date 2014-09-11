@@ -43,7 +43,7 @@
             description = [NSString stringWithFormat:@"At %02.2d %02.2d",
                            self.offset.hour, self.offset.minute];
             break;
-        case PPRScheduleTimeRelateiveToStartOfParent:
+        case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2d %02.2d",
                            self.offset.hour, self.offset.minute];
             break;
@@ -57,7 +57,7 @@
                            self.offset.hour, self.offset.minute];
             break;
         default:
-            description = @"Unknow schedule type";
+            description = @"Unknown schedule type";
             break;
     }
     

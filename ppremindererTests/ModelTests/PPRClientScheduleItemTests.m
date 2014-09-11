@@ -99,7 +99,7 @@ static NSCalendar *calendar;
     // offset to start of parent 30 minutes
     NSDateComponents *parentOffset = [[NSDateComponents alloc] init];
     parentOffset.minute = 30;
-    PPRScheduleTime *offsetToParentScheduleTime = [[PPRScheduleTime alloc] initWhenRelative:PPRScheduleTimeRelateiveToStartOfParent offset:parentOffset];
+    PPRScheduleTime *offsetToParentScheduleTime = [[PPRScheduleTime alloc] initWhenRelative:PPRScheduleTimeRelativeToStartOfParent offset:parentOffset];
     offsetToParentSchedule = [[PPRClientScheduleItem alloc] initWithContext:@"take pill" eventName:@"Take green pill"scheduledTime:offsetToParentScheduleTime];
     
     NSDate *now = [NSDate date];

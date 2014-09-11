@@ -40,7 +40,7 @@
         case PPRScheduleTimeRelativeToPreviousItem:
             dueTime = [self.calendar dateByAddingComponents:scheduleTime.offset toDate:previousDueTime options:0];
             break;
-        case PPRScheduleTimeRelateiveToStartOfParent:
+        case PPRScheduleTimeRelativeToStartOfParent:
             dueTime = [self.calendar dateByAddingComponents:scheduleTime.offset toDate:parentDueTime options:0];
             
             break;
