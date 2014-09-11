@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201748E619C1069200B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
+		201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E719C110FD00B082D9 /* PPRSingletonTests.m */; };
+		201748E919C1139000B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
 		205BF50C199B0B310070358A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50B199B0B310070358A /* Foundation.framework */; };
 		205BF50E199B0B310070358A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50D199B0B310070358A /* CoreGraphics.framework */; };
 		205BF510199B0B310070358A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50F199B0B310070358A /* UIKit.framework */; };
@@ -84,6 +87,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		201748E419C1069100B082D9 /* PPRSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRSingleton.h; sourceTree = "<group>"; };
+		201748E519C1069200B082D9 /* PPRSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingleton.m; sourceTree = "<group>"; };
+		201748E719C110FD00B082D9 /* PPRSingletonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingletonTests.m; sourceTree = "<group>"; };
 		205BF508199B0B310070358A /* ppreminderer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ppreminderer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		205BF50B199B0B310070358A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		205BF50D199B0B310070358A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -229,6 +235,8 @@
 				205BF522199B0B320070358A /* Images.xcassets */,
 				205BF51F199B0B320070358A /* ppreminderer.xcdatamodeld */,
 				205BF514199B0B310070358A /* Supporting Files */,
+				201748E419C1069100B082D9 /* PPRSingleton.h */,
+				201748E519C1069200B082D9 /* PPRSingleton.m */,
 			);
 			path = ppreminderer;
 			sourceTree = "<group>";
@@ -251,6 +259,7 @@
 				205BF536199B0B320070358A /* ppremindererTests.m */,
 				205BF531199B0B320070358A /* Supporting Files */,
 				20EAAD4C19AB0CB800BDF78A /* ManagerTests */,
+				201748E719C110FD00B082D9 /* PPRSingletonTests.m */,
 			);
 			path = ppremindererTests;
 			sourceTree = "<group>";
@@ -531,6 +540,7 @@
 				20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */,
 				20AE326319BD43DA0046034E /* PPRClientScheduleItem.m in Sources */,
 				205BF51A199B0B310070358A /* main.m in Sources */,
+				201748E619C1069200B082D9 /* PPRSingleton.m in Sources */,
 				20AE327A19BDB4E30046034E /* PPRAction.m in Sources */,
 				20AE326619BD4F490046034E /* PPRScheduleTime.m in Sources */,
 				20AE328619BEA1920046034E /* PPRTestIntialiser.m in Sources */,
@@ -552,6 +562,7 @@
 				20AE327119BD6C6B0046034E /* PPRClientScheduleItem.m in Sources */,
 				20EAAD6719AB0EA500BDF78A /* PPRScheduleTableViewController.m in Sources */,
 				20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */,
+				201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */,
 				20AE328719BEA1920046034E /* PPRTestIntialiser.m in Sources */,
 				20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */,
 				20AE327B19BDB4E30046034E /* PPRAction.m in Sources */,
@@ -566,6 +577,7 @@
 				20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */,
 				20AE327219BD6C930046034E /* PPRScheduleTime.m in Sources */,
 				20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */,
+				201748E919C1139000B082D9 /* PPRSingleton.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				20AE327719BD7F6D0046034E /* PPRScheduledEvent.m in Sources */,
 				20AE328819BEB5520046034E /* PPRClient.m in Sources */,

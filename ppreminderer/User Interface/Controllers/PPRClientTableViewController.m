@@ -44,7 +44,7 @@
     PPRFacility *facility = [[PPRFacility alloc] init];
     clientFilter.facility = facility;
     clientFilter.facility.facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
-    [[PPRClientManager sharedClient] getClient:clientFilter success:^(NSArray *clients) {
+    [(PPRClientManager *)[PPRClientManager sharedInstance] getClient:clientFilter success:^(NSArray *clients) {
         _clientEntries = clients;
         [self.tableView reloadData];
     } failure:^(NSError *error) {

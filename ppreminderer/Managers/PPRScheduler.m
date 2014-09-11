@@ -21,7 +21,9 @@
     return self;
 }
 
-- (NSDate *)dueTimeForScheduleTime: (PPRScheduleTime *)scheduleTime parentDueTime: (NSDate *)parentDueTime previousDueTime:(NSDate *)previousDueTime {
+- (NSDate *)dueTimeForScheduleTime: (PPRScheduleTime *)scheduleTime
+                     parentDueTime: (NSDate *)parentDueTime
+                   previousDueTime:(NSDate *)previousDueTime {
     
     NSDate *dueTime;
     NSDate *currentTime = [NSDate date];
@@ -46,7 +48,8 @@
     return dueTime;
 }
 
-- (NSDate *)dateAtTimeOfDay:(NSDateComponents *)atTimeOfDay date:(NSDate *)date {
+- (NSDate *)dateAtTimeOfDay:(NSDateComponents *)atTimeOfDay
+                       date:(NSDate *)date {
 
     // FIXME wrap of schedule to go into next day for evening shift
     NSDateComponents *startOfDay =

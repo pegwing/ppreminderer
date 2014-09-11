@@ -19,8 +19,9 @@
 - (void)setUp
 {
     [super setUp];
-    [PPRTestIntialiser sharedClient];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // This initialiser
+    [[PPRTestIntialiser sharedInstance] init];
 }
 
 - (void)tearDown
@@ -29,19 +30,15 @@
     [super tearDown];
 }
 
-- (void)testSharedClient
+
+- (void)testInsertClient
 {
     
-    PPRClientManager *sharedClient1 = [PPRClientManager sharedClient];
-    PPRClientManager *sharedClient2 = [PPRClientManager sharedClient];
-    XCTAssertEqual(sharedClient1, sharedClient2, @"Shared client should return singleton");
 }
 
 - (void)testGetClientAll
 {
-    
-    
-    PPRClientManager *sharedClient = [PPRClientManager sharedClient];
+    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
     [sharedClient getClient:nil success:^(NSArray *clients) {
         XCTAssertEqual(clients.count, 3, @"Shared client should return 3 clients no %d", clients.count);
     } failure:^(NSError *error) {
@@ -51,7 +48,7 @@
 - (void)testGetClientById
 {
     
-    PPRClientManager *sharedClient = [PPRClientManager sharedClient];
+    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
     PPRClient *clientFilter = [[PPRClient alloc]init];
     clientFilter.clientId = @"CLI2";
     [sharedClient getClient:clientFilter success:^(NSArray *clients) {
@@ -68,7 +65,7 @@
 - (void)testGetClientByIdUnknown
 {
     
-    PPRClientManager *sharedClient = [PPRClientManager sharedClient];
+    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
     PPRClient *clientFilter = [[PPRClient alloc]init];
     clientFilter.clientId = @"CLIXXX";
     [sharedClient getClient:clientFilter success:^(NSArray *clients) {

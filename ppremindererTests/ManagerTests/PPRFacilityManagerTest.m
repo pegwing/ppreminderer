@@ -19,29 +19,20 @@
 - (void)setUp
 {
     [super setUp];
-    [PPRTestIntialiser sharedClient];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [[PPRTestIntialiser sharedInstance] init];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testSharedClient
-{
-    
-    PPRFacilityManager *sharedClient1 = [PPRFacilityManager sharedClient];
-    PPRFacilityManager *sharedClient2 = [PPRFacilityManager sharedClient];
-    XCTAssertEqual(sharedClient1, sharedClient2, @"Shared client should return singleton");
-}
 
 - (void)testGetFacilityAll
 {
     
-    PPRFacilityManager *sharedClient = [PPRFacilityManager sharedClient];
-    [sharedClient getFacility:nil success:^(NSArray *facilities) {
+    PPRFacilityManager *sharedInstance = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
+    [sharedInstance getFacility:nil success:^(NSArray *facilities) {
         XCTAssertEqual(facilities.count, 2, @"Shared client should return 2 facilities");
     } failure:^(NSError *error) {
         XCTFail("getFacility with nil should not fail");
@@ -50,7 +41,7 @@
 - (void)testGetFacilityById
 {
     
-    PPRFacilityManager *sharedClient = [PPRFacilityManager sharedClient];
+    PPRFacilityManager *sharedClient = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
     PPRFacility *facilityFilter = [[PPRFacility alloc]init];
     facilityFilter.facilityId = @"FAC2";
     [sharedClient getFacility:facilityFilter success:^(NSArray *facilities) {

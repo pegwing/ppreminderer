@@ -44,7 +44,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[PPRFacilityManager sharedClient] getFacility:nil success:^(NSArray *facilities) {
+    [((PPRFacilityManager *)[PPRFacilityManager sharedInstance]) getFacility:nil success:^(NSArray *facilities) {
         self.facilities = facilities;
     } failure:^(NSError *error) {
         

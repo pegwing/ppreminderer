@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPRSingleton.h"
 
-@interface PPRTestIntialiser : NSObject
-+ (PPRTestIntialiser *) sharedClient;
+@interface PPRTestIntialiser : PPRSingleton
 
 @end
