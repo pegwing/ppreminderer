@@ -10,6 +10,7 @@
 #import "PPRFacilitySelectionViewController.h"
 #import "PPRFacilityManager.h"
 #import "PPRScheduledEvent.h"
+#import "PPRFacility.h"
 
 NSString * const kDefaultsFacilityIdKey =     @"Facility";
 NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
