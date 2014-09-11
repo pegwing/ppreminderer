@@ -301,8 +301,8 @@
 		20EAAD4C19AB0CB800BDF78A /* ManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
 				20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */,
+				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
 			);
 			name = ManagerTests;
 			sourceTree = "<group>";
