@@ -9,26 +9,26 @@
 #import "PPRSingleton.h"
 
 @interface SingletonHelper : NSObject {
-    @public
+@public
     dispatch_once_t token;
-
 }
 @property (nonatomic,strong) PPRSingleton *singleton;
 @end
+
 @implementation SingletonHelper
 
 @end
+
 @implementation PPRSingleton
 
 + (PPRSingleton *) sharedInstance {
     static dispatch_once_t onceToken;
     static NSMutableDictionary* singletons;
-
     
     dispatch_once(&onceToken, ^{
         singletons = [[NSMutableDictionary alloc]init];
     });
-
+    
     SingletonHelper *singletonHelper = singletons[self];
     if (singletonHelper == nil) {
         singletonHelper = [[SingletonHelper alloc]init];
@@ -38,7 +38,7 @@
         singletonHelper.singleton = [self alloc];
         
     });
-
+    
     return singletonHelper.singleton;
 }
 
