@@ -23,7 +23,6 @@
     if (self) {
         _clients = [[NSMutableDictionary alloc] init];
         _clientCount = 0;
-        
     }
     return self;
 }
@@ -46,9 +45,9 @@
             
             NSDictionary *foundClient = self.clients[prototype.clientId];
             if (foundClient)
-                success([NSArray arrayWithObject:self.clients[prototype.clientId]]);
+                success([NSArray arrayWithObject:foundClient]);
             else
-                failure([NSError errorWithDomain:@"ClientMananger" code:1 userInfo:nil]);
+                failure([NSError errorWithDomain:@"ClientManager" code:1 userInfo:nil]);
         }
         else {
             NSLog(@"Unsupported client query %@", prototype.description);

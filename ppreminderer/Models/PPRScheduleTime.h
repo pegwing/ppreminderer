@@ -12,7 +12,7 @@ typedef NS_ENUM(int, PPRScheduleTimeType) {
     PPRScheduleTimeRelativeToDailyEvent = 1,
     PPRScheduleTimeTimeOfDay,
     PPRScheduleTimeRelativeToPreviousItem,
-    PPRScheduleTimeRelateiveToStartOfParent
+    PPRScheduleTimeRelativeToStartOfParent
 };
 
 /**

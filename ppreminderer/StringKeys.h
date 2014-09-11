@@ -19,10 +19,12 @@ extern NSString * const kClientKey; // client details (e.g. dict containing name
 extern NSString * const kStatusKey; // e.g. done, postponed, or blank
 extern NSString * const kIdKey;                 // e.g. 1, 2, or 3 (as string)
 extern NSString * const kDefaultsFacilityIdKey; // ...?
-
 // Ditto soon redundant/wrong.
 extern NSString * const kStatusDone;
 extern NSString * const kStatusPostponed;
 extern NSString * const kStatusBlank;
+
+// Names used when sending and processing notification center notifications
+extern NSString * const kFacilityChangedNotificationName;
 
 #endif

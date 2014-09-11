@@ -24,7 +24,6 @@
 		205BF52C199B0B320070358A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF50F199B0B310070358A /* UIKit.framework */; };
 		205BF52D199B0B320070358A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BF511199B0B310070358A /* CoreData.framework */; };
 		205BF535199B0B320070358A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 205BF533199B0B320070358A /* InfoPlist.strings */; };
-		205BF537199B0B320070358A /* ppremindererTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF536199B0B320070358A /* ppremindererTests.m */; };
 		205BF541199B0C300070358A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 205BF540199B0C300070358A /* Main.storyboard */; };
 		205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF543199B10030070358A /* PPRClientTableViewController.m */; };
 		205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */; };
@@ -107,7 +106,6 @@
 		205BF529199B0B320070358A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		205BF532199B0B320070358A /* ppremindererTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ppremindererTests-Info.plist"; sourceTree = "<group>"; };
 		205BF534199B0B320070358A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		205BF536199B0B320070358A /* ppremindererTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ppremindererTests.m; sourceTree = "<group>"; };
 		205BF540199B0C300070358A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		205BF542199B10030070358A /* PPRClientTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClientTableViewController.h; sourceTree = "<group>"; };
 		205BF543199B10030070358A /* PPRClientTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClientTableViewController.m; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				20AE326719BD52FE0046034E /* ModelTests */,
-				205BF536199B0B320070358A /* ppremindererTests.m */,
 				205BF531199B0B320070358A /* Supporting Files */,
 				20EAAD4C19AB0CB800BDF78A /* ManagerTests */,
 				201748E719C110FD00B082D9 /* PPRSingletonTests.m */,
@@ -301,8 +298,8 @@
 		20EAAD4C19AB0CB800BDF78A /* ManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
 				20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */,
+				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
 			);
 			name = ManagerTests;
 			sourceTree = "<group>";
@@ -571,7 +568,6 @@
 				20AE327F19BE99AB0046034E /* PPRFacility.m in Sources */,
 				20EAAD6519AB0E9D00BDF78A /* PPRClientTableViewController.m in Sources */,
 				20EAAD6319AB0E9400BDF78A /* PPRFacilitySelectionViewController.m in Sources */,
-				205BF537199B0B320070358A /* ppremindererTests.m in Sources */,
 				20AE327319BD6F820046034E /* PPRScheduler.m in Sources */,
 				20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */,
 				20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */,
