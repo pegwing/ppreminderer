@@ -58,7 +58,7 @@
     [self loadClients];
     
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"Facility" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFacilityChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self loadClients];
     }];
 

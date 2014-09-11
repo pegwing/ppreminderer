@@ -12,6 +12,7 @@
 #import "PPRScheduledEvent.h"
 
 NSString * const kDefaultsFacilityIdKey =     @"Facility";
+NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
 
 @interface PPRShiftViewController ()
 -(IBAction)onShift:(id)sender;
@@ -99,7 +100,7 @@ NSString * const kDefaultsFacilityIdKey =     @"Facility";
         long selectedRow = fsvc.tableView.indexPathForSelectedRow.row;
         self.facility = self.facilities[selectedRow];
         [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Facility" object:self userInfo:@{@"Facility" : self.facility.facilityId}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFacilityChangedNotificationName object:self];
         [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
         [self.tableView reloadData];
     }
