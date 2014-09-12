@@ -55,6 +55,8 @@
 		10240568EC6C48528AD648A0 /* libPods-ppreminderer-NoticeView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer-NoticeView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		183FD27CFF6441D49633034F /* Pods-ppreminderer-NoticeView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ppreminderer-NoticeView-dummy.m"; sourceTree = "<group>"; };
 		1EEEEF6475B44F2BB4C7B4B5 /* Pods-ppreminderer-NoticeView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ppreminderer-NoticeView-Private.xcconfig"; sourceTree = "<group>"; };
+		201748EA19C16D5A00B082D9 /* Manifest.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Manifest.lock; sourceTree = "<group>"; };
+		201748EB19C16D6600B082D9 /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile.lock; path = ../Podfile.lock; sourceTree = "<group>"; };
 		282C7AFA215749B189025A3B /* WBNoticeOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBNoticeOperation.h; path = NoticeView/WBNoticeView/WBNoticeOperation.h; sourceTree = "<group>"; };
 		297D4199857343EA911F20A0 /* Pods-ppreminderer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ppreminderer-dummy.m"; sourceTree = "<group>"; };
 		2D8E81DE59704E1487DF6DCA /* NSOperationQueue+WBNoticeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSOperationQueue+WBNoticeExtensions.h"; path = "NoticeView/WBNoticeView/NSOperationQueue+WBNoticeExtensions.h"; sourceTree = "<group>"; };
@@ -224,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				891BA4A109D142B5A5AC3B90 /* Podfile */,
+				201748EB19C16D6600B082D9 /* Podfile.lock */,
+				201748EA19C16D5A00B082D9 /* Manifest.lock */,
 				5F954BD9C15C4B0997648656 /* Frameworks */,
 				5E663633CD144EB797BF1B36 /* Pods */,
 				AD6AD3C2525245B0B039A9B7 /* Products */,
