@@ -19,7 +19,7 @@
 - (void)setUp
 {
     [super setUp];
-    [[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestIntialiser sharedInstance] init];
 }
 
 - (void)tearDown
