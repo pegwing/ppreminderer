@@ -191,21 +191,21 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
          }];
         
         PPRClient *client1 = createTestClient1(facility1);
-        [clientManager insertClient:client1 success:^{
+        [clientManager insertClient:client1 success:^(PPRClient *client){
             {}
         } failure:^(NSError *error) {
             NSLog(@"Error saving client 1");
         }];
         
         PPRClient *client2 = createTestClient2(facility1);
-        [clientManager insertClient:client2 success:^{
+        [clientManager insertClient:client2 success:^(PPRClient *client){
             {}
         } failure:^(NSError *error) {
             NSLog(@"Error saving client 2");
         }];
         
         PPRClient *client3 = createTestClient3(facility1);
-        [clientManager insertClient:client3 success:^{
+        [clientManager insertClient:client3 success:^(PPRClient *client){
             {}
         } failure:^(NSError *error) {
             NSLog(@"Error saving client 3");

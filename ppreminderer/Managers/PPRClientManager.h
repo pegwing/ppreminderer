@@ -27,11 +27,11 @@
  Insert a client into the clients collection.
  
  @param facility A client to persist into the clients collection
- @param success A block called on success
+ @param success A block called on success with client object to be used
  @param failure A block called if an error occurs
  */
 - (void)insertClient:(PPRClient *)client
-             success:(void (^)()) success
+             success:(void (^)(PPRClient *)) success
              failure:(void (^)(NSError *)) failure;
 
 @end
