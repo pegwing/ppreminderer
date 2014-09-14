@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestIntialiser sharedInstance] init];
     [(UITabBarController *)self.window.rootViewController setSelectedIndex:2];
     
     UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];

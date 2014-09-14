@@ -20,57 +20,152 @@
 {
     [super setUp];
     
-    // This initialiser
-    [[PPRTestIntialiser sharedInstance] init];
+    // Initialised the test shared instance
+    // This loads the test shared instance of client manager with 3 clients.
+    (void)[[PPRTestIntialiser sharedInstance] init];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
 
-- (void)testInsertClient
-{
-    
-}
 
 - (void)testGetClientAll
 {
-    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
-    [sharedClient getClient:nil success:^(NSArray *clients) {
-        XCTAssertEqual(clients.count, 3, @"Shared client should return 3 clients no %d", clients.count);
-    } failure:^(NSError *error) {
-        XCTFail("getClient with nil should not fail");
-    }];
+    PPRClientManager *sharedInstance = (PPRClientManager *)[PPRClientManager sharedInstance];
+    [sharedInstance getClient:nil
+                      success:^(NSArray *clients) {
+                          XCTAssertEqual(
+                                         clients.count,
+                                         3,
+                                         @"Test shared instance should return 3 clients");
+                      } failure:^(NSError *error) {
+                          XCTFail("getClient with nil should not fail");
+                      }];
 }
 - (void)testGetClientById
 {
-    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
+    PPRClientManager *sharedInstance = (PPRClientManager *)[PPRClientManager sharedInstance];
     PPRClient *clientFilter = [[PPRClient alloc]init];
     clientFilter.clientId = @"CLI2";
-    [sharedClient getClient:clientFilter
-                    success:^(NSArray *clients) {
-                        XCTAssertEqual(clients.count, 1, @"Shared client should return 1 matching client");
-                        XCTAssertEqualObjects(((PPRClient *)clients[0]).clientId, @"CLI2", @"ClientManager should return CLI2");
-                    } failure:^(NSError *error) {
-                        XCTFail("getClient with known client should not fail");
-                    }];
+    [sharedInstance getClient:clientFilter
+                      success:^(NSArray *clients) {
+                          XCTAssertEqual(
+                                         clients.count,
+                                         1,
+                                         @"Test shared instance should return 1 matching client");
+                          XCTAssertEqualObjects(
+                                                ((PPRClient *)clients[0]).clientId,
+                                                @"CLI2",
+                                                @"ClientManager should return CLI2");
+                      } failure:^(NSError *error) {
+                          XCTFail("getClient with known client should not fail");
+                      }];
 }
 
 - (void)testGetClientByIdUnknown
 {
-    PPRClientManager *sharedClient = (PPRClientManager *)[PPRClientManager sharedInstance];
+    PPRClientManager *sharedInstance = (PPRClientManager *)[PPRClientManager sharedInstance];
     PPRClient *clientFilter = [[PPRClient alloc]init];
     clientFilter.clientId = @"CLIXXX";
-    [sharedClient getClient:clientFilter success:^(NSArray *clients) {
-        XCTFail( @"Shared client should fail if not matching client and id is specified");
-        
-    } failure:^(NSError *error) {
-        return;
-    }];
+    [sharedInstance getClient:clientFilter
+                      success:^(NSArray *clients) {
+                          XCTFail( @"Test shared instance should fail if no matching client and id is specified");
+                      }
+                      failure:^(NSError *error) {
+                          // pass
+                      }];
+}
+
+- (void)testInsertClient
+{
     
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *now = [NSDate date];
+    NSDateComponents *nowComponents;
+    NSDate *birthDate;
+    
+    nowComponents = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:now];
+    nowComponents.year -= 42;
+    nowComponents.month += 4;
+    nowComponents.day -= 5;
+    birthDate = [calendar dateFromComponents:nowComponents];
+    
+    PPRClient *client = [[PPRClient alloc] initWithName:@"Fred" birthDate:birthDate];
+    
+    // Use private client manager
+    PPRClientManager *clientManager = [[PPRClientManager alloc]init];
+    
+    // Check no clients in client manager
+    [clientManager getClient:nil
+                     success:^(NSArray *clients){
+                         XCTAssertEqual(
+                                        0,
+                                        clients.count,
+                                        "Allocated client manager should be empty");
+                     }
+                     failure:^(NSError *error) {
+                         XCTFail("Should not fail");
+                     }];
+    
+    // Add client
+    [clientManager insertClient:client
+                        success:^(PPRClient *client){
+                            XCTAssertNotNil(
+                                            client,
+                                            "Client should not be nil");
+                        }
+                        failure:^(NSError *error) {
+                            XCTFail("Insert should not fail");
+                            
+                        }];
+    // First and only client should be client 1
+    [clientManager getClient:nil
+                     success:^(NSArray *clients) {
+                         XCTAssertEqual(
+                                        clients.count,
+                                        1,
+                                        @"ClientManager should return 1 clients");
+                         XCTAssertEqualObjects(
+                                               ((PPRClient *)clients[0]).clientId,
+                                               @"CLI1",
+                                               @"ClientManager should return client CLI1");
+                         XCTAssertEqualObjects(
+                                               ((PPRClient *)clients[0]).name,
+                                               @"Fred",
+                                               @"ClientManager should return Fred");
+                     }
+                     failure:^(NSError *error) {
+                         XCTFail("getClient with nil should not fail");
+                     }];
+    
+    [clientManager insertClient:client
+                        success:^(PPRClient *client){
+                            XCTAssertNotNil(client, "Client should not be nil");
+                        }
+                        failure:^(NSError *error) {
+                            XCTFail("Insert should not fail");
+                            
+                        }];
+    // Should now be able to retieve client 2
+    PPRClient *clientFilter = [[PPRClient alloc]init];
+    clientFilter.clientId = @"CLI2";
+    [clientManager getClient:clientFilter
+                     success:^(NSArray *clients) {
+                         XCTAssertEqual(
+                                        clients.count,
+                                        1,
+                                        @"ClientManager should return 1 matching client");
+                         XCTAssertEqualObjects(
+                                               ((PPRClient *)clients[0]).clientId,
+                                               @"CLI2",
+                                               @"ClientManager should return CLI2");
+                     }
+                     failure:^(NSError *error) {
+                         XCTFail("getClient with known client should not fail");
+                     }];
 }
 
 @end

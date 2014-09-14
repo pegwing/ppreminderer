@@ -7,6 +7,7 @@
 //
 
 #import "PPRSingleton.h"
+#import "objc/runtime.h"
 
 @interface SingletonHelper : NSObject {
 @public
@@ -29,10 +30,11 @@
         singletons = [[NSMutableDictionary alloc]init];
     });
     
-    SingletonHelper *singletonHelper = singletons[self];
+    NSString *className = [NSString stringWithUTF8String: class_getName(self)];
+    SingletonHelper *singletonHelper = singletons[className];
     if (singletonHelper == nil) {
         singletonHelper = [[SingletonHelper alloc]init];
-        singletons[self] = singletonHelper;
+        singletons[className] = singletonHelper;
     }
     dispatch_once(&(singletonHelper->token), ^{
         singletonHelper.singleton = [self alloc];

@@ -57,14 +57,14 @@
 }
 
 - (void)insertClient:(PPRClient *)client
-             success:(void (^)())success
+             success:(void (^)(PPRClient *))success
              failure:(void (^)(NSError *))failure {
     
     self.clientCount++;
     NSString *clientId = [NSString stringWithFormat:@"CLI%d", self.clientCount];
     client.clientId = clientId;
     self.clients[clientId] = client;
-    success();
+    success(client);
 }
 
 @end
