@@ -52,10 +52,27 @@ NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
         
     }];
 
+    // Default to first facility
     self.facility = self.facilities[0];
-    // FIXME
+
+    NSString *facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
+    if (facilityId != nil) {
+        // Locate facility from facility id
+        NSInteger index = [self.facilities indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [facilityId isEqual:((PPRFacility *)obj).facilityId];
+        }];
+        if (index != NSNotFound) {
+            self.facility = self.facilities[index];
+        }
+    }
+
+    // Assert/Reassert the default and notify
     [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFacilityChangedNotificationName object:self];
+    
     [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
+
+    // Act as the datasource for the event table view
     self.tableView.dataSource = self;
     [self.tableView reloadData];
  
