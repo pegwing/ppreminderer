@@ -517,7 +517,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "test -e \"${PODS_ROOT}/Manifest.lock && \"diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null ||  pod install --no-integrate --no-repo-update\n\n";
+			shellScript = "test -e \"${PODS_ROOT}/Manifest.lock\" && diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null ||  pod install --no-integrate --no-repo-update\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
