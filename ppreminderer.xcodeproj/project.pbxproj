@@ -52,6 +52,7 @@
 		20AE328819BEB5520046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
 		20EA54C919C7A62700A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
+		20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
 		20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
@@ -476,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20EAAD7819AD6A1200BDF78A /* env.rb in Resources */,
+				20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */,
 				20EAAD7419AD6A1200BDF78A /* select_facility.feature in Resources */,
 				20EAAD7319AD6A1200BDF78A /* navigation.feature in Resources */,
 				20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */,
