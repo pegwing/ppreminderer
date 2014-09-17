@@ -51,6 +51,8 @@
 		20AE328719BEA1920046034E /* PPRTestIntialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328519BEA1920046034E /* PPRTestIntialiser.m */; };
 		20AE328819BEB5520046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
+		20EA54C919C7A62700A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
+		20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
 		20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
@@ -464,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				205BF541199B0C300070358A /* Main.storyboard in Resources */,
+				20EA54C919C7A62700A8AFEB /* Pods-ppreminderer.xcconfig in Resources */,
 				205BF518199B0B310070358A /* InfoPlist.strings in Resources */,
 				205BF523199B0B320070358A /* Images.xcassets in Resources */,
 			);
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20EAAD7819AD6A1200BDF78A /* env.rb in Resources */,
+				20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */,
 				20EAAD7419AD6A1200BDF78A /* select_facility.feature in Resources */,
 				20EAAD7319AD6A1200BDF78A /* navigation.feature in Resources */,
 				20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */,
@@ -513,8 +517,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "test -e \"${PODS_ROOT}/Manifest.lock\" && diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null ||  pod install --no-integrate --no-repo-update\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -626,6 +629,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -665,6 +669,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;

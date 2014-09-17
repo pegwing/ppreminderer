@@ -41,7 +41,7 @@
     switch (self.type) {
         case PPRScheduleTimeTimeOfDay:
             description = [NSString stringWithFormat:@"At %02.2d %02.2d",
-                           self.offset.hour, self.offset.minute];
+                           (int)self.offset.hour, (int)self.offset.minute];
             break;
         case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2d %02.2d",
