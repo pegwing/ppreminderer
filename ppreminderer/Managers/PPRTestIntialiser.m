@@ -170,7 +170,9 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
 
 @implementation PPRTestIntialiser
 - (PPRTestIntialiser *) init {
-    
+
+    self = [super init];
+    if (self) {
         PPRFacilityManager *facilityManager = [(PPRFacilityManager *)[PPRFacilityManager sharedInstance] init];
         PPRClientManager *clientManager = [(PPRClientManager *)[PPRClientManager sharedInstance] init];
         
@@ -210,7 +212,7 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
         } failure:^(NSError *error) {
             NSLog(@"Error saving client 3");
         }];
-
+    }
     
     return self;
 }

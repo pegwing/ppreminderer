@@ -36,12 +36,24 @@
 
 -(NSString *)description
 {
-    
+    NSDateFormatter * df = [[NSDateFormatter alloc] init];
+    [df setDateStyle: NSDateFormatterNoStyle];
+    [df setTimeStyle: NSDateFormatterShortStyle];
     NSString *description;
     switch (self.type) {
-        case PPRScheduleTimeTimeOfDay:
-            description = [NSString stringWithFormat:@"At %02.2d %02.2d",
-                           (int)self.offset.hour, (int)self.offset.minute];
+        case PPRScheduleTimeTimeOfDay: {
+            
+            NSDate * todayButAtOffset = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar];
+            NSDateComponents *components = [gregorian components: NSUIntegerMax fromDate: todayButAtOffset];
+            [components setHour: self.offset.hour];
+            [components setMinute: self.offset.minute];
+            [components setSecond: 0];                      // fixme: Is this what we want?  Why?
+            
+            NSDate * d = [gregorian dateFromComponents: components];
+            // TODO reset to midnight, poke in hour and minute from offset.hour and offset.minute
+            
+            description = [NSString stringWithFormat:@"At %@", [df stringFromDate:d]]; }
             break;
         case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2d %02.2d",
