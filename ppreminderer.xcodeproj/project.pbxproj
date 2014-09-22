@@ -10,6 +10,7 @@
 		200E8A0619CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0319CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m */; };
 		200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */; };
 		200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
+		200E8A1619CFD0D000C48BCA /* PPRStickyMessageNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A1519CFD0D000C48BCA /* PPRStickyMessageNoticeView.m */; };
 		201748E619C1069200B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
 		201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E719C110FD00B082D9 /* PPRSingletonTests.m */; };
 		201748E919C1139000B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
@@ -97,6 +98,8 @@
 		200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSettingsViewController.m; sourceTree = "<group>"; };
 		200E8A0819CFBBB000C48BCA /* PPRShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRShift.h; path = ppreminderer/Models/PPRShift.h; sourceTree = SOURCE_ROOT; };
 		200E8A0919CFBBB000C48BCA /* PPRShift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRShift.m; path = ppreminderer/Models/PPRShift.m; sourceTree = SOURCE_ROOT; };
+		200E8A1419CFD0D000C48BCA /* PPRStickyMessageNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRStickyMessageNoticeView.h; sourceTree = "<group>"; };
+		200E8A1519CFD0D000C48BCA /* PPRStickyMessageNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRStickyMessageNoticeView.m; sourceTree = "<group>"; };
 		201748E419C1069100B082D9 /* PPRSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRSingleton.h; sourceTree = "<group>"; };
 		201748E519C1069200B082D9 /* PPRSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingleton.m; sourceTree = "<group>"; };
 		201748E719C110FD00B082D9 /* PPRSingletonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingletonTests.m; sourceTree = "<group>"; };
@@ -197,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		200E8A1319CFD0D000C48BCA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				200E8A1419CFD0D000C48BCA /* PPRStickyMessageNoticeView.h */,
+				200E8A1519CFD0D000C48BCA /* PPRStickyMessageNoticeView.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		205BF4FF199B0B310070358A = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +386,7 @@
 		20FDB18619B97122003BDACE /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				200E8A1319CFD0D000C48BCA /* Utilities */,
 				20FDB18719B9714D003BDACE /* Controllers */,
 			);
 			path = "User Interface";
@@ -544,6 +557,7 @@
 				200E8A0619CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m in Sources */,
 				205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */,
 				20AE326F19BD60E40046034E /* PPRScheduler.m in Sources */,
+				200E8A1619CFD0D000C48BCA /* PPRStickyMessageNoticeView.m in Sources */,
 				20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
 				200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */,
