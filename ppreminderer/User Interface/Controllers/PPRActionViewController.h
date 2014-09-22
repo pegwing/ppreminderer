@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRAction.h"
 
 @interface PPRActionViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *details;
+@property (nonatomic, strong) PPRAction *details;
 
 @end
