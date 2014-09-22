@@ -9,6 +9,7 @@
 #import "PPRClientTableViewController.h"
 #import "PPRClientViewController.h"
 #import "PPRClientManager.h"
+#import "PPRShift.h"
 
 @interface PPRClientTableViewController ()
 -(void) loadClients;
@@ -58,7 +59,7 @@
     [self loadClients];
     
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFacilityChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kShiftChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self loadClients];
     }];
 

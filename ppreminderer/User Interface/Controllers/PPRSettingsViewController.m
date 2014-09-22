@@ -1,0 +1,60 @@
+//
+//  PPRSettingsViewController.m
+//  ppreminderer
+//
+//  Created by David Bernard on 17/09/2014.
+//  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
+//
+
+#import "PPRSettingsViewController.h"
+#import "PPRShift.h"
+#import "PPRActionManager.h"
+
+@interface PPRSettingsViewController ()
+-(IBAction)resetDefaultSettings:(id)sender;
+
+@end
+
+@implementation PPRSettingsViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)resetDefaultSettings:(id)sender {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:PPRShiftStatusOn] forKey:kDefaultsShiftStatusKey];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:kDefaultsShiftAvailableKey];
+    [[NSUserDefaults standardUserDefaults] setObject:@"FAC1" forKey:kDefaultsFacilityIdKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:nil];
+}
+
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+@end

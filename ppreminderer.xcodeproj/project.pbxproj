@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200E8A0619CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0319CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m */; };
+		200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */; };
+		200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		201748E619C1069200B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
 		201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E719C110FD00B082D9 /* PPRSingletonTests.m */; };
 		201748E919C1139000B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
@@ -88,6 +91,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		200E8A0219CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRSettingsNavigationControllerViewController.h; sourceTree = "<group>"; };
+		200E8A0319CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSettingsNavigationControllerViewController.m; sourceTree = "<group>"; };
+		200E8A0419CFBA6F00C48BCA /* PPRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRSettingsViewController.h; sourceTree = "<group>"; };
+		200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSettingsViewController.m; sourceTree = "<group>"; };
+		200E8A0819CFBBB000C48BCA /* PPRShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRShift.h; path = ppreminderer/Models/PPRShift.h; sourceTree = SOURCE_ROOT; };
+		200E8A0919CFBBB000C48BCA /* PPRShift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRShift.m; path = ppreminderer/Models/PPRShift.m; sourceTree = SOURCE_ROOT; };
 		201748E419C1069100B082D9 /* PPRSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRSingleton.h; sourceTree = "<group>"; };
 		201748E519C1069200B082D9 /* PPRSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingleton.m; sourceTree = "<group>"; };
 		201748E719C110FD00B082D9 /* PPRSingletonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRSingletonTests.m; sourceTree = "<group>"; };
@@ -340,6 +349,8 @@
 			isa = PBXGroup;
 			children = (
 				20AE327819BDB4E30046034E /* PPRAction.h */,
+				200E8A0819CFBBB000C48BCA /* PPRShift.h */,
+				200E8A0919CFBBB000C48BCA /* PPRShift.m */,
 				20AE327919BDB4E30046034E /* PPRAction.m */,
 				20AE325B19BD43DA0046034E /* PPRClient.h */,
 				20AE325C19BD43DA0046034E /* PPRClient.m */,
@@ -379,6 +390,10 @@
 				205BF549199B20B30070358A /* PPRClientViewController.m */,
 				2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */,
 				2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */,
+				200E8A0219CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.h */,
+				200E8A0319CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m */,
+				200E8A0419CFBA6F00C48BCA /* PPRSettingsViewController.h */,
+				200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */,
 				205BF545199B10AB0070358A /* PPRScheduleTableViewController.h */,
 				205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */,
 				2097452619A30E9300E2FF65 /* PPRShiftViewController.h */,
@@ -526,11 +541,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				200E8A0619CFBA6F00C48BCA /* PPRSettingsNavigationControllerViewController.m in Sources */,
 				205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */,
 				20AE326F19BD60E40046034E /* PPRScheduler.m in Sources */,
 				20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
+				200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */,
 				2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */,
+				200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */,
 				20AE326119BD43DA0046034E /* PPRClient.m in Sources */,
 				205BF521199B0B320070358A /* ppreminderer.xcdatamodeld in Sources */,
 				20AE327E19BE99AB0046034E /* PPRFacility.m in Sources */,
