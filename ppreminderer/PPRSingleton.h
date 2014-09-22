@@ -14,5 +14,5 @@
  Subsequence calls will return the same instance.
  @return the shared instance
  */
-+(PPRSingleton *)sharedInstance;
++(instancetype)sharedInstance;
 @end

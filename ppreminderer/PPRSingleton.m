@@ -13,7 +13,7 @@
 @public
     dispatch_once_t token;
 }
-@property (nonatomic,strong) PPRSingleton *singleton;
+@property (nonatomic,strong) id singleton;
 @end
 
 @implementation SingletonHelper
@@ -22,7 +22,7 @@
 
 @implementation PPRSingleton
 
-+ (PPRSingleton *) sharedInstance {
++ (instancetype) sharedInstance {
     static dispatch_once_t onceToken;
     static NSMutableDictionary* singletons;
     
