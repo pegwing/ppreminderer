@@ -8,10 +8,16 @@
 
 #import "PPRSettingsViewController.h"
 #import "PPRShift.h"
+#import "PPRScheduler.h"
 #import "PPRActionManager.h"
 
 @interface PPRSettingsViewController ()
 -(IBAction)resetDefaultSettings:(id)sender;
+-(IBAction)setScheduleTime:(id)sender ;
+-(IBAction)warpFactorDidChange:(id)sender;
+@property (nonatomic,weak) IBOutlet UILabel *warpFactorLabel;
+
+@property (nonatomic,strong)PPRScheduler *scheduler;
 
 @end
 
@@ -22,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
     }
     return self;
 }
@@ -29,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,6 +53,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:nil];
 }
 
+- (IBAction) setScheduleTime:(id)sender {
+    UIDatePicker *datePicker = (UIDatePicker *)sender;
+    NSDate *date = datePicker.date;
+    [self.scheduler setSchedulerTime:date];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SchedulerTimeChanged" object:nil];
+    
+}
+
+- (IBAction)warpFactorDidChange:(UIStepper *)sender {
+    [self.warpFactorLabel setText:[NSString stringWithFormat:@"%d", (int)sender.value]];
+    self.scheduler.warpFactor = sender.value;
+}
 
 /*
  #pragma mark - Navigation

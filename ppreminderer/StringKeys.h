@@ -29,5 +29,6 @@ extern NSString * const kStatusBlank;
 
 // Names used when sending and processing notification center notifications
 extern NSString * const kShiftChangedNotificationName;
+extern NSString * const kSchedulerTimeChangedNotificationName;
 
 #endif

@@ -7,6 +7,7 @@
 //
 
 #import "PPRSettingsNavigationControllerViewController.h"
+#import "PPRClockTabBarItem.h"
 
 @interface PPRSettingsNavigationControllerViewController ()
 
@@ -27,6 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    PPRClockTabBarItem *clock = (PPRClockTabBarItem *)self.tabBarItem;
+    [[NSNotificationCenter defaultCenter] addObserver:clock selector:@selector(showTime) name:kSchedulerTimeChangedNotificationName object:nil];
 }
 
 - (void)didReceiveMemoryWarning
