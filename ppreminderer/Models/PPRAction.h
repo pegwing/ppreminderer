@@ -11,6 +11,9 @@
 
 @interface PPRAction : NSObject
 
+@property (nonatomic,strong) NSString *actionId;
+@property (nonatomic,strong) NSString *context;
+@property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSDate *dueTime;
 @property (nonatomic,weak) PPRScheduledEvent *scheduledEvent;
 @property (nonatomic,weak) PPRAction *parent;
@@ -19,5 +22,6 @@
 
 -(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
 
+-(NSString *)dueTimeDescription;
 
 @end

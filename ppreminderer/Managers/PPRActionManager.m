@@ -14,54 +14,35 @@
 
 @implementation PPRActionManager
 
-+ (PPRActionManager *)sharedClient {
-    static PPRActionManager * _sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [PPRActionManager alloc];
-        _sharedClient.actions =
-          [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Fred", kAgeKey: @"10"},  kClientKey,
-             @"Medication",                         kActionKey,
-             @"14:35",                              kDueKey,
-             kStatusBlank,                          kStatusKey,
-             @"1",                                  kIdKey,
-             nil],
-            @"1",
-
-            [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Izzy", kAgeKey: @"10"},  kClientKey,
-             @"Irrigation",                         kActionKey,
-             @"15:15",                              kDueKey,
-             kStatusBlank,                          kStatusKey,
-             @"2",                                  kIdKey,
-             nil],
-            @"2",
-                                 
-            [NSMutableDictionary dictionaryWithObjectsAndKeys:
-             @{kNameKey: @"Dave", kAgeKey: @"50"},  kClientKey,
-             @"Start Feed",                         kActionKey,
-             @"15:30",                              kDueKey,
-             kStatusBlank,                          kStatusKey,
-             @"3",                                  kIdKey,
-             nil],
-            @"3",
-            nil
-        ];
-    });
-    return _sharedClient;
+- (id) init {
+    self = [super init];
+    if (self) {
+        _actions = [[NSMutableDictionary alloc] init];
+    }
+    return self;
 }
 
-- (void) getAction: (NSDictionary *)action success: (void(^)(NSArray *))success failure: (void(^)(NSError *)) failure {
+
+
+- (void) getAction: (PPRAction *)action success: (void(^)(NSArray *))success failure: (void(^)(NSError *)) failure {
     success(self.actions.allValues);
 }
 
 - (void) updateStatusOf: (NSString *) actionID
                      to: (NSString *) newStatus      success: (void(^)()) success                     failure: (void(^)(NSError *)) failure
 {
-    self.actions[actionID][kStatusKey] = newStatus;
+    ((PPRAction *)(self.actions[actionID])).status = newStatus;
     success();
 };
 
+- (void)insertAction:(PPRAction *)action
+             success:(void (^)(PPRAction *))success
+             failure:(void (^)(NSError *))failure {
+    
+
+    NSString *actionId = [NSString stringWithFormat:@"ACT%lu", (unsigned long)self.actions.count];
+    action.actionId = actionId;
+    self.actions[actionId] = action;
+    success(action);
+}
 @end

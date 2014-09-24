@@ -8,6 +8,7 @@
 
 #import "PPRActionViewController.h"
 #import "PPRClientViewController.h"
+#import "PPRClientAction.h"
 
 @interface PPRActionViewController ()
 
@@ -30,8 +31,12 @@
 {
     [super viewDidLoad];
     
-    [self.client setTitle:self.details[kClientKey][kNameKey] forState: UIControlStateNormal] ;
-    [self.actionDetails setText: [NSString stringWithFormat:@"%@\n%@", self.details[kActionKey], self.details[kDueKey]]];
+    if ([self.details isKindOfClass:[PPRClientAction class]]) {
+        PPRClientAction *clientAction = (PPRClientAction *)self.details;
+        
+    [self.client setTitle:clientAction.client.name forState: UIControlStateNormal] ;
+    }
+    [self.actionDetails setText: [NSString stringWithFormat:@"%@\n%@", self.details.scheduledEvent.eventName, self.details.dueTimeDescription]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,8 +52,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UIViewController *dest =  [segue destinationViewController];
-    if ( [dest isKindOfClass: [PPRClientViewController class]]) {
-        ((PPRClientViewController *)dest).details = self.details[kClientKey];
+    if ( [dest isKindOfClass: [PPRClientViewController class]] &&
+        [self.details isKindOfClass: [PPRClientAction class]]) {
+        PPRClientAction *clientAction = (PPRClientAction *)self.details;
+        ((PPRClientViewController *)dest).details = clientAction.client;
     }
     // Pass the selected object to the new view controller.
 }

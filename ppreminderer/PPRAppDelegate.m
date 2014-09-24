@@ -9,6 +9,8 @@
 #import "PPRAppDelegate.h"
 #import "PPRTestIntialiser.h"
 #import "WBErrorNoticeView.h"
+#import "PPRStickyMessageNoticeView.h"
+#import "PPRScheduler.h"
 
 @implementation PPRAppDelegate
 
@@ -17,7 +19,13 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.scheduler = [(PPRScheduler *)[PPRScheduler sharedInstance] init];
     (void)[[PPRTestIntialiser sharedInstance] init];
+    [self.scheduler startTimerWithBlock:^(){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
+        
+    }];
+    
     return YES;
     
 }
@@ -25,16 +33,10 @@
 {
     UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification) {
-        NSLog(@"Local notification on launch %@", [notification.userInfo objectForKey: @"Stuff"]);
-    } else {
-        NSLog(@"Scheduling local notification");
-        notification = [[UILocalNotification alloc] init];
-        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-        notification.alertBody = [NSString stringWithFormat:@"Stuff has arrived %@", notification.fireDate.description];
-        notification.userInfo = @{@"Stuff": @"Stuffed"};
-        notification.applicationIconBadgeNumber = 1;
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        
+        NSLog(@"Local notification on launch %@ %@", notification.alertAction,
+              notification.alertBody);
+        [self displayNotification:notification];
     }
     return YES;
 }
@@ -46,22 +48,9 @@
 }
 
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"Received local notification %@", notification.userInfo[@"Stuff"]);
-    UIView *view = [(UITabBarController *)self.window.rootViewController view];
-    WBErrorNoticeView *errorView = [[WBErrorNoticeView alloc] initWithView:view title:@"Error loading incidents."];
-    errorView.message = notification.userInfo[@"Stuff"];
-    errorView.alpha = 0.9f;
-    errorView.floating = YES;
-    [errorView show];
-    NSLog(@"Scheduling local notification");
-    notification = [[UILocalNotification alloc] init];
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
-    notification.timeZone = [NSTimeZone defaultTimeZone];
-    notification.alertBody = [NSString stringWithFormat:@"Stuff has arrived %@", notification.fireDate.description];
-    notification.userInfo = @{@"Stuff": @"Stuffed"};
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-
+    
+    NSLog(@"Received local notification %@", notification.userInfo.description);
+    [self displayNotification:notification];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -192,6 +181,23 @@
 -(BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
 {
     return YES;
+}
+
+# pragma mark - utilities
+- (void)displayNotification:(UILocalNotification *)notification {
+    // Locate the currently displayed root view
+    UIView * view = [self.window.rootViewController view];
+    
+    PPRStickyMessageNoticeView *noticeView = [PPRStickyMessageNoticeView stickyMessageNoticeInView:view title:notification.alertAction message:
+                                             notification.alertBody];
+    NSLog(@" alert body %@ alert aciton %@", notification.alertBody, notification.alertAction);
+    noticeView.delay = 10.0;
+    noticeView.sticky = true;
+    noticeView.tapToDismissEnabled = true;
+    noticeView.alpha = 0.9f;
+    noticeView.floating = YES;
+    
+    [noticeView show];
 }
 
 @end

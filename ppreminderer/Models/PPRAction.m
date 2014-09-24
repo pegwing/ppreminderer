@@ -21,4 +21,15 @@
     return self;
 }
 
+-(NSString *)dueTimeDescription {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateStyle:NSDateFormatterNoStyle];
+    
+
+    NSString *scheduleDescription = self.scheduledEvent.scheduled.description;
+    NSString *dueTimeDescription = [dateFormatter stringFromDate:self.dueTime];
+    return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
+}
+
 @end

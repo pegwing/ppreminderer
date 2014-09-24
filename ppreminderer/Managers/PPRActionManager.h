@@ -7,12 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPRAction.h"
+#import "PPRSingleton.h"
 
-@interface PPRActionManager : NSObject
-+ (PPRActionManager *)sharedClient;
+@interface PPRActionManager : PPRSingleton
 
-- (void) getAction:    (NSDictionary *)action        success: (void(^)(NSArray *))success             failure: (void(^)(NSError *)) failure;
-- (void) updateStatusOf: (NSString *) actionID
-                     to: (NSString *) newStatus      success: (void(^)()) success                     failure: (void(^)(NSError *)) failure;
+- (void) getAction:(PPRAction *)action
+           success: (void(^)(NSArray *))success
+           failure: (void(^)(NSError *)) failure;
+- (void) updateStatusOf:(NSString *) actionID
+                     to:(NSString *) newStatus
+                success:(void(^)()) success
+                failure:(void(^)(NSError *)) failure;
+
+- (void)insertAction:(PPRAction *)action
+             success:(void (^)(PPRAction *))success
+             failure:(void (^)(NSError *))failure;
 
 @end
