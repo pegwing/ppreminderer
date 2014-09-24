@@ -17,6 +17,7 @@
         _scheduledEvent = scheduledEvent;
         _parent = parent;
         _actions = actions;
+        _status = kStatusBlank;
     }
     return self;
 }
@@ -28,7 +29,13 @@
     
 
     NSString *scheduleDescription = self.scheduledEvent.scheduled.description;
-    NSString *dueTimeDescription = [dateFormatter stringFromDate:self.dueTime];
+    NSDate *time;
+    if ([self.status isEqualToString:kStatusDone]) {
+        time = self.completionTime;
+    } else {
+        time = self.dueTime;
+    }
+    NSString *dueTimeDescription = [dateFormatter stringFromDate:time];
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
 }
 
