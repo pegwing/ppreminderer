@@ -22,6 +22,7 @@ static PPRClientScheduleItem *timeOfDaySchedule;
 static PPRClientScheduleItem *offsetToPreviousSchedule;
 static PPRClientScheduleItem *offsetToParentSchedule;
 static NSCalendar *calendar;
+static NSArray *events;
 
 @implementation PPRClientScheduleItemTests
 
@@ -34,12 +35,11 @@ static NSCalendar *calendar;
     eventTimeOfDay.hour = 10;
 
     PPRScheduleTime *eventTimeOfDayScheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:eventTimeOfDay];
- 
-    NSDictionary *dailyEvents =
-    @{@"Breakfast": [[PPRScheduledEvent alloc] initWithEventName:@"Breakfast" scheduledTime: eventTimeOfDayScheduleTime]};
-    
+    PPRScheduledEvent *event = [[PPRScheduledEvent alloc] initWithEventName:@"Breakfast" scheduledTime:eventTimeOfDayScheduleTime];
+    events = @[ event];
+   
     // Inialise Scheduler with daily events
-    scheduler = [[PPRScheduler alloc] initWithDailyEvents:dailyEvents];
+    scheduler = [[PPRScheduler alloc] initWithDailyEvents:events];
    
 
     calendar = [NSCalendar currentCalendar];
