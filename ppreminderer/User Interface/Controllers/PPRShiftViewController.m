@@ -13,14 +13,6 @@
 #import "PPRFacility.h"
 #import "PPRShift.h"
 
-NSString * const kDefaultsShiftStatusKey =     @"ShiftStatus";
-NSString * const kDefaultsShiftAvailableKey =     @"Available";
-NSString * const kDefaultsFacilityIdKey =     @"FacilityId";
-
-
-NSString * const kShiftChangedNotificationName = @"ShiftChanged";
-
-
 @interface PPRShiftViewController ()
 -(IBAction)onShift:(id)sender;
 -(IBAction)offShift:(id)sender;

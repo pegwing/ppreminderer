@@ -34,6 +34,10 @@
 		205BF54A199B20B30070358A /* PPRClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF549199B20B30070358A /* PPRClientViewController.m */; };
 		2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452719A30E9300E2FF65 /* PPRShiftViewController.m */; };
 		2097452B19A318A100E2FF65 /* PPRFacilitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */; };
+		20A004F619D2915C00799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
+		20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
+		20A004F919D291CC00799E55 /* PPRShiftManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F819D291CC00799E55 /* PPRShiftManagerTests.m */; };
+		20A004FA19D2969800799E55 /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		20AE326119BD43DA0046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE326219BD43DA0046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
 		20AE326319BD43DA0046034E /* PPRClientScheduleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE326019BD43DA0046034E /* PPRClientScheduleItem.m */; };
@@ -133,6 +137,9 @@
 		2097452719A30E9300E2FF65 /* PPRShiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRShiftViewController.m; sourceTree = "<group>"; };
 		2097452919A318A100E2FF65 /* PPRFacilitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRFacilitySelectionViewController.h; sourceTree = "<group>"; };
 		2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRFacilitySelectionViewController.m; sourceTree = "<group>"; };
+		20A004F419D2914B00799E55 /* PPRShiftManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRShiftManager.h; path = Managers/PPRShiftManager.h; sourceTree = "<group>"; };
+		20A004F519D2915C00799E55 /* PPRShiftManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRShiftManager.m; path = Managers/PPRShiftManager.m; sourceTree = "<group>"; };
+		20A004F819D291CC00799E55 /* PPRShiftManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRShiftManagerTests.m; path = ManagerTests/PPRShiftManagerTests.m; sourceTree = "<group>"; };
 		20AE325B19BD43DA0046034E /* PPRClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClient.h; path = ppreminderer/Models/PPRClient.h; sourceTree = SOURCE_ROOT; };
 		20AE325C19BD43DA0046034E /* PPRClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClient.m; path = ppreminderer/Models/PPRClient.m; sourceTree = SOURCE_ROOT; };
 		20AE325D19BD43DA0046034E /* PPRClientInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientInstruction.h; path = ppreminderer/Models/PPRClientInstruction.h; sourceTree = SOURCE_ROOT; };
@@ -307,6 +314,8 @@
 		20EAAD4219A6DD1B00BDF78A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				20A004F419D2914B00799E55 /* PPRShiftManager.h */,
+				20A004F519D2915C00799E55 /* PPRShiftManager.m */,
 				8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */,
 				8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */,
 				20EAAD4319A6DD5A00BDF78A /* PPRClientManager.h */,
@@ -326,6 +335,7 @@
 			children = (
 				20EAAD6819AC7D4700BDF78A /* PPRClientManagerTest.m */,
 				20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */,
+				20A004F819D291CC00799E55 /* PPRShiftManagerTests.m */,
 			);
 			name = ManagerTests;
 			sourceTree = "<group>";
@@ -566,6 +576,7 @@
 				20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
 				200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */,
+				20A004F619D2915C00799E55 /* PPRShiftManager.m in Sources */,
 				2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */,
 				200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */,
 				20AE326119BD43DA0046034E /* PPRClient.m in Sources */,
@@ -595,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20EAAD6919AC7D4700BDF78A /* PPRClientManagerTest.m in Sources */,
+				20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */,
 				20AE326919BD534A0046034E /* PPRClientScheduleItemTests.m in Sources */,
 				8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */,
 				20AE327119BD6C6B0046034E /* PPRClientScheduleItem.m in Sources */,
@@ -616,8 +628,10 @@
 				20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */,
 				201748E919C1139000B082D9 /* PPRSingleton.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
+				20A004FA19D2969800799E55 /* PPRShift.m in Sources */,
 				20AE327719BD7F6D0046034E /* PPRScheduledEvent.m in Sources */,
 				20AE328819BEB5520046034E /* PPRClient.m in Sources */,
+				20A004F919D291CC00799E55 /* PPRShiftManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
