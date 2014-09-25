@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "123ADA15CBDA4914A2B086A3"
+               BlueprintIdentifier = "EF33D796EA8E43E6AC5BC8AD"
                BuildableName = "libPods-ppreminderer.a"
                BlueprintName = "Pods-ppreminderer"
                ReferencedContainer = "container:Pods.xcodeproj">
