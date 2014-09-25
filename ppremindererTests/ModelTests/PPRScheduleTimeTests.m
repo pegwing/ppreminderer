@@ -55,15 +55,24 @@ static NSDateComponents *dc;  // To be set up using the integers above.
 
 - (void)testDuplicatingCalculation
 {
+    // Make & init a PPRScheduleTime which will do "original" calculation.
     PPRScheduleTime *scheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:dc];
-    NSCalendar *someCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSBuddhistCalendar];
+    // Start the "duplicate" calculation.
+    NSDateFormatter * df = [[NSDateFormatter alloc] init];
+    [df setDateStyle: NSDateFormatterNoStyle];
+    [df setTimeStyle: NSDateFormatterShortStyle];
+    NSString *description;
+    PPRScheduler *scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
     NSDate *todayButAtOffset = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-    NSCalendar *gregorian_maybe = someCalendar;
-    NSDateComponents *components = [gregorian_maybe components: NSUIntegerMax fromDate: todayButAtOffset];
-    [components setHour:    exp_eng_hh];
-    [components setMinute:  exp_eng_mm];
-    [components setSecond:  0];                      // fixme: Is this what we want?  Why?
-    XCTAssertEqualObjects(exp_eng_descr, scheduleTime.description);
+    NSCalendar *someCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSBuddhistCalendar];
+    scheduler.calendar = someCalendar;
+    NSDateComponents *components = [someCalendar components: NSUIntegerMax fromDate: todayButAtOffset];
+    [components setHour:   dc.hour];
+    [components setMinute: dc.minute];
+    [components setSecond: 0];
+    NSDate *d = [someCalendar dateFromComponents: dc];
+    description = [NSString stringWithFormat:@"At %@", [df stringFromDate:d]];
+    XCTAssertEqualObjects(description, scheduleTime.description);
 }
 
 @end
