@@ -7,6 +7,7 @@
 //
 
 #import "PPRScheduleTime.h"
+#import "PPRScheduler.h"
 
 @implementation PPRScheduleTime
 
@@ -43,18 +44,19 @@
     switch (self.type) {
         case PPRScheduleTimeTimeOfDay: {
             
+            PPRScheduler *scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
             NSDate * todayButAtOffset = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar];
-            NSDateComponents *components = [gregorian components: NSUIntegerMax fromDate: todayButAtOffset];
+            NSCalendar *gregorian_maybe;
+            gregorian_maybe = scheduler.calendar;
+            NSDateComponents *components = [gregorian_maybe components: NSUIntegerMax fromDate: todayButAtOffset];
             [components setHour: self.offset.hour];
             [components setMinute: self.offset.minute];
             [components setSecond: 0];                      // fixme: Is this what we want?  Why?
             
-            NSDate * d = [gregorian dateFromComponents: components];
-            // TODO reset to midnight, poke in hour and minute from offset.hour and offset.minute
-            
+            NSDate *d = [gregorian_maybe dateFromComponents: components];
             description = [NSString stringWithFormat:@"At %@", [df stringFromDate:d]]; }
             break;
+
         case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2d %02.2d",
                            self.offset.hour, self.offset.minute];
