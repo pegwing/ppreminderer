@@ -46,8 +46,9 @@ static NSDateComponents *dc;  // To be set up using the integers above.
 - (void)testEnglishDescriptionAtTime
 {
     PPRScheduleTime *scheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:dc];
-    // Next, we let scheduleTime use its 'default' language & locale.  English?  Maybe not in future.
-    // fixme: maybe we don't want there to be a default.
+    scheduler.calendar =
+        [[NSCalendar alloc]
+         initWithCalendarIdentifier:NSGregorianCalendar];
     NSString * d = scheduleTime.description;
     XCTAssertEqualObjects(exp_eng_descr, d);
 }
@@ -55,9 +56,14 @@ static NSDateComponents *dc;  // To be set up using the integers above.
 - (void)testDuplicatingCalculation
 {
     PPRScheduleTime *scheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:dc];
-    // fixme: tell schedultTime to use a particular language & locale.
-    NSString * d = scheduleTime.description;
-    XCTAssertEqualObjects(exp_eng_descr, d);
+    NSCalendar *someCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSBuddhistCalendar];
+    NSDate *todayButAtOffset = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
+    NSCalendar *gregorian_maybe = someCalendar;
+    NSDateComponents *components = [gregorian_maybe components: NSUIntegerMax fromDate: todayButAtOffset];
+    [components setHour:    exp_eng_hh];
+    [components setMinute:  exp_eng_mm];
+    [components setSecond:  0];                      // fixme: Is this what we want?  Why?
+    XCTAssertEqualObjects(exp_eng_descr, scheduleTime.description);
 }
 
 @end
