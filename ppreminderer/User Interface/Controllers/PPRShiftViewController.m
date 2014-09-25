@@ -11,15 +11,14 @@
 #import "PPRFacilityManager.h"
 #import "PPRScheduledEvent.h"
 #import "PPRFacility.h"
+#import "PPRShiftManager.h"
 #import "PPRShift.h"
 
 @interface PPRShiftViewController ()
 -(IBAction)onShift:(id)sender;
 -(IBAction)offShift:(id)sender;
--(IBAction)toggleAvailable:(id)sender;
 
 @property (nonatomic, weak) IBOutlet UIButton *facilityButton;
-@property (nonatomic, weak) IBOutlet UIButton *statusButton;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 
@@ -28,11 +27,10 @@
 @property (nonatomic, strong) PPRShift *shift;
 
 - (void)setShiftStatus:(PPRShiftStatusType )shiftStatus;
-- (void)setShiftAvailable:(BOOL)available;
 - (void)publishShift;
 
 - (void)setFacility:(PPRFacility *)facility;
-    
+
 @end
 
 
@@ -59,7 +57,7 @@
     } failure:^(NSError *error) {
         
     }];
-
+    
     [self loadShift];
     [self publishShift];
     
@@ -75,41 +73,31 @@
 
 - (void)loadShift {
     // Default to first facility
-    PPRFacility *facility = self.facilities[0];
+    PPRFacility *facility;
     
-    self.shift.shiftStatus = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsShiftStatusKey];
+    self.shift = ((PPRShiftManager *)[PPRShiftManager sharedInstance ]).shift;
     
-    if (self.shift.shiftStatus != nil) {
-        self.shift.available = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsShiftAvailableKey];
-        self.shift.facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
+    // Locate facility from facility id
+    NSString *facilityId = self.shift.facilityId;
+    if (facilityId != nil) {
         
-        // Locate facility from facility id
-        NSString *facilityId = self.shift.facilityId;
         NSInteger index = [self.facilities indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return [facilityId isEqual:((PPRFacility *)obj).facilityId];
         }];
         if (index != NSNotFound) {
             facility = self.facilities[index];
         }
-        [self setFacility:facility];
-    } else {
-        // No shift set
-        self.shift = [[PPRShift alloc]init];
-        self.shift.facilityId = facility.facilityId;
-        self.shift.available = [NSNumber numberWithBool:true];
-        self.shift.shiftStatus = [NSNumber numberWithInt:PPRShiftStatusOff];
-        [self setFacility:facility];
-        
     }
-    [self.statusButton setTitle:self.shift.description forState:UIControlStateNormal];
+    if (facility == nil){
+        facility = self.facilities[0];
+        self.shift.facilityId = facility.facilityId;
+        [self publishShift];
+    }
+    [self setFacility:facility];
 }
+
 - (void)publishShift {
-    [self.statusButton setTitle:self.shift.description forState:UIControlStateNormal];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:self.shift.shiftStatus forKey:kDefaultsShiftStatusKey];
-    [[NSUserDefaults standardUserDefaults] setObject:self.shift.available forKey:kDefaultsShiftAvailableKey];
-    [[NSUserDefaults standardUserDefaults] setObject:self.shift.facilityId forKey:kDefaultsFacilityIdKey];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:self.shift];
+    [(PPRShiftManager *)[PPRShiftManager sharedInstance ] publishShift:self.shift];
 }
 
 - (void)setFacility:(PPRFacility *)facility {
@@ -121,10 +109,9 @@
 
 - (void)setShiftStatus:(PPRShiftStatusType )shiftStatus {
     self.shift.shiftStatus = [NSNumber numberWithInt:shiftStatus];
-}
-
-- (void)setShiftAvailable:(BOOL)available {
-    self.shift.available = [NSNumber numberWithBool:available];
+    if (shiftStatus == PPRShiftStatusOn) {
+        self.shift.available = [NSNumber numberWithBool:true];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -161,11 +148,6 @@
     [self publishShift];
 }
 
-- (IBAction)toggleAvailable:(id)sender {
-    [self setShiftAvailable:!self.shift.available.boolValue];
-    [self publishShift];
-}
-
 - (IBAction)facilitySelected:(UIStoryboardSegue *) sender
 {
     if ([sender.sourceViewController isKindOfClass:[PPRFacilitySelectionViewController class]]) {
@@ -184,7 +166,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-
+    
     UIViewController *dest = [segue destinationViewController];
     if ([dest isKindOfClass:[PPRFacilitySelectionViewController class]]) {
         ((PPRFacilitySelectionViewController *)dest).facilities = self.facilities;

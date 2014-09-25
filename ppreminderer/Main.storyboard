@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="3DN-5N-qYz">
             <objects>
-                <tabBarController restorationIdentifier="PPRemindererTabBar" definesPresentationContext="YES" id="48m-B4-fQh" customClass="PPRTabViewController" sceneMemberID="viewController">
+                <tabBarController restorationIdentifier="PPRemindererTabBar" definesPresentationContext="YES" id="48m-B4-fQh" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="d7G-Fm-pax">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -68,7 +68,11 @@
                             <outlet property="delegate" destination="qyl-gn-3m6" id="V5u-6h-4VL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Clients" id="gT1-cY-BC5"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Clients" id="gT1-cY-BC5">
+                        <barButtonItem key="rightBarButtonItem" title="Available" id="Wq4-91-RO1" customClass="PPRStatusBarButtonItem"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jns-2g-VxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -245,7 +249,11 @@
                             <outlet property="delegate" destination="YQg-A1-ltE" id="CCK-m1-6gq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Schedule" id="WQK-O5-GKo"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Schedule" id="WQK-O5-GKo">
+                        <barButtonItem key="rightBarButtonItem" title="Available" id="pG8-3r-tls" customClass="PPRStatusBarButtonItem"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQA-Y5-cw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -447,7 +455,7 @@
             </objects>
             <point key="canvasLocation" x="880" y="209"/>
         </scene>
-        <!--Facility Selection View Controller-->
+        <!--Facility Selection View Controller - Facilities-->
         <scene sceneID="hDB-uf-UUx">
             <objects>
                 <tableViewController id="PBf-3H-a28" customClass="PPRFacilitySelectionViewController" sceneMemberID="viewController">
@@ -489,6 +497,7 @@
                             <outlet property="delegate" destination="PBf-3H-a28" id="vTN-5S-Cgm"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Facilities" id="DQA-Fc-7Ry"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dwf-it-mlN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="KKL-b8-R6z" userLabel="Exit" sceneMemberID="exit"/>
@@ -531,6 +540,16 @@
                                 </state>
                                 <connections>
                                     <action selector="resetDefaultSettings:" destination="0aw-U3-1kp" eventType="touchUpInside" id="Brz-em-L8v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AJ-Rn-T5K">
+                                <rect key="frame" x="36" y="133" width="105" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Notify for event">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="scheduleTestNotification:" destination="0aw-U3-1kp" eventType="touchUpInside" id="jNe-Xc-uMj"/>
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="rx4-b0-aI6">
