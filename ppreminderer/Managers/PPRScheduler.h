@@ -16,18 +16,30 @@
 /**
  A dictionary of daily events.
  */
-@property (nonatomic, strong) NSDictionary *dailyEvents;
+@property (nonatomic, strong) NSArray *dailyEvents;
 /**
  A calendar for date calculations.
  */
 @property (nonatomic, strong) NSCalendar *calendar;
+/**
+ * The time presented to users by the scheduler. 
+ * During testing this can be different to the system time.
+ */
+@property (nonatomic,strong) NSDate *schedulerTime;
 
+/**
+ * Time factor for schedulerTime ticks
+ * 
+ */
+@property (nonatomic) NSTimeInterval warpFactor;
+
+- (id) init;
 /**
  Initialise with a list of daily events.
  @param dailyEvents A dictionary of daily events
  @return Initialised object or nil
  */
-- (PPRScheduler *)initWithDailyEvents:(NSDictionary *)dailyEvents;
+- (PPRScheduler *)initWithDailyEvents:(NSArray *)dailyEvents;
 
 /**
  Caculate the due date for a scheduled time.
@@ -44,4 +56,14 @@
  @return a date at the time of day
  */
 - (NSDate *)dateAtTimeOfDay:(NSDateComponents *)atTimeOfDay date:(NSDate *)date;
+/**
+ * Calculate from a date referenced to the schedulerTime, a date in system time
+ */
+- (NSDate *)dateAdjustedForSchedulerTimer:(NSDate *)date;
+
+/**
+ * Start the scheduler timer with a block
+ */
+- (void)startTimerWithBlock:(void (^)()) ticker ;
+
 @end

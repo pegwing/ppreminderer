@@ -11,20 +11,36 @@
 #import "PPRFacilityManager.h"
 #import "PPRScheduledEvent.h"
 #import "PPRFacility.h"
+#import "PPRShift.h"
 
-NSString * const kDefaultsFacilityIdKey =     @"Facility";
-NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
+NSString * const kDefaultsShiftStatusKey =     @"ShiftStatus";
+NSString * const kDefaultsShiftAvailableKey =     @"Available";
+NSString * const kDefaultsFacilityIdKey =     @"FacilityId";
+
+
+NSString * const kShiftChangedNotificationName = @"ShiftChanged";
+
 
 @interface PPRShiftViewController ()
 -(IBAction)onShift:(id)sender;
 -(IBAction)offShift:(id)sender;
+-(IBAction)toggleAvailable:(id)sender;
+
 @property (nonatomic, weak) IBOutlet UIButton *facilityButton;
-@property (nonatomic, weak) IBOutlet UILabel *status;
+@property (nonatomic, weak) IBOutlet UIButton *statusButton;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+
 
 @property (nonatomic, strong) NSArray * facilities;
 @property (nonatomic, strong) PPRFacility * facility;
+@property (nonatomic, strong) PPRShift *shift;
 
+- (void)setShiftStatus:(PPRShiftStatusType )shiftStatus;
+- (void)setShiftAvailable:(BOOL)available;
+- (void)publishShift;
+
+- (void)setFacility:(PPRFacility *)facility;
+    
 @end
 
 
@@ -52,32 +68,72 @@ NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
         
     }];
 
-    // Default to first facility
-    self.facility = self.facilities[0];
+    [self loadShift];
+    [self publishShift];
+    
+    // Act as the datasource for the event table view
+    self.tableView.dataSource = self;
+    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kShiftChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self loadShift];
+    }];
+ 
+}
 
-    NSString *facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
-    if (facilityId != nil) {
+- (void)loadShift {
+    // Default to first facility
+    PPRFacility *facility = self.facilities[0];
+    
+    self.shift.shiftStatus = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsShiftStatusKey];
+    
+    if (self.shift.shiftStatus != nil) {
+        self.shift.available = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsShiftAvailableKey];
+        self.shift.facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
+        
         // Locate facility from facility id
+        NSString *facilityId = self.shift.facilityId;
         NSInteger index = [self.facilities indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return [facilityId isEqual:((PPRFacility *)obj).facilityId];
         }];
         if (index != NSNotFound) {
-            self.facility = self.facilities[index];
+            facility = self.facilities[index];
         }
+        [self setFacility:facility];
+    } else {
+        // No shift set
+        self.shift = [[PPRShift alloc]init];
+        self.shift.facilityId = facility.facilityId;
+        self.shift.available = [NSNumber numberWithBool:true];
+        self.shift.shiftStatus = [NSNumber numberWithInt:PPRShiftStatusOff];
+        [self setFacility:facility];
+        
     }
-
-    // Assert/Reassert the default and notify
-    [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFacilityChangedNotificationName object:self];
+    [self.statusButton setTitle:self.shift.description forState:UIControlStateNormal];
+}
+- (void)publishShift {
+    [self.statusButton setTitle:self.shift.description forState:UIControlStateNormal];
     
-    [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
-
-    // Act as the datasource for the event table view
-    self.tableView.dataSource = self;
-    [self.tableView reloadData];
- 
+    [[NSUserDefaults standardUserDefaults] setObject:self.shift.shiftStatus forKey:kDefaultsShiftStatusKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.shift.available forKey:kDefaultsShiftAvailableKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.shift.facilityId forKey:kDefaultsFacilityIdKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:self.shift];
 }
 
+- (void)setFacility:(PPRFacility *)facility {
+    _facility = facility;
+    self.shift.facilityId = facility.facilityId;
+    [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
+    [self.tableView reloadData];
+}
+
+- (void)setShiftStatus:(PPRShiftStatusType )shiftStatus {
+    self.shift.shiftStatus = [NSNumber numberWithInt:shiftStatus];
+}
+
+- (void)setShiftAvailable:(BOOL)available {
+    self.shift.available = [NSNumber numberWithBool:available];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -104,11 +160,18 @@ NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
 }
 
 - (IBAction)onShift:(id)sender {
-    [self.status setText: @"On Shift"];
+    [self setShiftStatus:PPRShiftStatusOn];
+    [self publishShift];
 }
 
 - (IBAction)offShift:(id)sender {
-    [self.status setText: @"Off Shift"];
+    [self setShiftStatus:PPRShiftStatusOff];
+    [self publishShift];
+}
+
+- (IBAction)toggleAvailable:(id)sender {
+    [self setShiftAvailable:!self.shift.available.boolValue];
+    [self publishShift];
 }
 
 - (IBAction)facilitySelected:(UIStoryboardSegue *) sender
@@ -116,11 +179,8 @@ NSString * const kFacilityChangedNotificationName = @"FacilityNameChanged";
     if ([sender.sourceViewController isKindOfClass:[PPRFacilitySelectionViewController class]]) {
         PPRFacilitySelectionViewController *fsvc = ((PPRFacilitySelectionViewController *)(sender.sourceViewController));
         long selectedRow = fsvc.tableView.indexPathForSelectedRow.row;
-        self.facility = self.facilities[selectedRow];
-        [[NSUserDefaults standardUserDefaults] setObject:self.facility.facilityId forKey:kDefaultsFacilityIdKey];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFacilityChangedNotificationName object:self];
-        [self.facilityButton setTitle:self.facility.name forState:UIControlStateNormal];
-        [self.tableView reloadData];
+        [self setFacility:self.facilities[selectedRow]];
+        [self publishShift];
     }
 }
 
