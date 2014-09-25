@@ -22,12 +22,20 @@
  * @param failure a block to be called on failure
  */
 - (void) getAction:(PPRAction *)prototype
-           success: (void(^)(NSArray *))success
-           failure: (void(^)(NSError *)) failure;
+           success: (void(^)(NSArray *actions))success
+           failure: (void(^)(NSError *error)) failure;
+
+/**
+ * Give an actionId retrieve the action
+ * @param actionId the action id
+ * @param success a block to be called on success with a the retrieved action.
+ * @param failure a block to be called on failure if the action cannot be retrieved
+ */
+- (void) getActionById: (NSString *)actionId success: (void(^)(PPRAction *action))success failure: (void(^)(NSError *error)) failure;
 
 /**
  * Given an actionID set the status of the action.
- * 
+ *
  * @param actionID the id of the action
  * @param newStatus the staus to be set
  * @param success a block to be called on success
@@ -35,8 +43,8 @@
  */
 - (void) updateStatusOf:(NSString *) actionID
                      to:(NSString *) newStatus
-                success:(void(^)()) success
-                failure:(void(^)(NSError *)) failure;
+                success:(void(^)(PPRAction *action)) success
+                failure:(void(^)(NSError *error)) failure;
 
 /**
  * Given an actionID set the status and dueTime of the action.
@@ -50,8 +58,8 @@
 - (void) updateAction:(NSString *) actionID
                status:(NSString *) newStatus
               dueTime:(NSDate *)dueTime
-              success:(void(^)()) success
-              failure:(void(^)(NSError *)) failure;
+              success:(void(^)(PPRAction *action)) success
+              failure:(void(^)(NSError *error)) failure;
 
 /**
  * Given an actionID set the status and completionTime of the action.
@@ -64,9 +72,9 @@
  */
 - (void) updateAction:(NSString *) actionID
                status:(NSString *) newStatus
-              completionTime:(NSDate *)completionTime
-              success:(void(^)()) success
-              failure:(void(^)(NSError *)) failure;
+       completionTime:(NSDate *)completionTime
+              success:(void(^)(PPRAction *action)) success
+              failure:(void(^)(NSError *error)) failure;
 
 /**
  * Insert an action into the actions collection.
@@ -76,7 +84,7 @@
  * @param failure a block to be called on failure
  */
 - (void)insertAction:(PPRAction *)action
-             success:(void (^)(PPRAction *))success
-             failure:(void (^)(NSError *))failure;
+             success:(void (^)(PPRAction *action))success
+             failure:(void (^)(NSError *error))failure;
 
 @end

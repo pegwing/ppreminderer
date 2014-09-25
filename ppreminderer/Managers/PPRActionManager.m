@@ -53,43 +53,48 @@
 
 - (void) getActionById: (NSString *)actionId success: (void(^)(PPRAction *))success failure: (void(^)(NSError *)) failure {
     
-            PPRAction *foundAction = self.actions[actionId];
-            if (foundAction)
-                success(foundAction);
-            else
-                failure([NSError errorWithDomain:@"ActionManager" code:1 userInfo:nil]);
-
+    PPRAction *foundAction = self.actions[actionId];
+    if (foundAction)
+        success(foundAction);
+    else
+        failure([NSError errorWithDomain:@"ActionManager" code:1 userInfo:nil]);
+    
 }
 
 - (void) updateStatusOf: (NSString *) actionID
-                     to: (NSString *) newStatus      success: (void(^)()) success                     failure: (void(^)(NSError *)) failure
+                     to: (NSString *) newStatus      success: (void(^)(PPRAction *action)) success                     failure: (void(^)(NSError *)) failure
 {
-    ((PPRAction *)(self.actions[actionID])).status = newStatus;
-    success();
+    [self getActionById:actionID success:^(PPRAction *action) {
+        action.status = newStatus;
+        success(action);
+    } failure:failure ];
+    
 }
 
 - (void) updateAction: (NSString *) actionID
                status: (NSString *) newStatus
               dueTime: (NSDate *)dueTime
-              success: (void(^)()) success
+              success: (void(^)(PPRAction *action)) success
               failure: (void(^)(NSError *)) failure
 {
-    PPRAction *action = self.actions[actionID];
-    action.dueTime = dueTime;
-    action.status = newStatus;
-    success();
+    [self getActionById:actionID success:^(PPRAction *action) {
+        action.status = newStatus;
+        action.dueTime = dueTime;
+        success(action);
+    } failure:failure ];
 }
 
 - (void) updateAction: (NSString *) actionID
                status: (NSString *) newStatus
-              completionTime:(NSDate *)completionTime
-              success: (void(^)()) success
+       completionTime:(NSDate *)completionTime
+              success: (void(^)(PPRAction *action)) success
               failure: (void(^)(NSError *)) failure
 {
-    PPRAction *action = self.actions[actionID];
-    action.completionTime = completionTime;
-    action.status = newStatus;
-    success();
+    [self getActionById:actionID success:^(PPRAction *action) {
+        action.status = newStatus;
+        action.completionTime = completionTime;
+        success(action);
+    } failure:failure ];
 }
 
 - (void)insertAction:(PPRAction *)action

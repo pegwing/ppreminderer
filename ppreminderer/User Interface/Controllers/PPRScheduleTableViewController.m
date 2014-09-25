@@ -38,21 +38,21 @@ NSString * const kStatusBlank =     @"";
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
     [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusDone
-                                            success:^(void)            {[self.tableView reloadData];}
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
     [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusBlank
-                                            success:^(void)            {[self.tableView reloadData];}
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
     [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusPostponed
-                                            success:^(void)            {[self.tableView reloadData];}
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 

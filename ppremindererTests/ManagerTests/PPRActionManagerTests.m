@@ -41,7 +41,7 @@
                           XCTAssertEqual(
                                          actions.count,
                                          1,
-                                         @"Test shared instance should return 1 actions");
+                                         @"Test shared instance should return 1 action");
                       } failure:^(NSError *error) {
                           XCTFail("getAction with nil should not fail");
                       }];
@@ -199,15 +199,143 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                          XCTAssertEqual(
                                         actions.count,
                                         1,
-                                        @"actionManager should return 1 matching action");
+                                        @"getAction should return 1 matching action");
                          XCTAssertEqualObjects(
                                                ((PPRAction *)actions[0]).actionId,
                                                @"ACT1",
-                                               @"actionManager should return ACT1");
+                                               @"getAction should return ACT1");
                      }
                      failure:^(NSError *error) {
-                         XCTFail("getaction with known action should not fail");
+                         XCTFail("getAction with known action should not fail");
                      }];
+}
+
+- (void)testGetActionById
+{
+    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    [sharedInstance getActionById:@"ACT0"
+                          success:^(PPRAction *action) {
+                              XCTAssertNotNil(
+                                              action,
+                                              "Retrieved action should not be nil");
+                              
+                              XCTAssertEqualObjects(
+                                                    action.actionId,
+                                                    @"ACT0",
+                                                    @"Retrieved action should match actionId requested");
+                          } failure:^(NSError *errror) {
+                              XCTFail("getActionById with known actionId should not fail");
+                              
+                          }];
+    
+}
+
+- (void)testUpdateStatusOfTo
+{
+    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    [sharedInstance getActionById:@"ACT0"
+                          success:^(PPRAction *action) {
+                              XCTAssertNotNil(
+                                              action,
+                                              "Retrieved action should not be nil");
+                              
+                              XCTAssertNotEqualObjects(
+                                                    action.status,
+                                                    @"NewStatus",
+                                                    @"actionManager should return action with some other status");
+                          } failure:^(NSError *errror) {
+                              XCTFail("getActionById with known actionId should not fail");
+                              
+                          }];
+    [sharedInstance updateStatusOf:@"ACT0" to:@"NewStatus"
+                           success:^(PPRAction *action){
+                               XCTAssertEqualObjects(
+                                                     action.status,
+                                                     @"NewStatus",
+                                                     @"actionManager should return action with updated status");
+                               
+                           } failure:^(NSError *error) {
+                               XCTFail("updateStatusOfTo with known actionId should not fail");
+                               
+                           } ];
+}
+
+- (void)testUpdateActionStatusDueTime
+{
+    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    NSDate *testDueTime = [NSDate date];
+    [sharedInstance getActionById:@"ACT0"
+                          success:^(PPRAction *action) {
+                              XCTAssertNotNil(
+                                              action,
+                                              "Retrieved action should not be nil");
+                              
+                              XCTAssertNotEqualObjects(
+                                                       action.status,
+                                                       @"NewStatus",
+                                                       @"actionManager should return action with some other status");
+                              XCTAssertNotEqualObjects(
+                                                       action.dueTime,
+                                                       testDueTime,
+                                                       @"actionManager should return action with some other dueTime");
+                          } failure:^(NSError *errror) {
+                              XCTFail("getActionById with known actionId should not fail");
+                              
+                          }];
+    [sharedInstance updateAction:@"ACT0" status:@"NewStatus" dueTime:testDueTime
+                           success:^(PPRAction *action){
+                               XCTAssertEqualObjects(
+                                                     action.status,
+                                                     @"NewStatus",
+                                                     @"actionManager should return action with updated status");
+                               
+                               XCTAssertEqualObjects(
+                                                        action.dueTime,
+                                                        testDueTime,
+                                                        @"actionManager should return action with updated dueTime");
+                           } failure:^(NSError *error) {
+                               XCTFail("updateStatusOfTo with known actionId should not fail");
+                               
+                           } ];
+}
+
+- (void)testUpdateActionStatusCompletionTime
+{
+    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    NSDate *testCompletionTime = [NSDate date];
+    [sharedInstance getActionById:@"ACT0"
+                          success:^(PPRAction *action) {
+                              XCTAssertNotNil(
+                                              action,
+                                              "Retrieved action should not be nil");
+                              
+                              XCTAssertNotEqualObjects(
+                                                       action.status,
+                                                       @"NewStatus",
+                                                       @"actionManager should return action with some other status");
+                              XCTAssertNotEqualObjects(
+                                                       action.completionTime,
+                                                       testCompletionTime,
+                                                       @"actionManager should return action with some other completionTime");
+                          } failure:^(NSError *errror) {
+                              XCTFail("getActionById with known actionId should not fail");
+                              
+                          }];
+    [sharedInstance updateAction:@"ACT0" status:@"NewStatus" completionTime:testCompletionTime
+                         success:^(PPRAction *action){
+                             XCTAssertEqualObjects(
+                                                   action.status,
+                                                   @"NewStatus",
+                                                   @"actionManager should return action with updated status");
+                             
+                             XCTAssertEqualObjects(
+                                                   action.completionTime,
+                                                   testCompletionTime,
+                                                   @"actionManager should return action with updated completionTime");
+                         } failure:^(NSError *error) {
+                             XCTFail("updateStatusOfTo with known actionId should not fail");
+                             
+                         } ];
 }
 
 @end
