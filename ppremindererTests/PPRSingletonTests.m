@@ -50,8 +50,8 @@
 - (void)testSingletonSubClass
 {
     PPRSingleton *sharedInstance = [PPRSingleton sharedInstance];
-    SingletonSubClass *sharedSubInstance1 = (SingletonSubClass*)[SingletonSubClass sharedInstance];
-    SingletonSubClass *sharedSubInstance2 = (SingletonSubClass *)[SingletonSubClass sharedInstance];
+    SingletonSubClass *sharedSubInstance1 = [SingletonSubClass sharedInstance];
+    SingletonSubClass *sharedSubInstance2 = [SingletonSubClass sharedInstance];
     XCTAssertNotEqual(sharedInstance, sharedSubInstance1, @"Shared instances of different classes should return different objects");
     XCTAssertEqual(sharedSubInstance1, sharedSubInstance2, @"Shared instance should return singleton");
 }
