@@ -90,6 +90,7 @@
 		20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6E19AD6A1200BDF78A /* select_facility.rb */; };
 		20EAAD7819AD6A1200BDF78A /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD7019AD6A1200BDF78A /* env.rb */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
+		632077A919C9412B006DC100 /* PPRScheduleTimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
@@ -200,6 +201,7 @@
 		20EAAD7019AD6A1200BDF78A /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
+		632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRScheduleTimeTests.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
 		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				20AE326819BD534A0046034E /* PPRClientScheduleItemTests.m */,
+				632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				20AE327319BD6F820046034E /* PPRScheduler.m in Sources */,
 				20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */,
 				20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */,
+				632077A919C9412B006DC100 /* PPRScheduleTimeTests.m in Sources */,
 				20AE327219BD6C930046034E /* PPRScheduleTime.m in Sources */,
 				201748E919C1139000B082D9 /* PPRSingleton.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
