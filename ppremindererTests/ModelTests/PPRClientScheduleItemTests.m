@@ -33,6 +33,7 @@ static NSArray *events;
     // Create a scheduled event for breakfast at 10am
     NSDateComponents *eventTimeOfDay =[[NSDateComponents alloc] init];
     eventTimeOfDay.hour = 10;
+    eventTimeOfDay.minute = 15;
 
     PPRScheduleTime *eventTimeOfDayScheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:eventTimeOfDay];
     PPRScheduledEvent *event = [[PPRScheduledEvent alloc] initWithEventName:@"Breakfast" scheduledTime:eventTimeOfDayScheduleTime];
@@ -54,14 +55,19 @@ static NSArray *events;
 {
     
     // Schedule at breakfast
-    PPRScheduleTime *dailyEventScheduleTime = [[PPRScheduleTime alloc] initWithDailyEvent:@"Breakfast" offset:nil];
+    NSDateComponents *offset = [[NSDateComponents alloc] init];
+    offset.minute = -30;
+    PPRScheduleTime *dailyEventScheduleTime = [[PPRScheduleTime alloc]
+                                               initWithDailyEvent:@"Breakfast" offset:offset];
+    
     dailyEventSchedule = [[PPRClientScheduleItem alloc] initWithContext:@"take pill" eventName:@"Take green pill" scheduledTime: dailyEventScheduleTime];
 
-    NSDate *dueTime = [scheduler dueTimeForScheduleTime:dailyEventSchedule.scheduled parentDueTime:nil previousDueTime:nil];
+    NSDate *dueTime = [scheduler dueTimeForScheduleTime:dailyEventSchedule.scheduled parentDueTime:nil previousDueTime:nil events:events];
     
     NSDateComponents *components =
-    [calendar components:NSCalendarUnitHour fromDate:dueTime];
-    XCTAssertEqual(10, components.hour, @"Not 10 o'clock");
+    [calendar components:(NSCalendarUnitHour|NSCalendarUnitMinute) fromDate:dueTime];
+    XCTAssertEqual(9, components.hour, @"Not 10 carry 15 - 30");
+    XCTAssertEqual(45, components.minute, @"Not 15 - 30 minutes");
 }
 
 - (void)testTimeOfDateClientScheduleItem
@@ -72,7 +78,7 @@ static NSArray *events;
     
     PPRScheduleTime *timeOfDayScheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:timeOfDay];
     timeOfDaySchedule = [[PPRClientScheduleItem alloc] initWithContext:@"take pill" eventName:@"Take green pill"scheduledTime: timeOfDayScheduleTime];
-    NSDate *dueTime = [scheduler dueTimeForScheduleTime:timeOfDaySchedule.scheduled parentDueTime:nil previousDueTime:nil];
+    NSDate *dueTime = [scheduler dueTimeForScheduleTime:timeOfDaySchedule.scheduled parentDueTime:nil previousDueTime:nil events:events];
     
     NSDateComponents *components =
     [calendar components:NSCalendarUnitHour fromDate:dueTime];
@@ -85,10 +91,12 @@ static NSArray *events;
     NSDateComponents *previousOffset = [[NSDateComponents alloc] init];
     previousOffset.minute = -30;
     PPRScheduleTime *offsetToPreviousScheduleTime = [[PPRScheduleTime alloc] initWhenRelative:PPRScheduleTimeRelativeToPreviousItem offset:previousOffset];
-    offsetToPreviousSchedule = [[PPRClientScheduleItem alloc] initWithContext:@"take pill" eventName:@"Take green pill" scheduledTime:offsetToPreviousScheduleTime];
     
     NSDate *now = [NSDate date];
-    NSDate *dueTime = [scheduler dueTimeForScheduleTime:offsetToPreviousSchedule.scheduled parentDueTime:nil previousDueTime:now];
+    NSDate *dueTime = [scheduler dueTimeForScheduleTime:offsetToPreviousScheduleTime
+                                          parentDueTime:nil
+                                        previousDueTime:now
+                                                 events:events];
     NSDate *expectedDueTime = [now dateByAddingTimeInterval:-1800.0];
     XCTAssertEqualObjects(dueTime, expectedDueTime, @"Not correctly adjusted");
     
@@ -100,10 +108,12 @@ static NSArray *events;
     NSDateComponents *parentOffset = [[NSDateComponents alloc] init];
     parentOffset.minute = 30;
     PPRScheduleTime *offsetToParentScheduleTime = [[PPRScheduleTime alloc] initWhenRelative:PPRScheduleTimeRelativeToStartOfParent offset:parentOffset];
-    offsetToParentSchedule = [[PPRClientScheduleItem alloc] initWithContext:@"take pill" eventName:@"Take green pill"scheduledTime:offsetToParentScheduleTime];
     
     NSDate *now = [NSDate date];
-    NSDate *dueTime = [scheduler dueTimeForScheduleTime:offsetToParentSchedule.scheduled parentDueTime:now previousDueTime:nil];
+    NSDate *dueTime = [scheduler dueTimeForScheduleTime:offsetToParentScheduleTime
+                                          parentDueTime:now
+                                        previousDueTime:nil
+                                                 events:events];
     NSDate *expectedDueTime = [now dateByAddingTimeInterval:1800.0];
     XCTAssertEqualObjects(dueTime, expectedDueTime, @"Not correctly adjusted");
     

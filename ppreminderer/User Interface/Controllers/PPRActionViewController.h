@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PPRAction.h"
 
-@interface PPRActionViewController : UIViewController
+@interface PPRActionViewController : UIViewController<UITableViewDataSource>
 
-@property (nonatomic, strong) PPRAction *details;
+@property (nonatomic, strong) PPRAction *action;
 
 @end

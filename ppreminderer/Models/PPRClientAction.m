@@ -7,6 +7,7 @@
 //
 
 #import "PPRClientAction.h"
+#import "PPRClientInstruction.h"
 
 @implementation PPRClientAction
 -(id)initWithClient:(PPRClient *)client
@@ -16,5 +17,16 @@
         _client = client;
     }
     return self;
+}
+
+- (NSArray *)instructionsForAction {
+    NSIndexSet *instructionSet;
+    instructionSet = [self.client.instructions
+                      indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                          return [((PPRClientInstruction *)obj).context isEqualToString:self.context];
+                      }];
+    NSArray *instructions = [self.client.instructions objectsAtIndexes:instructionSet];
+    
+    return instructions;
 }
 @end

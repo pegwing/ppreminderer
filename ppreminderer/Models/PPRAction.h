@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PPRClientScheduleItem.h"
+#import "PPRFacility.h"
 
 @interface PPRAction : NSObject
 
@@ -15,13 +16,17 @@
 @property (nonatomic,strong) NSString *context;
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSDate *dueTime;
+@property (nonatomic,strong) NSDate *completionTime;
 @property (nonatomic,weak) PPRScheduledEvent *scheduledEvent;
 @property (nonatomic,weak) PPRAction *parent;
 @property (nonatomic,strong) NSMutableArray *actions;
 @property (nonatomic,strong) NSMutableArray *history;
+@property (nonatomic,strong) PPRFacility *facility;
 
 -(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
 
 -(NSString *)dueTimeDescription;
+-(NSArray *)instructionsForAction;
+
 
 @end

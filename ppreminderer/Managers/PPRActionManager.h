@@ -20,6 +20,18 @@
                 success:(void(^)()) success
                 failure:(void(^)(NSError *)) failure;
 
+- (void) updateAction:(NSString *) actionID
+               status:(NSString *) newStatus
+              dueTime:(NSDate *)dueTime
+              success:(void(^)()) success
+              failure:(void(^)(NSError *)) failure;
+
+- (void) updateAction:(NSString *) actionID
+               status:(NSString *) newStatus
+              completionTime:(NSDate *)completionTime
+              success:(void(^)()) success
+              failure:(void(^)(NSError *)) failure;
+
 - (void)insertAction:(PPRAction *)action
              success:(void (^)(PPRAction *))success
              failure:(void (^)(NSError *))failure;

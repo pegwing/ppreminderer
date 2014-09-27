@@ -21,7 +21,7 @@
 }
 - (id)initWithDailyEvent:(NSString *)dailyEvent offset:(NSDateComponents *)offset
 {
-    return   [self initWithType:PPRScheduleTimeRelativeToDailyEvent  dailyEvent:dailyEvent offset:0];
+    return   [self initWithType:PPRScheduleTimeRelativeToDailyEvent  dailyEvent:dailyEvent offset:offset];
 }
 
 - (id)initWithTimeOfDay:(NSDateComponents *)timeOfDay

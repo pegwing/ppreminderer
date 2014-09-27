@@ -8,6 +8,13 @@
 
 #import "PPRAction.h"
 
+NSString * const kStatusDone =      @"Done";
+NSString * const kStatusPostponed = @"Postponed";
+NSString * const kStatusBlank =     @"";
+NSString * const kStatusNotified =     @"Notified";
+NSString * const kStatusScheduled =     @"Scheduled";
+
+
 @implementation PPRAction
 
 -(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions
@@ -17,6 +24,7 @@
         _scheduledEvent = scheduledEvent;
         _parent = parent;
         _actions = actions;
+        _status = kStatusBlank;
     }
     return self;
 }
@@ -28,8 +36,19 @@
     
 
     NSString *scheduleDescription = self.scheduledEvent.scheduled.description;
-    NSString *dueTimeDescription = [dateFormatter stringFromDate:self.dueTime];
+    NSDate *time;
+    if ([self.status isEqualToString:kStatusDone]) {
+        time = self.completionTime;
+    } else {
+        time = self.dueTime;
+        
+    }
+    NSString *dueTimeDescription = [dateFormatter stringFromDate:time];
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
+}
+
+- (NSArray *)instructionsForAction {
+    return [[NSArray alloc]init];
 }
 
 @end
