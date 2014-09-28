@@ -49,6 +49,59 @@ NSString * const kAgeKey = @"Age";
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    switch (section) {
+        case 0:
+            return 2;
+            break;
+        case 1:
+            return self.details.notes.count;
+            break;
+        case 2:
+            return self.details.instructions.count;
+            break;
+        case 3:
+            return self.details.scheduleItems.count;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"ClientViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    switch (indexPath.section) {
+        case 0: // david's fault.
+            if (0 == indexPath.row) {
+                [cell.textLabel setText:self.details.name];
+            }
+            break;
+        case 1:
+            [cell.textLabel setText:self.details.notes[indexPath.row]];
+            break;
+        case 2:                                 //instructions
+//            [cell.textLabel setText:self.details.instructions[indexPath.row]];
+            break;
+        case 3:
+            break;
+        default:
+            break;
+    }
+
+    return cell;
+}
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 //{
 //#warning Potentially incomplete method implementation.
