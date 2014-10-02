@@ -76,9 +76,9 @@ static NSArray *events;
     
     PPRScheduledEvent *testScheduledEvent = [[PPRScheduledEvent alloc] initWithEventName:@"TestEventName" scheduledTime:testScheduleTime];
     
-    PPRAction *testAction = [[PPRAction alloc] initWithScheduledEvent:testScheduledEvent parent:nil actions:nil];
+    PPRAction *testAction = [[PPRAction alloc] initWithFacility:testFacility scheduledEvent:testScheduledEvent parent:nil actions:nil];
     
-    testAction.facility = testFacility;
+
     
     // Add one action for facility FAC1
     [scheduler.actionManager insertAction:testAction success:^(PPRAction *action) {
@@ -102,8 +102,7 @@ static NSArray *events;
          XCTFail(@"getFacilityById should not fail");
      }];
     
-    testAction = [[PPRAction alloc] initWithScheduledEvent:testScheduledEvent parent:nil actions:nil];
-    testAction.facility = testFacility;
+    testAction = [[PPRAction alloc] initWithFacility:testFacility scheduledEvent:testScheduledEvent parent:nil actions:nil];
     
     // Add first action for facility FAC2
     [scheduler.actionManager insertAction:testAction success:^(PPRAction *action) {
@@ -112,9 +111,8 @@ static NSArray *events;
         XCTFail(@"getAction should not fail");
     }];
 
-    testAction = [[PPRAction alloc] initWithScheduledEvent:testScheduledEvent parent:nil actions:nil];
-    testAction.facility = testFacility;
-    
+    testAction = [[PPRAction alloc] initWithFacility:testFacility scheduledEvent:testScheduledEvent parent:nil actions:nil];
+        
     // Add Second action for facility FAC2
     [scheduler.actionManager insertAction:testAction success:^(PPRAction *action) {
         

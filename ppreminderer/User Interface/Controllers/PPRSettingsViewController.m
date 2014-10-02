@@ -11,14 +11,18 @@
 #import "PPRScheduler.h"
 #import "PPRActionManager.h"
 #import "PPRShiftManager.h"
+#import "PPRNotificationManager.h"
+#import "PPRTestIntialiser.h"
 
 @interface PPRSettingsViewController ()
 -(IBAction)resetDefaultSettings:(id)sender;
 -(IBAction)setScheduleTime:(id)sender ;
 -(IBAction)warpFactorDidChange:(id)sender;
-@property (nonatomic,weak) IBOutlet UILabel *warpFactorLabel;
-
-@property (nonatomic,strong)PPRScheduler *scheduler;
+@property (nonatomic,weak) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic,weak) IBOutlet UISlider *warpFactor;
+@property (nonatomic,weak) IBOutlet UILabel *warpFactorDisplay;
+@property (nonatomic,strong) PPRShiftManager *shiftManager;
+@property (nonatomic,strong) PPRScheduler *scheduler;
 
 @end
 
@@ -30,6 +34,7 @@
     if (self) {
         // Custom initialization
         _scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
+        _shiftManager = [PPRShiftManager sharedInstance];
     }
     return self;
 }
@@ -38,6 +43,10 @@
 {
     [super viewDidLoad];
     self.scheduler = (PPRScheduler *)[PPRScheduler sharedInstance];
+    [self.warpFactor setValue: self.scheduler.warpFactor];
+    self.warpFactorDisplay.text = [NSString stringWithFormat:@"%2.0f", (double)self.scheduler.warpFactor];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,26 +57,29 @@
 
 -(IBAction)resetDefaultSettings:(id)sender {
     
-    PPRShift *shift = ((PPRShiftManager *)[PPRShiftManager sharedInstance]).shift;
+    [PPRActionManager sharedInstance].actions = [[NSMutableDictionary alloc] init];
+    
+   
+    PPRShift *shift = self.shiftManager.shift;
     shift.shiftStatus = [NSNumber numberWithInt:PPRShiftStatusOn];
     shift.available = [NSNumber numberWithBool:true];
     shift.facilityId = @"FAC1";
-    [((PPRShiftManager *)[PPRShiftManager sharedInstance]) publishShift:shift];
+    [[PPRTestIntialiser sharedInstance] loadSchedule ];
+    [self.shiftManager publishShift:self.shiftManager.shift];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:nil];
 }
 
 - (IBAction) setScheduleTime:(id)sender {
-    UIDatePicker *datePicker = (UIDatePicker *)sender;
-    NSDate *date = datePicker.date;
+    NSDate *date = self.datePicker.date;
     [self.scheduler setSchedulerTime:date];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SchedulerTimeChanged" object:nil];
     
 }
 
-- (IBAction)warpFactorDidChange:(UIStepper *)sender {
-    [self.warpFactorLabel setText:[NSString stringWithFormat:@"%d", (int)sender.value]];
+- (IBAction)warpFactorDidChange:(UISlider *)sender {
     self.scheduler.warpFactor = sender.value;
+    self.warpFactorDisplay.text = [NSString stringWithFormat:@"%2.0f", (double)self.scheduler.warpFactor];
+    
 }
 
 /*

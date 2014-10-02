@@ -11,6 +11,7 @@
 #import "PPRScheduledEvent.h"
 #import "PPRSingleton.h"
 #import "PPRAction.h"
+#import "PPRScheduleItem.h"
 #import "PPRActionManager.h"
 #import "PPRFacilityManager.h"
 
@@ -107,7 +108,18 @@
  
  @param dueActionProcessor A block to process due actions
  */
-- (void)setDueActionProcessor:(void (^)(PPRAction *action)) dueActionProcessor;
+- (void)setDueActionProcessor:(NSString * (^)(PPRScheduleItem *scheduleItem)) dueActionProcessor;
+/**
+ Record a processor for processing future actions
+ 
+ @param futureActionProcessor A block to process future actions
+ */
+- (void)setFutureActionProcessor:(NSString * (^)(PPRScheduleItem *scheduleItem)) futureActionProcessor;
 
+/**
+ Save state
+ */
+- (void)saveState;
+- (void)restoreState;
 
 @end

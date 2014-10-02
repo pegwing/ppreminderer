@@ -16,13 +16,6 @@
 
 
 
-NSString * const kDueKey =    @"Due";
-NSString * const kActionKey = @"Action";
-NSString * const kStatusKey = @"Status";
-NSString * const kClientKey = @"Client";
-NSString * const kIdKey =     @"Key";
-
-
 // Note about the above:  'blank' is related to a 'Not done' state, perhaps for historical reasons only.
 
 @interface PPRScheduleTableViewController ()
@@ -37,29 +30,49 @@ NSString * const kIdKey =     @"Key";
 
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
-    NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
-    [(PPRActionManager *)[PPRActionManager sharedInstance] updateAction: _currentActionID status: kStatusDone completionTime:completionTime
-                                            success:^(void)            {[self.tableView reloadData];}
-                                            failure:^(NSError * dummy) {}];
+    // If not done then update to done and record completion time
+    if (![_currentAction.status isEqualToString:kStatusCompleted]) {
+        NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
+        [[PPRActionManager sharedInstance] updateAction: _currentActionID
+                                                                     status: kStatusCompleted completionTime:completionTime
+                                                                    success:^(void)            {
+                                                                        [self loadActions];
+                                                                        [self.tableView reloadData]
+                                                                        ;}
+                                                                    failure:^(NSError * dummy) {
+                                                                        // TODO error handling
+                                                                    }];
+    }
 }
+
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
-    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusBlank
-                                            success:^(void)            {[self.tableView reloadData];}
-                                            failure:^(NSError * dummy) {}];
+    // if done then "Undo" done
+    if ([_currentAction.status isEqualToString:kStatusCompleted]) {
+        [[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusScheduled
+                                                                      success:^(void)            {
+                                                                          [self loadActions];
+                                                                          [self.tableView reloadData];}
+                                                                      failure:^(NSError * dummy) {
+                                                                      // TODO error handling
+                                                                      }];
+    }
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
-    NSDate *newDueTime = [(PPRActionScheduler *)[PPRActionScheduler sharedInstance] dueTimeForAction:_currentAction delayedBy:300.0 ];
-    [(PPRActionManager *)[PPRActionManager sharedInstance]
-     updateAction:_currentActionID
+    NSDate *newDueTime = [[PPRActionScheduler sharedInstance] dueTimeForAction:_currentAction
+                                                                                           delayedBy:300.0
+                          ];
+    [[PPRActionManager sharedInstance] updateAction:_currentActionID
      status:kStatusPostponed
      dueTime:newDueTime
-     
      success:^(void)
-    {[self.tableView reloadData];}
+     {
+         [self loadActions];
+         [self.tableView reloadData];
+     }
      
      failure:^(NSError * dummy) {}];
 }
@@ -89,18 +102,17 @@ NSString * const kIdKey =     @"Key";
     PPRAction *actionFilter = [[PPRAction alloc]init];
     PPRFacility *facility = [[PPRFacility alloc] init];
     actionFilter.facility = facility;
-    actionFilter.facility.facilityId =
-    ((PPRShiftManager *)[PPRShiftManager sharedInstance]).shift.facilityId;
+    actionFilter.facility.facilityId =[PPRShiftManager sharedInstance].shift.facilityId;
     
     [(PPRActionManager *)[PPRActionManager sharedInstance]
      getAction:actionFilter
      success:^(NSArray * actions) {
          _scheduleEntries = [actions sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        PPRAction *action1 = (PPRAction *)obj1;
-        PPRAction *action2 = obj2;
-        return [action1.dueTime compare: action2.dueTime ];
-        
-    }];
+             PPRAction *action1 = (PPRAction *)obj1;
+             PPRAction *action2 = obj2;
+             return [action1.dueTime compare: action2.dueTime ];
+             
+         }];
      }
      failure:^(NSError * dummy)   { } ];
     
@@ -109,10 +121,19 @@ NSString * const kIdKey =     @"Key";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserverForName:kShiftChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kShiftChangedNotificationName
+                                                      object:nil queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
         [self loadActions];
         [self.tableView reloadData];
     }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:kScheduleChangedNotificationName
+                                                      object:nil queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self loadActions];
+                                                      [self.tableView reloadData];
+                                                  }];
 
     [self loadActions];
     
@@ -154,17 +175,16 @@ NSString * const kIdKey =     @"Key";
         
         [cell.detailTextLabel setText:item.dueTimeDescription];
         
-        if ([item.status isEqualToString:        kStatusDone]){
+        if ([item.status isEqualToString:        kStatusCompleted]){
             [cell setBackgroundColor: [UIColor                          greenColor  ]];
         } else if ([item.status isEqualToString: kStatusPostponed]){
-            [cell setBackgroundColor: [UIColor                          grayColor   ]];
-        } else if ([item.status isEqualToString: kStatusBlank]){
-            [cell setBackgroundColor: [UIColor                          whiteColor  ]];
-        } else if ([item.status isEqualToString: kStatusNotified]){
-            [cell setBackgroundColor: [UIColor                          redColor  ]];
+            [cell setBackgroundColor: [UIColor                          orangeColor   ]];
         } else if ([item.status isEqualToString: kStatusScheduled]){
+            if ( [item.dueTime compare:[PPRScheduler sharedInstance].schedulerTime] == NSOrderedAscending)
+            [cell setBackgroundColor: [UIColor                            redColor]];
+            else
             [cell setBackgroundColor: [UIColor                          yellowColor  ]];
-       }
+        }
     }
     if ( [action isKindOfClass:[PPRClientAction class]]) {
         PPRClientAction *item = (PPRClientAction *)action;
@@ -173,58 +193,57 @@ NSString * const kIdKey =     @"Key";
     }
     else {
         [cell.textLabel setText:action.context];
-        [cell.detailTextLabel setText:action.dueTimeDescription];
     }
     return cell;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -8,13 +8,21 @@
 
 #import "PPRScheduler.h"
 #import "PPRShiftManager.h"
+#import "PPRActionScheduleItem.h"
 
-NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged";
+NSString * const kSchedulerTimeChangedNotificationName = @"SchedulerTimeChangedNotification";
+NSString * const kScheduleChangedNotificationName = @"ScheduleChangedNotification";
+
+NSString * const kSchedulingStatusScheduled = @"Scheduled";
+NSString * const kSchedulingStatusNotified = @"Notified";
+NSString * const kSchedulingStatusDue = @"Due";
+NSString * const kSchedulingStatusCompleted = @"Completed";
 
 @interface PPRScheduler ()
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,strong) void (^ticker)();
-@property (nonatomic,strong) void (^processDueAction)(PPRAction *action);
+@property (nonatomic,strong) NSString * (^processDueAction)(PPRScheduleItem *action);
+@property (nonatomic,strong) NSString * (^processFutureAction)(PPRScheduleItem *action);
 
 -(PPRScheduledEvent *)findEvent:(NSString *)eventName events:(NSArray *)events;
 
@@ -62,9 +70,16 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     
     [self.actionManager getAction:actionFilter
                           success:^(NSArray *actions) {
-                              self.schedule = [[NSMutableArray alloc] initWithArray:actions];
+                              self.schedule = [[NSMutableArray alloc] init];
+                              [actions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                  PPRAction *action = (PPRAction *)obj;
+                                  PPRActionScheduleItem *item =
+                                  [[PPRActionScheduleItem alloc] initWithSchedulingStatus:kStatusScheduled action:action dueTime:action.dueTime];
+                                  [self.schedule addObject:item];
+                              }];
+                                              
                               [self.schedule sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                                  return [((PPRAction *)obj1).dueTime compare:((PPRAction *)obj2).dueTime];
+                                  return [((PPRScheduleItem *)obj1).dueTime compare:((PPRScheduleItem *)obj2).dueTime];
                               }];
                           }
                           failure:^(NSError *error) {
@@ -152,18 +167,45 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     
 }
 
-- (void)setDueActionProcessor:(void (^)(PPRAction *action)) dueActionProcessor{
+- (void)setDueActionProcessor:(NSString * (^)(PPRScheduleItem *action)) dueActionProcessor{
     self.processDueAction = dueActionProcessor;
+}
+
+- (void)setFutureActionProcessor:(NSString * (^)(PPRScheduleItem *action)) furtureActionProcessor{
+    self.processFutureAction = furtureActionProcessor;
 }
 
 
 - (void)updateSchedule {
+    BOOL __block updated = false;
     [self.schedule enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        PPRAction *action = (PPRAction *)obj;
-        if ([action.dueTime compare:self.schedulerTime] == NSOrderedAscending) {
-            self.processDueAction(action);
+        PPRScheduleItem *item = (PPRScheduleItem *)obj;
+        NSString *initialSchedulingStatus = item.schedulingStatus;
+        if ([item.dueTime compare:self.schedulerTime] == NSOrderedAscending) {
+            // If becoming due call due processor and mark as notified
+            if ([item.schedulingStatus isEqualToString:kSchedulingStatusScheduled]
+                || [item.schedulingStatus isEqualToString:kSchedulingStatusNotified]) {
+                item.schedulingStatus = self.processDueAction(item);
+
+            }
+        } else {
+            // If scheduled and can be processed then update oo Notified.
+            if ( [item.schedulingStatus isEqualToString:kSchedulingStatusScheduled]) {
+                item.schedulingStatus = self.processFutureAction(item);
+                                   
+            }
+            
         }
+        // If the status has changed then notify
+        if (![initialSchedulingStatus isEqualToString:item.schedulingStatus])
+            updated = true;
+            
     }];
+    if (updated) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:kScheduleChangedNotificationName object:nil];
+        
+    }
 }
 - (void)timerTick:(NSTimer *)timer {
     self.schedulerTime = [NSDate dateWithTimeInterval:self.warpFactor sinceDate:self.schedulerTime];
@@ -171,10 +213,10 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     self.ticker();
 }
 
-- (void)addEventToSchedule:(PPRAction *)action {
+- (void)addEventToSchedule:(PPRScheduleItem *)action {
     [self.schedule addObject: action];
     [self.schedule sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [((PPRAction *)obj1).dueTime compare:((PPRAction *)obj2).dueTime];
+        return [((PPRScheduleItem *)obj1).dueTime compare:((PPRScheduleItem *)obj2).dueTime];
     }];
 }
 
@@ -183,5 +225,32 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     self.timer = [NSTimer scheduledTimerWithTimeInterval:self.warpFactor target:self selector:@selector(timerTick:) userInfo:nil repeats:YES];
 }
 
+- (void)saveState {
+    NSTimeInterval timeOffset = [self.schedulerTime timeIntervalSinceNow];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:timeOffset]
+                                              forKey:@"TimeOffset"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate])]
+                                              forKey:@"InactiveTime"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:self.warpFactor]
+                                              forKey:@"WarpFactor"];
+
+}
+
+- (void)restoreState {
+    NSNumber *timeOffset = (NSNumber *)([[NSUserDefaults standardUserDefaults] objectForKey:@"TimeOffset"]);
+    NSNumber *inactiveTimeOffset = (NSNumber *)([[NSUserDefaults standardUserDefaults] objectForKey:@"InactiveTime"]);
+    if (timeOffset == nil ) {
+        self.schedulerTime = [NSDate date];
+        self.warpFactor = 1.0;
+    } else {
+        self.warpFactor = [(NSNumber *)([[NSUserDefaults standardUserDefaults] objectForKey:@"WarpFactor"]) doubleValue];
+        NSDate *inactiveTime = [NSDate dateWithTimeIntervalSinceReferenceDate:[inactiveTimeOffset doubleValue]];
+        NSTimeInterval elapsedTimeSinceInactive = [[NSDate date] timeIntervalSinceDate:inactiveTime];
+        
+        NSDate *schedulerTimeWhenInactive = [NSDate dateWithTimeInterval:[timeOffset doubleValue] sinceDate:inactiveTime];
+        
+        self.schedulerTime = [NSDate dateWithTimeInterval:elapsedTimeSinceInactive * self.warpFactor sinceDate:schedulerTimeWhenInactive];
+    }
+}
 
 @end

@@ -9,7 +9,6 @@
 #import "PPRActionManager.h"
 
 @interface PPRActionManager ()
-@property (nonatomic,strong) NSMutableDictionary* actions;
 @end
 
 @implementation PPRActionManager

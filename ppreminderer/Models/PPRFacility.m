@@ -16,7 +16,8 @@
     if (self) {
         _name = name;
         _address = address;
-        _events = [[NSMutableArray alloc]init];
+        _events = [[NSMutableArray alloc] init];
+        _instructions = [[NSMutableArray alloc] init];
     }
     return self;
 }

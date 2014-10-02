@@ -10,4 +10,5 @@
 
 @interface PPRClockTabBarItem : UITabBarItem
 - (void) showTime;
+- (void) initialise;
 @end

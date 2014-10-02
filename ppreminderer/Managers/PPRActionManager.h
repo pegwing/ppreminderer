@@ -11,6 +11,7 @@
 #import "PPRSingleton.h"
 
 @interface PPRActionManager : PPRSingleton
+@property (nonatomic,strong) NSMutableDictionary* actions;
 
 - (void) getAction:(PPRAction *)action
            success: (void(^)(NSArray *))success

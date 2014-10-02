@@ -10,7 +10,11 @@
 #import "PPRTestIntialiser.h"
 #import "WBErrorNoticeView.h"
 #import "PPRStickyMessageNoticeView.h"
+#import "PPRNotificationManager.h"
 #import "PPRScheduler.h"
+#import "PPRActionNotification.h"
+#import "PPRScheduleItem.h"
+#import "PPRActionScheduleItem.h"
 
 @implementation PPRAppDelegate
 
@@ -19,21 +23,73 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.scheduler = [(PPRScheduler *)[PPRScheduler sharedInstance] init];
+    self.notificationManager = [[PPRNotificationManager sharedInstance] init];
+    self.scheduler = [[PPRScheduler sharedInstance] init];
+    
+    // Load clock offset
+    [self.scheduler restoreState];
+    
     (void)[[PPRTestIntialiser sharedInstance] init];
-
-    [self.scheduler setDueActionProcessor:^(PPRAction *action) {
-        {
-            if ([action.status isEqualToString:kStatusScheduled] ||
-                [action.status isEqualToString:kStatusPostponed]) {
-               action.status = kStatusNotified;
+    
+    PPRNotificationManager __block *notificationManager;
+    notificationManager = self.notificationManager;
+    
+    [self.scheduler setDueActionProcessor:^NSString * (PPRScheduleItem *scheduleItem) {
+        if ([scheduleItem isMemberOfClass:[PPRActionScheduleItem class]]) {
+            PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
+            // Item has become completed
+            if ([item.action.status isEqualToString:kStatusCompleted])
+                return kSchedulingStatusCompleted;
+            
+            // Scheduled item now due so notify and update to due
+            if ([scheduleItem.schedulingStatus isEqualToString:kSchedulingStatusScheduled] ) {
+                // Update action to due
+                
+                PPRActionNotification *actionNotification =
+                [[PPRActionNotification alloc] initWithAction:item.action];
+                
+                // Notify due items even if it bounces other notifications
+                [notificationManager sendNotification:actionNotification];
+                
+                return kSchedulingStatusDue;
+            }
+            // Notified item now due so update to due
+            if ([scheduleItem.schedulingStatus isEqualToString:kSchedulingStatusNotified]) {
+                return kSchedulingStatusDue;
             }
         }
+        // No change
+        return scheduleItem.schedulingStatus;
     }];
+    
+    [self.scheduler setFutureActionProcessor:^NSString * (PPRScheduleItem *scheduleItem) {
+        if ([scheduleItem isMemberOfClass:[PPRActionScheduleItem class]]) {
+            PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
+            // Future item already completed
+            if ([item.action.status isEqualToString:kStatusCompleted]) {
+                return kSchedulingStatusCompleted;
+            }
+            else {
+                // If "space" should notify future items
+                if ( [notificationManager canNotify]) {
+                    // Scheduled item in future so notify
+                    PPRActionNotification *actionNotification =
+                    [[PPRActionNotification alloc] initWithAction:item.action];
+                    [notificationManager sendNotification:actionNotification];
+                    
+                    return kSchedulingStatusNotified;
+                }
+            }
+        }
+        // No change
+        return scheduleItem.schedulingStatus;
+    }];
+    
+    
     [self.scheduler startTimerWithBlock:^(){
         [[NSNotificationCenter defaultCenter]
          postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
-    
+        
         
     }];
     
@@ -56,6 +112,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self.scheduler saveState];
 }
 
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -66,8 +123,9 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self.scheduler saveState];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -78,11 +136,13 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self.scheduler restoreState];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
+    [self.scheduler saveState];
     [self saveContext];
 }
 
@@ -92,11 +152,11 @@
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
-        } 
+        }
     }
 }
 
@@ -147,7 +207,7 @@
         /*
          Replace this implementation with code to handle the error appropriately.
          
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
          
          Typical reasons for an error here include:
          * The persistent store is not accessible;
@@ -169,7 +229,7 @@
          */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
-    }    
+    }
     
     return _persistentStoreCoordinator;
 }
@@ -196,19 +256,26 @@
 
 # pragma mark - utilities
 - (void)displayNotification:(UILocalNotification *)notification {
-    // Locate the currently displayed root view
-    UIView * view = [self.window.rootViewController view];
-    
-    PPRStickyMessageNoticeView *noticeView = [PPRStickyMessageNoticeView stickyMessageNoticeInView:view title:notification.alertAction message:
-                                             notification.alertBody];
-    NSLog(@" alert body %@ alert aciton %@", notification.alertBody, notification.alertAction);
-    noticeView.delay = 10.0;
-    noticeView.sticky = true;
-    noticeView.tapToDismissEnabled = true;
-    noticeView.alpha = 0.9f;
-    noticeView.floating = YES;
-    
-    [noticeView show];
+    // Only notification if on available
+    if ([PPRShiftManager sharedInstance].shift.available.boolValue &&
+        [PPRShiftManager sharedInstance].shift.shiftStatus.intValue == PPRShiftStatusOn) {
+        // Locate the currently displayed root view
+        UIView * view = [self.window.rootViewController view];
+        
+        PPRStickyMessageNoticeView *noticeView = [PPRStickyMessageNoticeView stickyMessageNoticeInView:view title:notification.alertAction message:
+                                                  notification.alertBody];
+        NSLog(@" alert body %@ alert action %@", notification.alertBody, notification.alertAction);
+        noticeView.delay = 10.0;
+        noticeView.sticky = true;
+        noticeView.tapToDismissEnabled = true;
+        noticeView.alpha = 0.9f;
+        noticeView.floating = YES;
+        [noticeView setDismissalBlock:^(BOOL dismissedInteractively) {
+            [self.notificationManager removeNotification:notification];
+        }];
+        
+        [noticeView show];
+    }
 }
 
 @end

@@ -36,8 +36,7 @@
     
     if ([self.action isKindOfClass:[PPRClientAction class]]) {
         PPRClientAction *clientAction = (PPRClientAction *)self.action;
-        
-    [self.client setTitle:clientAction.client.name forState: UIControlStateNormal] ;
+        [self.client setTitle:clientAction.client.name forState:UIControlStateNormal];
     }
     [self.actionDetails setText: [NSString stringWithFormat:@"%@\n%@", self.action.scheduledEvent.eventName, self.action.dueTimeDescription]];
 

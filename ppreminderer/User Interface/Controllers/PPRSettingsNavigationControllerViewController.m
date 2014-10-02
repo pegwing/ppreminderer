@@ -30,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     PPRClockTabBarItem *clock = (PPRClockTabBarItem *)self.tabBarItem;
+    [clock initialise];
     [[NSNotificationCenter defaultCenter] addObserver:clock selector:@selector(showTime) name:kSchedulerTimeChangedNotificationName object:nil];
 }
 
