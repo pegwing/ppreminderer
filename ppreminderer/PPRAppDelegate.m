@@ -101,7 +101,7 @@
     UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification) {
         
-        NSLog(@"Local notification on launch %@ %@", notification.alertAction,
+        NSLog(@"Local notification on launch: '%@'\n%@", notification.alertAction,
               notification.alertBody);
         [self displayNotification:notification];
     }
@@ -117,7 +117,8 @@
 
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
-    NSLog(@"Received local notification %@", notification.userInfo.description);
+    NSLog(@"Received local notification: '%@'\n%@", notification.alertAction,
+          notification.alertBody);
     [self displayNotification:notification];
 }
 
@@ -270,6 +271,7 @@
         noticeView.tapToDismissEnabled = true;
         noticeView.alpha = 0.9f;
         noticeView.floating = YES;
+        noticeView.contentInset = UIEdgeInsetsMake(0,10,0,0);
         [noticeView setDismissalBlock:^(BOOL dismissedInteractively) {
             [self.notificationManager removeNotification:notification];
         }];
