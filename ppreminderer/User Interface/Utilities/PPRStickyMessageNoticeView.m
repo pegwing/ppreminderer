@@ -32,8 +32,6 @@
     NSString *path = [[[NSBundle mainBundle]resourcePath]stringByAppendingPathComponent:@"NoticeView.bundle"];
     NSString *noticeIconImageName = [path stringByAppendingPathComponent:@"up.png"];
     
-    CGFloat messageLineHeight = 30.0;
-    
     // Make and add the title label
     float titleYOrigin = 30.0;
 

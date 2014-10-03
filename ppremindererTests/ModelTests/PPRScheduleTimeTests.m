@@ -28,7 +28,7 @@ static NSDateComponents *dc;  // To be set up using the integers above.
 
 - (void)setUp
 {
-    scheduler = [(PPRScheduler *)[PPRScheduler sharedInstance] initWithDailyEvents:@{}];
+    scheduler = [(PPRScheduler *)[PPRScheduler sharedInstance] initWithDailyEvents:@[]];
     scheduler.calendar = [NSCalendar currentCalendar];
     dc = [[NSDateComponents alloc] init];
     dc.hour =    exp_eng_hh;

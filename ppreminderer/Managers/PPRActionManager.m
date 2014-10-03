@@ -8,6 +8,9 @@
 
 #import "PPRActionManager.h"
 
+
+NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotification";
+
 @interface PPRActionManager ()
 @end
 
@@ -61,9 +64,12 @@
 }
 
 - (void) updateStatusOf: (NSString *) actionID
-                     to: (NSString *) newStatus      success: (void(^)()) success                     failure: (void(^)(NSError *)) failure
+                     to: (NSString *) newStatus
+                success: (void(^)()) success
+                failure: (void(^)(NSError *)) failure
 {
-    ((PPRAction *)(self.actions[actionID])).status = newStatus;
+    PPRAction *action = self.actions[actionID];
+    [self updateAction:action status:newStatus dueTime:action.dueTime completionTime:action.completionTime success:success failure:failure];
     success();
 }
 
@@ -74,9 +80,7 @@
               failure: (void(^)(NSError *)) failure
 {
     PPRAction *action = self.actions[actionID];
-    action.dueTime = dueTime;
-    action.status = newStatus;
-    success();
+    [self updateAction:action status:newStatus dueTime:dueTime completionTime:action.completionTime success:success failure:failure];
 }
 
 - (void) updateAction: (NSString *) actionID
@@ -86,11 +90,23 @@
               failure: (void(^)(NSError *)) failure
 {
     PPRAction *action = self.actions[actionID];
-    action.completionTime = completionTime;
-    action.status = newStatus;
-    success();
+    [self updateAction:action status:newStatus dueTime:action.dueTime completionTime:completionTime success:success failure:failure];
 }
 
+- (void) updateAction: (PPRAction *) action
+               status: (NSString *) newStatus
+              dueTime: (NSDate *)dueTime
+       completionTime:(NSDate *)completionTime
+              success: (void(^)()) success
+              failure: (void(^)(NSError *)) failure
+{
+    action.dueTime = dueTime;
+    action.completionTime = completionTime;
+    action.status = newStatus;
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:kActionStateChangedNotificationName object:nil userInfo:@{@"ActionId":action.actionId}];
+    success();
+}
 - (void)insertAction:(PPRAction *)action
              success:(void (^)(PPRAction *))success
              failure:(void (^)(NSError *))failure {

@@ -32,6 +32,7 @@ extern NSString * const kSchedulingStatusCompleted;  // No further action
 // Names used when sending and processing notification center notifications
 extern NSString * const kShiftChangedNotificationName;
 extern NSString * const kSchedulerTimeChangedNotificationName;
+extern NSString * const kSchedulerTimeTickNotificationName;
 extern NSString * const kScheduleChangedNotificationName;
-
+extern NSString * const kActionStateChangedNotificationName;
 #endif

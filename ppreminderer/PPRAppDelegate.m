@@ -15,6 +15,7 @@
 #import "PPRActionNotification.h"
 #import "PPRScheduleItem.h"
 #import "PPRActionScheduleItem.h"
+#import "PPRActionManager.h"
 
 @implementation PPRAppDelegate
 
@@ -35,7 +36,7 @@
     notificationManager = self.notificationManager;
     
     [self.scheduler setDueActionProcessor:^NSString * (PPRScheduleItem *scheduleItem) {
-        if ([scheduleItem isMemberOfClass:[PPRActionScheduleItem class]]) {
+        if ([scheduleItem isKindOfClass:[PPRActionScheduleItem class]]) {
             PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
             // Item has become completed
             if ([item.action.status isEqualToString:kStatusCompleted])
@@ -63,7 +64,7 @@
     }];
     
     [self.scheduler setFutureActionProcessor:^NSString * (PPRScheduleItem *scheduleItem) {
-        if ([scheduleItem isMemberOfClass:[PPRActionScheduleItem class]]) {
+        if ([scheduleItem isKindOfClass:[PPRActionScheduleItem class]]) {
             PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
             // Future item already completed
             if ([item.action.status isEqualToString:kStatusCompleted]) {
@@ -85,10 +86,52 @@
         return scheduleItem.schedulingStatus;
     }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:kActionStateChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        // Remove from notification manager
+        [self.notificationManager removeNotificationPassingTest:^BOOL(PPRNotification *notification) {
+            if ([notification isKindOfClass:[PPRActionNotification class]]) {
+                PPRActionNotification  *actionNotification = (PPRActionNotification *)notification;
+                if ([actionNotification.action.actionId isEqualToString:note.userInfo[@"ActionId"]])
+                    return true;
+            }
+            return false;
+        }];
+        // Retrieve the action
+        [[PPRActionManager sharedInstance] getActionById:note.userInfo[@"ActionId"]
+                                                 success:^(PPRAction *action) {
+                                                     // From the action status update the scheduling status
+                                                     NSString *schedulingStatus;
+                                                     if ([action.status isEqualToString:kStatusCompleted])
+                                                         schedulingStatus = kSchedulingStatusCompleted;
+                                                     else if ([action.status isEqualToString:kStatusPostponed])
+                                                         schedulingStatus = kSchedulingStatusScheduled;
+                                                     else if ([action.status isEqualToString:kStatusScheduled])
+                                                         schedulingStatus = kSchedulingStatusScheduled;
+                                                     
+                                                     // Reschedule
+                                                     [self.scheduler  rescheduleItemDueTime:action.dueTime
+                                                                           schedulingStatus:schedulingStatus
+                                                                                passingTest:^BOOL(PPRScheduleItem *item)  {
+                                                                                    if ([item isKindOfClass:[PPRActionScheduleItem class]]) {
+                                                                                        PPRActionScheduleItem *actionScheduleItem = (PPRActionScheduleItem *)item;
+                                                                                        if ([actionScheduleItem.action.actionId isEqualToString:note.userInfo[@"ActionId"]])
+                                                                                            return true;
+                                                                                    }
+                                                                                    return false;
+                                                                                }
+                                                      ];
+                                                     
+                                                 }
+                                                 failure: ^(NSError *error) {
+                                                     NSLog(@"Error getting action");
+                                                 }
+         ];
+    }];
+    
     
     [self.scheduler startTimerWithBlock:^(){
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
+         postNotificationName:kSchedulerTimeTickNotificationName object:nil];
         
         
     }];

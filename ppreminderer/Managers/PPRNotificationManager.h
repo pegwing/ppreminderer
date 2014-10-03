@@ -21,7 +21,18 @@
 @property (nonatomic,strong) PPRShiftManager *shiftManager;
 
 - (void)sendNotification:(PPRNotification *)notification;
+/**
+ Remove the notification that matches the given localNodifications
+ @param localNotification
+ */
 - (void)removeNotification:(UILocalNotification *)localNotification;
+
+/**
+ Remove and cancel notifications that pass the provided test
+ @param test a block which is passed a notification and return true if
+ the notification should be cancelled and removed.
+ */
+- (void)removeNotificationPassingTest:(BOOL (^)(PPRNotification *))test;
 
 /**
  Can the notification manage send another notification

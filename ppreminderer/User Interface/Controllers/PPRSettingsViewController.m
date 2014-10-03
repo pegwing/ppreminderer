@@ -71,15 +71,16 @@
 
 - (IBAction) setScheduleTime:(id)sender {
     NSDate *date = self.datePicker.date;
-    [self.scheduler setSchedulerTime:date];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SchedulerTimeChanged" object:nil];
+    self.scheduler.schedulerTime = date;
+    self.scheduler.lastTickTime = [NSDate date];
+    [self.scheduler saveState];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
     
 }
 
 - (IBAction)warpFactorDidChange:(UISlider *)sender {
     self.scheduler.warpFactor = sender.value;
     self.warpFactorDisplay.text = [NSString stringWithFormat:@"%2.0f", (double)self.scheduler.warpFactor];
-    
 }
 
 /*

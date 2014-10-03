@@ -43,7 +43,21 @@
                 }];
             }
         }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:kSchedulerTimeChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            // Reschedule local notifications
+            [self.notifications enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                PPRNotification *notification = obj;
+                if (notification.localNotification != nil) {
+                    [self.application cancelLocalNotification:notification.localNotification];
+                    notification.localNotification.applicationIconBadgeNumber = self.notifications.count;
+                    notification.localNotification.fireDate = [self.scheduler dateAdjustedForSchedulerTimer:notification.localNotification.fireDate];
+                    [self.application scheduleLocalNotification:notification.localNotification];
+                }
+            }];
+            
+        }];
     }
+    
     return self;
 }
 
@@ -67,6 +81,23 @@
     [self.application scheduleLocalNotification:notification.localNotification];
     }
 }
+
+- (void)removeNotificationPassingTest:(BOOL (^)(PPRNotification *))test {
+
+    NSIndexSet *removeSet = [self.notifications indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        PPRNotification *notification = obj;
+        if (test(notification)) {
+            [self.application cancelLocalNotification:notification.localNotification];
+            return true;
+        }
+        else
+            return false;
+    }];
+    [self.notifications removeObjectsAtIndexes:removeSet];
+}
+
+
+
 
 - (void)removeNotification:(UILocalNotification *)localNotification {
     NSDate *dueTime = localNotification.fireDate;

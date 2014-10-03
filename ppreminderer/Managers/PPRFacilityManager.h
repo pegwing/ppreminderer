@@ -12,7 +12,7 @@
 
 @interface PPRFacilityManager : PPRSingleton
 /**
- Locate one or more facilities given a "prototype" to match from the facilities collection.
+ Retrieve one or more facilities given a "prototype" to match from the facilities collection.
  
  @param prototype A "prototype" used to select matching facilitiies
  @param success A block called with an array of matching facilities

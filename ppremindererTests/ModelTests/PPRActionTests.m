@@ -20,7 +20,7 @@
 {
     [super setUp];
     // Ensure the the scheudler is initialised
-    [[PPRScheduler sharedInstance]init];
+    (void)[[PPRScheduler sharedInstance]init];
 }
 
 - (void)tearDown
