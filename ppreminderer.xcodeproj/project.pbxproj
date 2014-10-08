@@ -79,7 +79,6 @@
 		20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6E19AD6A1200BDF78A /* select_facility.rb */; };
 		20EAAD7819AD6A1200BDF78A /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD7019AD6A1200BDF78A /* env.rb */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
-		632077A919C9412B006DC100 /* PPRScheduleTimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
@@ -756,7 +755,7 @@
 					"$(FRANK_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e6455fa-c939-430e-b0b5-23e1ddcf5c78";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -768,14 +767,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pegwing Pty Ltd (VY33H569Y3)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ppreminderer/ppreminderer-Prefix.pch";
 				INFOPLIST_FILE = "ppreminderer/ppreminderer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e6455fa-c939-430e-b0b5-23e1ddcf5c78";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

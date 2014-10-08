@@ -204,49 +204,63 @@ static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *cl
 
 @implementation PPRTestIntialiser
 - (PPRTestIntialiser *) init {
-
-    self = [super init];
-    if (self) {
-        PPRFacilityManager *facilityManager = [(PPRFacilityManager *)[PPRFacilityManager sharedInstance] init];
-        PPRClientManager *clientManager = [(PPRClientManager *)[PPRClientManager sharedInstance] init];
-        
-        PPRFacility *facility1 = createTestFacility1();
-        
-        [facilityManager insertFacility:facility1 success:
-         ^{
-         } failure:^(NSError *error) {
-             NSLog(@"Error saving facility 1");
-         }];
-        
-        PPRFacility *facility2 = createTestFacility2();
-        
-        [facilityManager insertFacility:facility2 success:
-         ^{
-         } failure:^(NSError *error) {
-             NSLog(@"Error saving facility 2");
-         }];
-        
-        PPRClient *client1 = createTestClient1(facility1);
-        [clientManager insertClient:client1 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 1");
-        }];
-        
-        PPRClient *client2 = createTestClient2(facility1);
-        [clientManager insertClient:client2 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 2");
-        }];
-        
-        PPRClient *client3 = createTestClient3(facility1);
-        [clientManager insertClient:client3 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 3");
-        }];
-    }
+    
+    PPRFacilityManager *facilityManager = [[PPRFacilityManager sharedInstance] init];
+    PPRClientManager *clientManager = [[PPRClientManager sharedInstance] init];
+    
+    PPRActionManager *actionManager = [[PPRActionManager sharedInstance] init];
+    
+    
+    PPRScheduler *scheduler = [[PPRScheduler sharedInstance] init];
+    
+    PPRFacility *facility1 = createTestFacility1();
+    
+    [facilityManager insertFacility:facility1 success:
+     ^{
+     } failure:^(NSError *error) {
+         NSLog(@"Error saving facility 1");
+     }];
+    
+    scheduler.dailyEvents =  facility1.events;
+    
+    
+    PPRFacility *facility2 = createTestFacility2();
+    
+    [facilityManager insertFacility:facility2 success:
+     ^{
+     } failure:^(NSError *error) {
+         NSLog(@"Error saving facility 2");
+     }];
+    
+    PPRClient *client1 = createTestClient1(facility1);
+    [clientManager insertClient:client1 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 1");
+    }];
+    
+    PPRClient *client2 = createTestClient2(facility1);
+    [clientManager insertClient:client2 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 2");
+    }];
+    
+    PPRClient *client3 = createTestClient3(facility1);
+    [clientManager insertClient:client3 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 3");
+    }];
+    
+    PPRClientAction *action1 = createTestAction1(scheduler, client1);
+    [actionManager insertAction:action1
+                        success:^(PPRAction *action) {
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
+    
     
     return self;
 }
