@@ -9,8 +9,12 @@
 #import "PPRTestIntialiser.h"
 #import "PPRFacilityManager.h"
 #import "PPRClientManager.h"
+#import "PPRActionManager.h"
 #import "PPRClientInstruction.h"
 #import "PPRScheduledEvent.h"
+#import "PPRClientAction.h"
+#import "PPRScheduler.h"
+
 
 static PPRFacility * createTestFacility1() {
     
@@ -26,6 +30,9 @@ static PPRFacility * createTestFacility1() {
     NSDateComponents *sixThirty = [[NSDateComponents alloc] init];
     sixThirty.hour = 18;
     sixThirty.minute = 30;
+    NSDateComponents *ninePm = [[NSDateComponents alloc] init];
+    ninePm.hour = 21;
+    ninePm.minute = 0;
     NSMutableArray *events1 =
     [NSMutableArray arrayWithObjects:
      [[PPRScheduledEvent alloc] initWithEventName:@"Breakfast"
@@ -34,6 +41,8 @@ static PPRFacility * createTestFacility1() {
                                     scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:twelveThirty]],
      [[PPRScheduledEvent alloc] initWithEventName:@"Dinner"
                                     scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:sixThirty]],
+     [[PPRScheduledEvent alloc] initWithEventName:@"Bed"
+                                    scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:ninePm]],
      nil];
     facility1.events = events1;
     return facility1;
@@ -70,15 +79,26 @@ static PPRClient *createTestClient1(PPRFacility *facility1)
     
     NSMutableArray *instructions1 =
     [NSMutableArray arrayWithObjects:
-     [[PPRClientInstruction alloc]initWithContext:@"taking pills" instruction:@"Taken on desert spoon"],
-     [[PPRClientInstruction alloc]initWithContext:@"communication" instruction:@"Nonverbal but has signing"],
-     [[PPRClientInstruction alloc]initWithContext:@"medication" instruction:@"Usually compliant taking medication"],
+     [[PPRClientInstruction alloc]initWithContext:@"Pills"
+                                      instruction:@"Taken on desert spoon"],
+     [[PPRClientInstruction alloc]initWithContext:@"Communication"
+                                      instruction:@"Nonverbal but has signing"],
+     [[PPRClientInstruction alloc]initWithContext:@"Medication"
+                                      instruction:@"Usually compliant taking medication"],
      nil
      ];
     client1.notes = notes1;
     client1.instructions = instructions1;
     client1.facility = facility1;
     
+    // Pills 30 minutes before lunch
+    NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+    offset1.minute  = -30;
+    PPRScheduleTime *scheduleTime1 =
+    [[PPRScheduleTime alloc] initWithDailyEvent:@"Lunch" offset:offset1];
+    PPRClientScheduleItem *item1 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Pills" eventName:@"Pills" scheduledTime:scheduleTime1];
+    [client1.scheduleItems addObject:item1];
     return client1;
 }
 
@@ -165,6 +185,20 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     client3.instructions = instructions3;
     client3.facility = facility2;
     return client3;
+    
+}
+
+static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *client) {
+    PPRClientScheduleItem *item = client.scheduleItems[0];
+    PPRClientAction *action = [[PPRClientAction alloc] init];
+    action.scheduledEvent = item;
+    action.dueTime = [scheduler dueTimeForScheduleTime:item.scheduled parentDueTime:nil previousDueTime:nil];
+    action.client = client;
+    action.context = item.context;
+
+    [client.scheduleItems addObject:item];
+    
+    return action;
     
 }
 

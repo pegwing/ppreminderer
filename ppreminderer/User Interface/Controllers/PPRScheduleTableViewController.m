@@ -9,6 +9,9 @@
 #import "PPRScheduleTableViewController.h"
 #import "PPRActionViewController.h"
 #import "PPRActionManager.h"
+#import "PPRClientAction.h"
+
+
 
 NSString * const kDueKey =    @"Due";
 NSString * const kActionKey = @"Action";
@@ -29,27 +32,27 @@ NSString * const kStatusBlank =     @"";
 @implementation PPRScheduleTableViewController{
     NSArray *_scheduleEntries;
     NSString *_currentActionID;
-    NSMutableDictionary *_currentAction;
+    PPRAction *_currentAction;
 }
 
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
-    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusDone
-                                            success:^(void)            {[self.tableView reloadData];}
+    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusDone
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
-    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusBlank
-                                            success:^(void)            {[self.tableView reloadData];}
+    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusBlank
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
-    [[PPRActionManager sharedClient] updateStatusOf: _currentActionID to: kStatusPostponed
-                                            success:^(void)            {[self.tableView reloadData];}
+    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusPostponed
+                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
 
@@ -58,8 +61,9 @@ NSString * const kStatusBlank =     @"";
     UIViewController *dest = [segue destinationViewController];
     if ([dest isKindOfClass:[PPRActionViewController class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        _currentActionID = _scheduleEntries[indexPath.row][kIdKey];
-        _currentAction = _scheduleEntries[indexPath.row];
+        PPRAction *item = _scheduleEntries[indexPath.row];
+        _currentActionID = item.actionId;
+        _currentAction = item;
         [(PPRActionViewController *)dest setDetails:_currentAction];
     }
 }
@@ -77,7 +81,7 @@ NSString * const kStatusBlank =     @"";
 {
     [super viewDidLoad];
     
-    [[PPRActionManager sharedClient]
+    [(PPRActionManager *)[PPRActionManager sharedInstance]
         getAction:nil
         success:^(NSArray * actions) { _scheduleEntries = actions;}
         failure:^(NSError * dummy)   { } ];
@@ -114,17 +118,17 @@ NSString * const kStatusBlank =     @"";
     static NSString *CellIdentifier = @"ActionCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSDictionary *item = _scheduleEntries[indexPath.row];
+    PPRClientAction *item = (PPRClientAction *)(_scheduleEntries[indexPath.row]);
+    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
+    [cell.textLabel setText:label ];
     
-    [cell.textLabel setText:item[kClientKey][kNameKey]];
+    [cell.detailTextLabel setText:item.dueTimeDescription];
     
-    [cell.detailTextLabel setText:item[kDueKey]];
-    
-    if ([item[kStatusKey] isEqualToString:        kStatusDone]){
+    if ([item.status isEqualToString:        kStatusDone]){
         [cell setBackgroundColor: [UIColor                          greenColor  ]];
-    } else if ([item[kStatusKey] isEqualToString: kStatusPostponed]){
+    } else if ([item.status isEqualToString: kStatusPostponed]){
         [cell setBackgroundColor: [UIColor                          grayColor   ]];
-    } else if ([item[kStatusKey] isEqualToString: kStatusBlank]){
+    } else if ([item.status isEqualToString: kStatusBlank]){
         [cell setBackgroundColor: [UIColor                          whiteColor  ]];
     }
     
