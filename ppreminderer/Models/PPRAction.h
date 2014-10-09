@@ -25,5 +25,7 @@
 -(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
 
 -(NSString *)dueTimeDescription;
+-(NSArray *)instructionsForAction;
+
 
 @end

@@ -7,14 +7,16 @@
 //
 
 #import "PPRScheduler.h"
+#import "PPRShiftManager.h"
 
 NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged";
 
 @interface PPRScheduler ()
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,strong) void (^ticker)();
+@property (nonatomic,strong) void (^processDueAction)(PPRAction *action);
 
--(PPRScheduledEvent *)findEvent:(NSString *)eventName;
+-(PPRScheduledEvent *)findEvent:(NSString *)eventName events:(NSArray *)events;
 
 @end
 
@@ -24,10 +26,51 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     self = [super init];
     if (self) {
         _calendar = [NSCalendar currentCalendar];
+        _actionManager = ((PPRActionManager *)[PPRActionManager sharedInstance]);
+        _facilityManager = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
+
         _schedulerTime = [NSDate date];
         _warpFactor = 1.0;
+        
+        _schedule = [[NSMutableArray alloc] init];
     }
+    [[NSNotificationCenter defaultCenter] addObserverForName:kShiftChangedNotificationName object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self loadEventsAndActions];
+    }];
+    
     return self;
+}
+
+- (void) loadEventsAndActions {
+    
+    NSString *facilityId =
+    ((PPRShiftManager *)[PPRShiftManager sharedInstance]).shift.facilityId;
+    
+    [self.facilityManager getFacilityById:facilityId
+                                  success:^(PPRFacility *facility) {
+                                      self.dailyEvents = facility.events;
+                                  }
+                                  failure:^(NSError *error) {
+                                      NSLog(@"Error getting facility");
+                                      
+                                  }];
+
+    PPRAction *actionFilter = [[PPRAction alloc]init];
+    PPRFacility *facility = [[PPRFacility alloc] init];
+    actionFilter.facility = facility;
+    actionFilter.facility.facilityId = facilityId;
+    
+    [self.actionManager getAction:actionFilter
+                          success:^(NSArray *actions) {
+                              self.schedule = [[NSMutableArray alloc] initWithArray:actions];
+                              [self.schedule sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                                  return [((PPRAction *)obj1).dueTime compare:((PPRAction *)obj2).dueTime];
+                              }];
+                          }
+                          failure:^(NSError *error) {
+                              NSLog(@"Error getting actions");
+                          }];
+    
 }
 
 -(id)initWithDailyEvents:(NSArray *)dailyEvents {
@@ -38,14 +81,16 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     return self;
 }
 
--(PPRScheduledEvent *)findEvent:(NSString *)eventName {
-    NSInteger index = [self.dailyEvents
-                 indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [eventName isEqualToString:((PPRScheduledEvent *)obj).eventName];
-        
-    }];
+-(PPRScheduledEvent *)findEvent:(NSString *)eventName
+                         events:(NSArray *)events {
+    NSInteger index = [events
+                       indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                           return [eventName
+                                   isEqualToString:((PPRScheduledEvent *)obj).eventName];
+                           
+                       }];
     if (index != NSNotFound) {
-        return self.dailyEvents[index];
+        return events[index];
     }
     else {
         return nil;
@@ -54,7 +99,9 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
 
 - (NSDate *)dueTimeForScheduleTime: (PPRScheduleTime *)scheduleTime
                      parentDueTime: (NSDate *)parentDueTime
-                   previousDueTime:(NSDate *)previousDueTime {
+                   previousDueTime:(NSDate *)previousDueTime
+                            events: (NSArray *)events
+{
     
     NSDate *dueTime;
     NSDate *currentTime = [NSDate date];
@@ -66,17 +113,21 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
             dueTime = [self dateAtTimeOfDay:scheduleTime.offset date:currentTime];
             break;
         case PPRScheduleTimeRelativeToDailyEvent:
-            event = [self findEvent:scheduleTime.atDailyEvent];
+            event = [self findEvent:scheduleTime.atDailyEvent events:events];
             // FIXME Assumes events are all atTimeOfDay
             // FIXME event may be nil
             dueTime = [self dateAtTimeOfDay:event.scheduled.offset date:currentTime];
+            dueTime = [self.calendar dateByAddingComponents:scheduleTime.offset toDate:dueTime options:0];
             break;
         case PPRScheduleTimeRelativeToPreviousItem:
             dueTime = [self.calendar dateByAddingComponents:scheduleTime.offset toDate:previousDueTime options:0];
             break;
         case PPRScheduleTimeRelativeToStartOfParent:
             dueTime = [self.calendar dateByAddingComponents:scheduleTime.offset toDate:parentDueTime options:0];
-            
+            break;
+        default:
+            dueTime = [NSDate date];
+            NSLog(@"Unknown schedule time type %d", scheduleTime.type);
             break;
     }
     return dueTime;
@@ -101,9 +152,30 @@ NSString * const kSchedulerTimeChangedNotificationName = @"kSchedulerTimeChanged
     
 }
 
+- (void)setDueActionProcessor:(void (^)(PPRAction *action)) dueActionProcessor{
+    self.processDueAction = dueActionProcessor;
+}
+
+
+- (void)updateSchedule {
+    [self.schedule enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        PPRAction *action = (PPRAction *)obj;
+        if ([action.dueTime compare:self.schedulerTime] == NSOrderedAscending) {
+            self.processDueAction(action);
+        }
+    }];
+}
 - (void)timerTick:(NSTimer *)timer {
     self.schedulerTime = [NSDate dateWithTimeInterval:self.warpFactor sinceDate:self.schedulerTime];
+    [self updateSchedule];
     self.ticker();
+}
+
+- (void)addEventToSchedule:(PPRAction *)action {
+    [self.schedule addObject: action];
+    [self.schedule sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((PPRAction *)obj1).dueTime compare:((PPRAction *)obj2).dueTime];
+    }];
 }
 
 - (void)startTimerWithBlock:(void (^)()) ticker {

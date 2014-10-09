@@ -9,6 +9,7 @@
 #import "PPRClientTableViewController.h"
 #import "PPRClientViewController.h"
 #import "PPRClientManager.h"
+#import "PPRShiftManager.h"
 #import "PPRShift.h"
 
 @interface PPRClientTableViewController ()
@@ -44,7 +45,8 @@
     PPRClient * clientFilter = [[PPRClient alloc] init];
     PPRFacility *facility = [[PPRFacility alloc] init];
     clientFilter.facility = facility;
-    clientFilter.facility.facilityId = [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultsFacilityIdKey];
+    clientFilter.facility.facilityId =
+    ((PPRShiftManager *)[PPRShiftManager sharedInstance]).shift.facilityId;
     [(PPRClientManager *)[PPRClientManager sharedInstance] getClient:clientFilter success:^(NSArray *clients) {
         _clientEntries = clients;
         [self.tableView reloadData];

@@ -10,6 +10,7 @@
 #import "PPRShift.h"
 #import "PPRScheduler.h"
 #import "PPRActionManager.h"
+#import "PPRShiftManager.h"
 
 @interface PPRSettingsViewController ()
 -(IBAction)resetDefaultSettings:(id)sender;
@@ -47,9 +48,12 @@
 
 -(IBAction)resetDefaultSettings:(id)sender {
     
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:PPRShiftStatusOn] forKey:kDefaultsShiftStatusKey];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:kDefaultsShiftAvailableKey];
-    [[NSUserDefaults standardUserDefaults] setObject:@"FAC1" forKey:kDefaultsFacilityIdKey];
+    PPRShift *shift = ((PPRShiftManager *)[PPRShiftManager sharedInstance]).shift;
+    shift.shiftStatus = [NSNumber numberWithInt:PPRShiftStatusOn];
+    shift.available = [NSNumber numberWithBool:true];
+    shift.facilityId = @"FAC1";
+    [((PPRShiftManager *)[PPRShiftManager sharedInstance]) publishShift:shift];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kShiftChangedNotificationName object:nil];
 }
 

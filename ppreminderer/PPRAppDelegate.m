@@ -21,8 +21,19 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.scheduler = [(PPRScheduler *)[PPRScheduler sharedInstance] init];
     (void)[[PPRTestIntialiser sharedInstance] init];
+
+    [self.scheduler setDueActionProcessor:^(PPRAction *action) {
+        {
+            if ([action.status isEqualToString:kStatusScheduled] ||
+                [action.status isEqualToString:kStatusPostponed]) {
+               action.status = kStatusNotified;
+            }
+        }
+    }];
     [self.scheduler startTimerWithBlock:^(){
-        [[NSNotificationCenter defaultCenter] postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:kSchedulerTimeChangedNotificationName object:nil];
+    
         
     }];
     

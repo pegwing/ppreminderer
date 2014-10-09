@@ -43,4 +43,8 @@ NSString * const kStatusBlank =     @"";
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
 }
 
+- (NSArray *)instructionsForAction {
+    return [[NSArray alloc]init];
+}
+
 @end

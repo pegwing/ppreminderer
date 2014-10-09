@@ -15,6 +15,8 @@
 #import "PPRClientAction.h"
 #import "PPRScheduler.h"
 #import "PPRShiftManager.h"
+#import "PPRFacilityActionScheduler.h"
+#import "PPRClientActionScheduler.h"
 
 
 static PPRFacility * createTestFacility1() {
@@ -53,6 +55,31 @@ static PPRFacility *createTestFacility2()
 {
     // Facility 2
     PPRFacility *facility2 = [[PPRFacility alloc] initWithName:@"Group Home 2" address:@"2 Jones Street Somewhereelse"];
+    NSDateComponents *sevenThirty = [[NSDateComponents alloc] init];
+    sevenThirty.hour = 7;
+    sevenThirty.minute = 30;
+    NSDateComponents *twelveOclock = [[NSDateComponents alloc] init];
+    twelveOclock.hour = 12;
+    twelveOclock.minute = 0;
+    
+    NSDateComponents *sixThirty = [[NSDateComponents alloc] init];
+    sixThirty.hour = 18;
+    sixThirty.minute = 30;
+    NSDateComponents *ninePm = [[NSDateComponents alloc] init];
+    ninePm.hour = 21;
+    ninePm.minute = 0;
+    NSMutableArray *events2 =
+    [NSMutableArray arrayWithObjects:
+     [[PPRScheduledEvent alloc] initWithEventName:@"Breakfast"
+                                    scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:sevenThirty]],
+     [[PPRScheduledEvent alloc] initWithEventName:@"Lunch"
+                                    scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:twelveOclock]],
+     [[PPRScheduledEvent alloc] initWithEventName:@"Dinner"
+                                    scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:sixThirty]],
+     [[PPRScheduledEvent alloc] initWithEventName:@"Bed"
+                                    scheduledTime: [[PPRScheduleTime alloc] initWithTimeOfDay:ninePm]],
+     nil];
+    facility2.events = events2;
     return facility2;
 }
 
@@ -100,6 +127,15 @@ static PPRClient *createTestClient1(PPRFacility *facility1)
     PPRClientScheduleItem *item1 =
     [[PPRClientScheduleItem alloc] initWithContext:@"Pills" eventName:@"Pills" scheduledTime:scheduleTime1];
     [client1.scheduleItems addObject:item1];
+    
+    
+    // Pills at breakfast
+    NSDateComponents *offset2 = [[NSDateComponents alloc] init];
+    PPRScheduleTime *scheduleTime2 =
+    [[PPRScheduleTime alloc] initWithDailyEvent:@"Breakfast" offset:offset2];
+    PPRClientScheduleItem *item2 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Pills" eventName:@"Pills" scheduledTime:scheduleTime2];
+    [client1.scheduleItems addObject:item2];
     return client1;
 }
 
@@ -130,11 +166,11 @@ static PPRClient *createTestClient2(PPRFacility *facility1)
     
     NSMutableArray *instructions2 =
     [NSMutableArray arrayWithObjects:
-     [[PPRClientInstruction alloc]initWithContext:@"food" instruction:@"Delusional - people poising her food"],
-     [[PPRClientInstruction alloc]initWithContext:@"taking pills" instruction:@"On hand"],
-     [[PPRClientInstruction alloc]initWithContext:@"communication" instruction:@"Verbal and can make her wants and needs known"],
-     [[PPRClientInstruction alloc]initWithContext:@"medication" instruction:@"Can be non-compliant"],
-     [[PPRClientInstruction alloc]initWithContext:@"medication" instruction:@"If resistant check if she believes medication poisoned - see notes"],
+     [[PPRClientInstruction alloc]initWithContext:@"Food" instruction:@"Delusional - people poising her food"],
+     [[PPRClientInstruction alloc]initWithContext:@"Pills" instruction:@"On hand"],
+     [[PPRClientInstruction alloc]initWithContext:@"Communications" instruction:@"Verbal and can make her wants and needs known"],
+     [[PPRClientInstruction alloc]initWithContext:@"Medication" instruction:@"Can be non-compliant"],
+     [[PPRClientInstruction alloc]initWithContext:@"Medication" instruction:@"If resistant check if she believes medication poisoned - see notes"],
      nil
      ];
     
@@ -142,6 +178,24 @@ static PPRClient *createTestClient2(PPRFacility *facility1)
     client2.notes = notes2;
     client2.instructions = instructions2;
     client2.facility = facility1;
+    
+    // Pills 10 minutes before dinner
+    NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+    offset1.minute  = -10;
+    PPRScheduleTime *scheduleTime1 =
+    [[PPRScheduleTime alloc] initWithDailyEvent:@"Dinner" offset:offset1];
+    PPRClientScheduleItem *item1 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Pills" eventName:@"Pills" scheduledTime:scheduleTime1];
+    [client2.scheduleItems addObject:item1];
+    
+    
+    // Pills at breakfast
+    NSDateComponents *offset2 = [[NSDateComponents alloc] init];
+    PPRScheduleTime *scheduleTime2 =
+    [[PPRScheduleTime alloc] initWithDailyEvent:@"Breakfast" offset:offset2];
+    PPRClientScheduleItem *item2 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Pills" eventName:@"Pills" scheduledTime:scheduleTime2];
+    [client2.scheduleItems addObject:item2];
     
     return client2;
 }
@@ -161,23 +215,22 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     
     
     birthDate = [calendar dateFromComponents:nowComponents];
-    PPRClient *client3 = [[PPRClient alloc] initWithName:@"Julie Jones" birthDate:birthDate];
+    PPRClient *client3 = [[PPRClient alloc] initWithName:@"Stevie Thompson" birthDate:birthDate];
     
     NSMutableArray *notes3 = [NSMutableArray arrayWithObjects:
-                              @"Julie has down's syndrom",
-                              @"Julie has schizophenia",
+                              @"Stevie has cerebal palsy and mild intellectual disability",
+                              @"Epilepsy mild and well controlled",
+                              @"Seizures 1 per year",
                               @"In good health ",
-                              @"If resistant to medication check if she belives the medication poisoned",
-                              @"Try (I, mother) have check medication",
                               nil
                               ];
     
     NSMutableArray *instructions3 =
     [NSMutableArray arrayWithObjects:
-     [[PPRClientInstruction alloc]initWithContext:@"food" instruction:@"Delusional - people poising her food"],
-     [[PPRClientInstruction alloc]initWithContext:@"taking pills" instruction:@"On hand"],
-     [[PPRClientInstruction alloc]initWithContext:@"communication" instruction:@"Verbal and can make her wants and needs known"],
-     [[PPRClientInstruction alloc]initWithContext:@"medication" instruction:@"Can be non-compliant"],
+     [[PPRClientInstruction alloc]initWithContext:@"Food" instruction:@"PEG fed"],
+     [[PPRClientInstruction alloc]initWithContext:@"Medication" instruction:@"Visiting Nurse"],
+     [[PPRClientInstruction alloc]initWithContext:@"Communications" instruction:@"Nonverbal uses ipad with good receptive language"],
+     [[PPRClientInstruction alloc]initWithContext:@"Bed" instruction:@"Can go to bed with feed connected but uncoomfortable"],
      [[PPRClientInstruction alloc]initWithContext:@"medication" instruction:@"If resistant check if she believes medication poisoned - see notes"],
      nil
      ];
@@ -185,74 +238,92 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     client3.notes = notes3;
     client3.instructions = instructions3;
     client3.facility = facility2;
+    
+    // Medication - visiting nurse at 8am
+    NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+    offset1.hour  = 8;
+    PPRScheduleTime *scheduleTime1 =
+    [[PPRScheduleTime alloc] initWithTimeOfDay:offset1];
+    PPRClientScheduleItem *item1 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Medication" eventName:@"Visiting Nurse" scheduledTime:scheduleTime1];
+    [client3.scheduleItems addObject:item1];
+    
+    // Medication - visiting nurse 4pm
+    NSDateComponents *offset2 = [[NSDateComponents alloc] init];
+    offset2.hour  = 16;
+    PPRScheduleTime *scheduleTime2 =
+    [[PPRScheduleTime alloc] initWithTimeOfDay:offset2];
+    PPRClientScheduleItem *item2 =
+    [[PPRClientScheduleItem alloc] initWithContext:@"Medication" eventName:@"Visiting Nurse" scheduledTime:scheduleTime2];
+    [client3.scheduleItems addObject:item2];
+    
     return client3;
-    
-}
-
-static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *client) {
-    PPRClientScheduleItem *item = client.scheduleItems[0];
-    PPRClientAction *action = [[PPRClientAction alloc] init];
-    action.scheduledEvent = item;
-    action.dueTime = [scheduler dueTimeForScheduleTime:item.scheduled parentDueTime:nil previousDueTime:nil];
-    action.client = client;
-    action.context = item.context;
-
-    [client.scheduleItems addObject:item];
-    
-    return action;
     
 }
 
 @implementation PPRTestIntialiser
 - (PPRTestIntialiser *) init {
     
-    PPRFacilityManager *facilityManager = (PPRFacilityManager *)[[PPRFacilityManager sharedInstance] init];
-    PPRClientManager *clientManager = (PPRClientManager *)[[PPRClientManager sharedInstance] init];
-    PPRActionManager *actionManager = (PPRActionManager *)[[PPRActionManager sharedInstance] init];
-    
-    PPRShiftManager *shiftManager = (PPRShiftManager *)[[PPRShiftManager sharedInstance] init];
-    [shiftManager loadShift];
-    
-    
-    
-    PPRFacility *facility1 = createTestFacility1();
-    
-    [facilityManager insertFacility:facility1 success:
-     ^{
-     } failure:^(NSError *error) {
-         NSLog(@"Error saving facility 1");
-     }];
-    
-    PPRFacility *facility2 = createTestFacility2();
-    
-    [facilityManager insertFacility:facility2 success:
-     ^{
-     } failure:^(NSError *error) {
-         NSLog(@"Error saving facility 2");
-     }];
-    
-    PPRClient *client1 = createTestClient1(facility1);
-    [clientManager insertClient:client1 success:^(PPRClient *client){
-        {}
-    } failure:^(NSError *error) {
-        NSLog(@"Error saving client 1");
-    }];
-    
-    PPRClient *client2 = createTestClient2(facility1);
-    [clientManager insertClient:client2 success:^(PPRClient *client){
-        {}
-    } failure:^(NSError *error) {
-        NSLog(@"Error saving client 2");
-    }];
-    
-    PPRClient *client3 = createTestClient3(facility1);
-    [clientManager insertClient:client3 success:^(PPRClient *client){
-        {}
-    } failure:^(NSError *error) {
-        NSLog(@"Error saving client 3");
-    }];
-    
-    
+    self = [super init];
+    if (self) {
+        
+        PPRFacilityManager *facilityManager = (PPRFacilityManager *)[[PPRFacilityManager sharedInstance] init];
+        PPRClientManager *clientManager = (PPRClientManager *)[[PPRClientManager sharedInstance] init];
+        (void)(PPRActionManager *)[[PPRActionManager sharedInstance] init];
+        
+        PPRShiftManager *shiftManager = (PPRShiftManager *)[[PPRShiftManager sharedInstance] init];
+        [shiftManager loadShift];
+        
+        PPRFacilityActionScheduler *facilityActionScheduler =
+        (PPRFacilityActionScheduler *)[[PPRFacilityActionScheduler sharedInstance]init];
+        PPRClientActionScheduler *clientActionScheduler =
+        (PPRClientActionScheduler *)[[PPRClientActionScheduler sharedInstance]init];
+        (void)(PPRActionScheduler *)[[PPRActionScheduler sharedInstance]init];
+        
+        
+        PPRFacility *facility1 = createTestFacility1();
+        
+        [facilityManager insertFacility:facility1 success:
+         ^{
+         } failure:^(NSError *error) {
+             NSLog(@"Error saving facility 1");
+         }];
+        
+        PPRFacility *facility2 = createTestFacility2();
+        
+        [facilityManager insertFacility:facility2 success:
+         ^{
+         } failure:^(NSError *error) {
+             NSLog(@"Error saving facility 2");
+         }];
+        
+        PPRClient *client1 = createTestClient1(facility1);
+        [clientManager insertClient:client1 success:^(PPRClient *client){
+            {}
+        } failure:^(NSError *error) {
+            NSLog(@"Error saving client 1");
+        }];
+        
+        PPRClient *client2 = createTestClient2(facility1);
+        [clientManager insertClient:client2 success:^(PPRClient *client){
+            {}
+        } failure:^(NSError *error) {
+            NSLog(@"Error saving client 2");
+        }];
+        
+        PPRClient *client3 = createTestClient3(facility2);
+        [clientManager insertClient:client3 success:^(PPRClient *client){
+            {}
+        } failure:^(NSError *error) {
+            NSLog(@"Error saving client 3");
+        }];
+        
+        [facilityActionScheduler scheduleEventsForFacility:facility1];
+        [facilityActionScheduler scheduleEventsForFacility:facility2];
+        [clientActionScheduler scheduleEventsForClient:client1];
+        [clientActionScheduler scheduleEventsForClient:client2];
+        [clientActionScheduler scheduleEventsForClient:client3];
+    }
     return self;
 }
 @end
