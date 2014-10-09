@@ -27,5 +27,4 @@
 -(NSString *)dueTimeDescription;
 -(NSArray *)instructionsForAction;
 
-
 @end

@@ -40,8 +40,8 @@
                       success:^(NSArray *actions) {
                           XCTAssertEqual(
                                          actions.count,
-                                         1,
-                                         @"Test shared instance should return 1 action");
+                                         14,
+                                         @"Test shared instance should return 14 action");
                       } failure:^(NSError *error) {
                           XCTFail("getAction with nil should not fail");
                       }];

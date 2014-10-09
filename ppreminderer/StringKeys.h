@@ -26,8 +26,8 @@ extern NSString * const kDefaultsFacilityIdKey; // Key used to store the facilit
 extern NSString * const kStatusDone;
 extern NSString * const kStatusPostponed;
 extern NSString * const kStatusBlank;
-extern NSString * const kStatusNotified;
 extern NSString * const kStatusScheduled;
+extern NSString * const kStatusNotified;
 
 // Names used when sending and processing notification center notifications
 extern NSString * const kShiftChangedNotificationName;

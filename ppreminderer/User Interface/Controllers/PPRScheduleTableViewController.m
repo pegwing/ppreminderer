@@ -37,7 +37,8 @@ NSString * const kIdKey =     @"Key";
 
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
-    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusDone
+    NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
+    [(PPRActionManager *)[PPRActionManager sharedInstance] updateAction: _currentActionID status: kStatusDone completionTime:completionTime
                                             success:^(PPRAction *action)            {[self.tableView reloadData];}
                                             failure:^(NSError * dummy) {}];
 }
@@ -51,9 +52,16 @@ NSString * const kIdKey =     @"Key";
 
 - (IBAction)postpone:(UIStoryboardSegue *)sender
 {
-    [(PPRActionManager *)[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusPostponed
-                                            success:^(PPRAction *action)            {[self.tableView reloadData];}
-                                            failure:^(NSError * dummy) {}];
+    NSDate *newDueTime = [(PPRActionScheduler *)[PPRActionScheduler sharedInstance] dueTimeForAction:_currentAction delayedBy:300.0 ];
+    [(PPRActionManager *)[PPRActionManager sharedInstance]
+     updateAction:_currentActionID
+     status:kStatusPostponed
+     dueTime:newDueTime
+     
+     success:^(PPRAction *action)
+    {[self.tableView reloadData];}
+     
+     failure:^(NSError * dummy) {}];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

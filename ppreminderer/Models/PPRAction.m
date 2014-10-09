@@ -11,6 +11,9 @@
 NSString * const kStatusDone =      @"Done";
 NSString * const kStatusPostponed = @"Postponed";
 NSString * const kStatusBlank =     @"";
+NSString * const kStatusNotified =     @"Notified";
+NSString * const kStatusScheduled =     @"Scheduled";
+
 
 @implementation PPRAction
 
@@ -38,6 +41,7 @@ NSString * const kStatusBlank =     @"";
         time = self.completionTime;
     } else {
         time = self.dueTime;
+        
     }
     NSString *dueTimeDescription = [dateFormatter stringFromDate:time];
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
