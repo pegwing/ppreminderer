@@ -51,7 +51,7 @@
         }
         else {
             NSLog(@"Unsupported client query %@", prototype.description);
-            failure([[NSError alloc] init]);
+            failure([NSError errorWithDomain:@"ClientManager" code:1 userInfo:nil]);
         }
     }
 }

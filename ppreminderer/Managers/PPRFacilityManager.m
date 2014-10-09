@@ -33,8 +33,26 @@
     if ( prototype == nil) {
         success(self.facilities.allValues);
     } else {
-        // FIXME handle more keys.
-        success([NSArray arrayWithObject:self.facilities[prototype.facilityId]]);
+        PPRFacility *facility = self.facilities[prototype.facilityId];
+        if (facility != nil) {
+            success([NSArray arrayWithObject:facility]);
+        } else {
+            failure([NSError errorWithDomain:@"FacilityManager" code:1 userInfo:nil]);
+            
+        }
+    }
+}
+
+- (void)getFacilityById:(NSString *)facilityId
+                success:(void (^)(PPRFacility *))success
+                failure:(void (^)(NSError *))failure {
+    
+    PPRFacility *facility = self.facilities[facilityId];
+    if (facility != nil) {
+        success(self.facilities[facilityId]);
+    }
+    else {
+        failure([NSError errorWithDomain:@"FacilityManager" code:1 userInfo:nil]);
     }
 }
 

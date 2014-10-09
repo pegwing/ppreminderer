@@ -43,7 +43,7 @@
                             XCTFail("getFacility with nil should not fail");
                         }];
 }
-- (void)testGetFacilityById
+- (void)testGetFacilityByIdPrototype
 {
     
     PPRFacilityManager *sharedClient = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
@@ -51,12 +51,38 @@
     facilityFilter.facilityId = @"FAC2";
     [sharedClient getFacility:facilityFilter
                       success:^(NSArray *facilities) {
-                          XCTAssertEqual(facilities.count, 1, @"Shared client should return 1 matching facilities");
-                          XCTAssertEqualObjects(((PPRFacility *)facilities[0]).facilityId, @"FAC2", @"FacilityManager should retrieve FAC2");
+                          XCTAssertEqual(facilities.count, 1, @"getFacility should return 1 matching facilities");
+                          XCTAssertEqualObjects(((PPRFacility *)facilities[0]).facilityId, @"FAC2", @"getFacility should retrieve FAC2");
                       }
                       failure:^(NSError *error) {
                           XCTFail("getFacility with nil should not fail");
                       }];
+}
+
+- (void)testGetFacilityById
+{
+    
+    PPRFacilityManager *sharedClient = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
+    [sharedClient getFacilityById:@"FAC2"
+                      success:^(PPRFacility *facility) {
+                          XCTAssertEqualObjects(facility.facilityId, @"FAC2", @"getFacilityById should retrieve FAC2");
+                      }
+                      failure:^(NSError *error) {
+                          XCTFail("getFacilitById with know facilityId should not fail");
+                      }];
+}
+
+- (void)testGetFacilityByIdKnownBad
+{
+    
+    PPRFacilityManager *sharedClient = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
+    [sharedClient getFacilityById:@"FACXXX"
+                          success:^(PPRFacility *facility) {
+                              XCTFail("getFacilityById with nil should fail");
+                          }
+                          failure:^(NSError *error) {
+                              // pass
+                          }];
 }
 
 @end

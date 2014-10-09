@@ -70,7 +70,6 @@
 		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
 		20EAAD4B19AB0B9B00BDF78A /* PPRFacilityManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4A19AB0B9B00BDF78A /* PPRFacilityManagerTest.m */; };
 		20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
-		20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452719A30E9300E2FF65 /* PPRShiftViewController.m */; };
 		20EAAD6319AB0E9400BDF78A /* PPRFacilitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2097452A19A318A100E2FF65 /* PPRFacilitySelectionViewController.m */; };
 		20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205BF549199B20B30070358A /* PPRClientViewController.m */; };
 		20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
@@ -639,7 +638,6 @@
 				20EAAD6419AB0E9900BDF78A /* PPRClientViewController.m in Sources */,
 				20EAAD6119AB0E5500BDF78A /* PPRFacilityManager.m in Sources */,
 				20AE327219BD6C930046034E /* PPRScheduleTime.m in Sources */,
-				20EAAD6219AB0E6000BDF78A /* PPRShiftViewController.m in Sources */,
 				201748E919C1139000B082D9 /* PPRSingleton.m in Sources */,
 				20A004FD19D2B4D300799E55 /* PPRActionManagerTests.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,

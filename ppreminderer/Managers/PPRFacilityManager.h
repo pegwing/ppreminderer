@@ -23,6 +23,18 @@
             failure:(void (^)(NSError *)) failure;
 
 /**
+ Given a facility id, retieve a facility
+ 
+ @param facilityId
+ @param success A block called with the retrieved facility
+ @param failure A block called if an error occurs
+ 
+ */
+- (void)getFacilityById:(NSString *)facilityId
+                success:(void (^)(PPRFacility *)) success
+                failure:(void (^)(NSError *)) failure;
+
+/**
  Insert a facility into the facilities collection.
  
  @param facility A facility to persist into the facilities collection
@@ -32,4 +44,6 @@
 - (void)insertFacility:(PPRFacility *)facility
                success:(void (^)()) success
                failure:(void (^)(NSError *)) failure;
+
+
 @end
