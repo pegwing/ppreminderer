@@ -8,6 +8,10 @@
 
 #import "PPRAction.h"
 
+NSString * const kStatusDone =      @"Done";
+NSString * const kStatusPostponed = @"Postponed";
+NSString * const kStatusBlank =     @"";
+
 @implementation PPRAction
 
 -(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions

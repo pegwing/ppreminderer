@@ -19,9 +19,6 @@ NSString * const kStatusKey = @"Status";
 NSString * const kClientKey = @"Client";
 NSString * const kIdKey =     @"Key";
 
-NSString * const kStatusDone =      @"Done";
-NSString * const kStatusPostponed = @"Postponed";
-NSString * const kStatusBlank =     @"";
 
 // Note about the above:  'blank' is related to a 'Not done' state, perhaps for historical reasons only.
 
