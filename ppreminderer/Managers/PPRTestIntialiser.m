@@ -14,6 +14,7 @@
 #import "PPRScheduledEvent.h"
 #import "PPRClientAction.h"
 #import "PPRScheduler.h"
+#import "PPRShiftManager.h"
 
 
 static PPRFacility * createTestFacility1() {
@@ -205,13 +206,14 @@ static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *cl
 @implementation PPRTestIntialiser
 - (PPRTestIntialiser *) init {
     
-    PPRFacilityManager *facilityManager = [[PPRFacilityManager sharedInstance] init];
-    PPRClientManager *clientManager = [[PPRClientManager sharedInstance] init];
+    PPRFacilityManager *facilityManager = (PPRFacilityManager *)[[PPRFacilityManager sharedInstance] init];
+    PPRClientManager *clientManager = (PPRClientManager *)[[PPRClientManager sharedInstance] init];
+    PPRActionManager *actionManager = (PPRActionManager *)[[PPRActionManager sharedInstance] init];
     
-    PPRActionManager *actionManager = [[PPRActionManager sharedInstance] init];
+    PPRShiftManager *shiftManager = (PPRShiftManager *)[[PPRShiftManager sharedInstance] init];
+    [shiftManager loadShift];
     
     
-    PPRScheduler *scheduler = [[PPRScheduler sharedInstance] init];
     
     PPRFacility *facility1 = createTestFacility1();
     
@@ -220,9 +222,6 @@ static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *cl
      } failure:^(NSError *error) {
          NSLog(@"Error saving facility 1");
      }];
-    
-    scheduler.dailyEvents =  facility1.events;
-    
     
     PPRFacility *facility2 = createTestFacility2();
     
@@ -252,14 +251,6 @@ static PPRClientAction *createTestAction1(PPRScheduler *scheduler, PPRClient *cl
     } failure:^(NSError *error) {
         NSLog(@"Error saving client 3");
     }];
-    
-    PPRClientAction *action1 = createTestAction1(scheduler, client1);
-    [actionManager insertAction:action1
-                        success:^(PPRAction *action) {
-                            
-                        } failure:^(NSError *error) {
-                            
-                        }];
     
     
     return self;
