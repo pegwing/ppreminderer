@@ -432,6 +432,10 @@
 				205BF546199B10AB0070358A /* PPRScheduleTableViewController.m */,
 				2097452619A30E9300E2FF65 /* PPRShiftViewController.h */,
 				2097452719A30E9300E2FF65 /* PPRShiftViewController.m */,
+				20A004FE19D3BB4300799E55 /* PPRStatusBarButtonItem.h */,
+				20A004FF19D3BB4300799E55 /* PPRStatusBarButtonItem.m */,
+				20A0050019D3BB4300799E55 /* PPRStatusShowingTableViewController.h */,
+				20A0050119D3BB4300799E55 /* PPRStatusShowingTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -592,11 +596,13 @@
 				20AE327619BD7F6D0046034E /* PPRScheduledEvent.m in Sources */,
 				20AE326219BD43DA0046034E /* PPRClientInstruction.m in Sources */,
 				20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */,
+				20A0050219D3BB4300799E55 /* PPRStatusBarButtonItem.m in Sources */,
 				20AE326319BD43DA0046034E /* PPRClientScheduleItem.m in Sources */,
 				205BF51A199B0B310070358A /* main.m in Sources */,
 				201748E619C1069200B082D9 /* PPRSingleton.m in Sources */,
 				20AE327A19BDB4E30046034E /* PPRAction.m in Sources */,
 				20AE326619BD4F490046034E /* PPRScheduleTime.m in Sources */,
+				20A0050319D3BB4300799E55 /* PPRStatusShowingTableViewController.m in Sources */,
 				20AE328619BEA1920046034E /* PPRTestIntialiser.m in Sources */,
 				205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */,
 				205BF51E199B0B320070358A /* PPRAppDelegate.m in Sources */,

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRStatusShowingTableViewController.h"
 
-@interface PPRClientTableViewController : UITableViewController
+@interface PPRClientTableViewController : PPRStatusShowingTableViewController
 
 @end
