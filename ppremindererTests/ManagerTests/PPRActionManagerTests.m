@@ -86,7 +86,8 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
     PPRScheduleTime *testScheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:testDateComponents];
     PPRScheduledEvent *scheduledEvent = [[PPRScheduledEvent alloc] initWithEventName:testEventName scheduledTime:testScheduleTime];
     
-    PPRAction *action = [[PPRAction alloc] initWithScheduledEvent:scheduledEvent parent:nil actions:nil];
+    // PPRAction *action = [[PPRAction alloc] initWithScheduledEvent:scheduledEvent parent:nil actions:nil];
+    PPRAction *action = [[PPRAction alloc] initWithFacility:nil scheduledEvent:scheduledEvent parent:nil actions:nil];
     action.context = testContext;
     return action;
 }
