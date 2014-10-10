@@ -10,18 +10,21 @@
 #import "PPRScheduler.h"
 
 @interface PPRClockTabBarItem()
-@property (nonatomic,weak) PPRScheduler *scheduler;
+@property (nonatomic,strong) PPRScheduler *scheduler;
+@property (nonatomic,strong) NSDateFormatter *dateFormatter;
 
 @end
 @implementation PPRClockTabBarItem
 
+- (void)initialise {
+        _scheduler = [PPRScheduler sharedInstance];
+        _dateFormatter  = [[NSDateFormatter alloc]init];
+        [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
+}
 
 - (void) showTime {
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setTimeStyle:NSDateFormatterShortStyle];
-    [df setDateStyle:NSDateFormatterNoStyle];
-
-    self.title = [df stringFromDate:((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime];
+    self.title = [self.dateFormatter stringFromDate:self.scheduler.schedulerTime];
 }
 
 @end

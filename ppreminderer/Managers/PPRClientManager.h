@@ -13,7 +13,7 @@
 @interface PPRClientManager : PPRSingleton
 
 /**
- Locate one or more clients given a "prototype" to match from the clients collection.
+ Retrive one or more clients given a "prototype" to match from the clients collection.
  
  @param prototype A "prototype" used to select matching clients
  @param success A block called with an array of matching clients

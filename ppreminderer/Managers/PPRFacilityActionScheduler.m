@@ -8,6 +8,7 @@
 
 #import "PPRFacilityActionScheduler.h"
 #import "PPRFacility.h"
+#import "PPRFacilityAction.h"
 
 @implementation PPRFacilityActionScheduler
 
@@ -15,12 +16,10 @@
 - (void)scheduleEventsForFacility:(PPRFacility *)facility {
     [facility.events enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         PPRScheduledEvent * event = (PPRScheduledEvent *)obj;
-        PPRAction *action = [[PPRAction alloc] init];
-        action.scheduledEvent = event;
+        PPRFacilityAction *action = [[PPRFacilityAction alloc] initWithFacility:facility scheduledEvent:event parent:nil actions:nil];
         action.dueTime = [self.scheduler dueTimeForScheduleTime:event.scheduled parentDueTime:nil previousDueTime:nil events:facility.events];
         action.status = kStatusScheduled;
         action.context = event.eventName;
-        action.facility = facility;
         [self.actionManager insertAction:action success:^(PPRAction *action) {
             // FIXME how to handle call backs
             NSLog(@"Inserted action");

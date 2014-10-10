@@ -8,7 +8,38 @@
 
 #import <Foundation/Foundation.h>
 #import "PPRSingleton.h"
+#import "PPRFacilityManager.h"
+#import "PPRClientManager.h"
+#import "PPRActionManager.h"
+#import "PPRClientInstruction.h"
+#import "PPRScheduledEvent.h"
+#import "PPRClientAction.h"
+#import "PPRScheduler.h"
+#import "PPRShiftManager.h"
+#import "PPRFacilityActionScheduler.h"
+#import "PPRClientActionScheduler.h"
+#import "PPRNotificationManager.h"
 
 @interface PPRTestIntialiser : PPRSingleton
+
+@property (nonatomic,strong) PPRActionManager *actionManager;
+@property (nonatomic,strong) PPRNotificationManager *notificationManager;
+@property (nonatomic,strong) PPRActionScheduler *actionScheduler;
+@property (nonatomic,strong) PPRClientActionScheduler *clientActionScheduler;
+@property (nonatomic,strong) PPRFacilityActionScheduler *facilityActionScheduler;
+@property (nonatomic,strong) PPRScheduler *scheduler;
+@property (nonatomic,strong) PPRShiftManager  *shiftManager;
+@property (nonatomic,strong) PPRFacilityManager *facilityManager;
+@property (nonatomic,strong) PPRClientManager *clientManager;
+
+@property (nonatomic,strong) PPRFacility *facility1;
+@property (nonatomic,strong) PPRFacility *facility2;
+@property (nonatomic,strong) PPRFacility *facility3;
+
+@property (nonatomic,strong) PPRClient *client1;
+@property (nonatomic,strong) PPRClient *client2;
+@property (nonatomic,strong) PPRClient *client3;
+
+- (void) loadSchedule;
 
 @end

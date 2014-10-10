@@ -16,6 +16,12 @@
     if (self) {
         _type = type;
         _atDailyEvent = dailyEvent;
+        if ( _offset.hour == NSDateComponentUndefined)
+            _offset.hour = 0;
+        if ( _offset.minute == NSDateComponentUndefined)
+            _offset.minute = 0;
+        if ( _offset.day == NSDateComponentUndefined)
+            _offset.day = 0;
         _offset =  offset;
     }
     return self;
@@ -58,17 +64,17 @@
             break;
 
         case PPRScheduleTimeRelativeToStartOfParent:
-            description = [NSString stringWithFormat:@"At Parent +%02.2d %02.2d",
-                           self.offset.hour, self.offset.minute];
+            description = [NSString stringWithFormat:@"At Parent +%02.2ld %02.2ld",
+                           (long)self.offset.hour, (long)self.offset.minute];
             break;
         case PPRScheduleTimeRelativeToDailyEvent:
-            description = [NSString stringWithFormat:@"At %@ +%02.2d %02.2d",
-                           self.atDailyEvent, self.offset.hour, self.offset.minute];
+            description = [NSString stringWithFormat:@"At %@ +%02.2ld %02.2ld",
+                           self.atDailyEvent, (long)self.offset.hour, (long)self.offset.minute];
             break;
 
         case PPRScheduleTimeRelativeToPreviousItem:
-            description = [NSString stringWithFormat:@"At Previous +%02.2d %02.2d",
-                           self.offset.hour, self.offset.minute];
+            description = [NSString stringWithFormat:@"At Previous +%02.2ld %02.2ld",
+                           (long)self.offset.hour, (long)self.offset.minute];
             break;
         default:
             description = @"Unknown schedule type";

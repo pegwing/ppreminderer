@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PPRNotificationManager.h"
 #import "PPRScheduler.h"
 
 @interface PPRAppDelegate : UIResponder <UIApplicationDelegate>
@@ -18,7 +18,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-
+@property (nonatomic,strong) PPRNotificationManager * notificationManager;
 @property (nonatomic,strong) PPRScheduler * scheduler;
 
 - (void)saveContext;

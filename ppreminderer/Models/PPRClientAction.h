@@ -12,5 +12,5 @@
 @interface PPRClientAction : PPRAction
 @property (nonatomic,strong) PPRClient *client;
 
--(id)initWithClient:(PPRClient *)client;
+-(id)initWithClient:(PPRClient *)client scheduledEvent:(PPRScheduledEvent *)scheduledEvent;
 @end

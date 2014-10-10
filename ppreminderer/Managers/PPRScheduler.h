@@ -11,13 +11,15 @@
 #import "PPRScheduledEvent.h"
 #import "PPRSingleton.h"
 #import "PPRAction.h"
+#import "PPRScheduleItem.h"
 #import "PPRActionManager.h"
 #import "PPRFacilityManager.h"
+#import "PPRShiftManager.h"
 
 @interface PPRScheduler : PPRSingleton
 
 /**
- A dictionary of daily events.
+ A array of daily events.
  */
 @property (nonatomic, strong) NSArray *dailyEvents;
 /**
@@ -25,19 +27,24 @@
  */
 @property (nonatomic, strong) NSCalendar *calendar;
 /**
+ A calendar for date calculations.
+ */
+@property (nonatomic, strong) NSLocale *locale;
+/**
  The time presented to users by the scheduler.
  During testing this can be different to the system time.
  */
 @property (nonatomic,strong) NSDate *schedulerTime;
-
+/**
+ Time of last tick
+ */
+@property (nonatomic,strong) NSDate * lastTickTime;
 /**
  Time factor for schedulerTime ticks
- 
  */
 @property (nonatomic) NSTimeInterval warpFactor;
-
 /**
- List of scheduled actions
+ List of scheduled events/actions
  */
 @property (nonatomic,strong) NSMutableArray *schedule;
 /**
@@ -45,7 +52,7 @@
  */
 @property (nonatomic,strong)PPRActionManager *actionManager;
 @property (nonatomic,strong)PPRFacilityManager *facilityManager;
-
+@property (nonatomic,strong)PPRShiftManager *shiftManager;
 - (id) init;
 /**
  Initialise with a list of daily events.
@@ -107,7 +114,21 @@
  
  @param dueActionProcessor A block to process due actions
  */
-- (void)setDueActionProcessor:(void (^)(PPRAction *action)) dueActionProcessor;
+- (void)setDueActionProcessor:(NSString * (^)(PPRScheduleItem *scheduleItem)) dueActionProcessor;
+/**
+ Record a processor for processing future actions
+ 
+ @param futureActionProcessor A block to process future actions
+ */
+- (void)setFutureActionProcessor:(NSString * (^)(PPRScheduleItem *scheduleItem)) futureActionProcessor;
 
-
+/**
+ Save and restore state state
+ */
+- (void)saveState;
+- (void)restoreState;
+/**
+ Reschedule a schedule item that passes the provided test
+ */
+- (void)rescheduleItemDueTime:(NSDate *)dueTime schedulingStatus:(NSString *)schedulingStatus passingTest:(BOOL (^)(PPRScheduleItem *))test;
 @end

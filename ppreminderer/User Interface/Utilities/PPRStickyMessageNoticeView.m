@@ -32,12 +32,10 @@
     NSString *path = [[[NSBundle mainBundle]resourcePath]stringByAppendingPathComponent:@"NoticeView.bundle"];
     NSString *noticeIconImageName = [path stringByAppendingPathComponent:@"up.png"];
     
-    CGFloat messageLineHeight = 30.0;
-    
     // Make and add the title label
-    float titleYOrigin = 10.0;
+    float titleYOrigin = 30.0;
 
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(55.0 + (self.contentInset.left), titleYOrigin + (self.contentInset.top), viewWidth - 70.0 - (self.contentInset.right+self.contentInset.left) , 16.0)];
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.contentInset.left, titleYOrigin + (self.contentInset.top), viewWidth - 70.0 - (self.contentInset.right+self.contentInset.left) , 16.0)];
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     self.titleLabel.shadowColor = [UIColor whiteColor];
@@ -46,7 +44,7 @@
     self.titleLabel.text = self.title;
     
     // Make the message label
-    self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(55.0 + (self.contentInset.left), 20.0 + 10.0 + (self.contentInset.top), viewWidth - 70.0 - (self.contentInset.right+self.contentInset.left), 12.0)];
+    self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.contentInset.left, 60.0 + (self.contentInset.top), viewWidth  - (self.contentInset.right+self.contentInset.left), 12.0)];
     self.messageLabel.font = [UIFont systemFontOfSize:13.0];
     self.messageLabel.textColor = [UIColor blackColor];
     self.messageLabel.backgroundColor = [UIColor clearColor];
@@ -79,7 +77,7 @@
     }
    
     // Add some bottom margin for the notice view
-    noticeViewHeight += 30.0;
+    noticeViewHeight += 60.0;
     
     // Add some bottom margin for the notice view
     noticeViewHeight += 30.0;

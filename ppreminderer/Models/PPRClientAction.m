@@ -10,14 +10,28 @@
 #import "PPRClientInstruction.h"
 
 @implementation PPRClientAction
--(id)initWithClient:(PPRClient *)client
+-(id)initWithClient:(PPRClient *)client scheduledEvent:(PPRScheduledEvent *)scheduledEvent
 {
-    self = [super init];
+    self = [super initWithFacility:client.facility scheduledEvent:scheduledEvent parent:nil actions:nil];
     if (self) {
         _client = client;
     }
     return self;
 }
+- (NSString *)notificationDescription {
+    NSString *description = [NSString stringWithFormat:@"Client:%@ Action:%@\n%@\n",
+                             self.client.name,
+                             self.context,
+                             [self dueTimeDescription]
+                             ];
+    
+    
+    NSArray *instructions = [self instructionsForAction];
+    NSString *instructionsDescription = [[instructions valueForKey:@"description"] componentsJoinedByString:@"\n"];
+    
+    return [description stringByAppendingString:instructionsDescription];
+}
+
 
 - (NSArray *)instructionsForAction {
     NSIndexSet *instructionSet;

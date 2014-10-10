@@ -8,25 +8,29 @@
 
 #import "PPRAction.h"
 
-NSString * const kStatusDone =      @"Done";
+NSString * const kStatusScheduled = @"Scheduled";
 NSString * const kStatusPostponed = @"Postponed";
-NSString * const kStatusBlank =     @"";
-NSString * const kStatusNotified =     @"Notified";
-NSString * const kStatusScheduled =     @"Scheduled";
+NSString * const kStatusDue =       @"Due";
+NSString * const kStatusCompleted = @"Completed";
 
 
 @implementation PPRAction
 
--(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions
+-(id)initWithFacility:(PPRFacility *)facility scheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions
 {
     self = [super init];
     if (self) {
+        _facility = facility;
         _scheduledEvent = scheduledEvent;
         _parent = parent;
         _actions = actions;
-        _status = kStatusBlank;
+        _status = nil;
     }
     return self;
+}
+
+- (NSString *)notificationDescription {
+    return [self dueTimeDescription];
 }
 
 -(NSString *)dueTimeDescription {
@@ -37,7 +41,7 @@ NSString * const kStatusScheduled =     @"Scheduled";
 
     NSString *scheduleDescription = self.scheduledEvent.scheduled.description;
     NSDate *time;
-    if ([self.status isEqualToString:kStatusDone]) {
+    if ([self.status isEqualToString:kStatusCompleted]) {
         time = self.completionTime;
     } else {
         time = self.dueTime;

@@ -22,9 +22,12 @@
 @property (nonatomic,strong) NSMutableArray *history;
 @property (nonatomic,strong) PPRFacility *facility;
 
--(id)initWithScheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
+-(id)initWithFacility:(PPRFacility *)facility scheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
 
 -(NSString *)dueTimeDescription;
+
+-(NSString *)notificationDescription;
+
 -(NSArray *)instructionsForAction;
 
 @end
