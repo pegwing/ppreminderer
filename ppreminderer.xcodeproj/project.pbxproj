@@ -66,7 +66,6 @@
 		20A004F619D2915C00799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
 		20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
 		20A004F919D291CC00799E55 /* PPRShiftManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F819D291CC00799E55 /* PPRShiftManagerTests.m */; };
-		20A004FB19D2B44C00799E55 /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		20A004FD19D2B4D300799E55 /* PPRActionManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004FC19D2B4D300799E55 /* PPRActionManagerTests.m */; };
 		20A0050219D3BB4300799E55 /* PPRStatusBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004FF19D3BB4300799E55 /* PPRStatusBarButtonItem.m */; };
 		20A0050319D3BB4300799E55 /* PPRStatusShowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A0050119D3BB4300799E55 /* PPRStatusShowingTableViewController.m */; };
@@ -240,7 +239,6 @@
 		20EAAD7019AD6A1200BDF78A /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
-		632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRScheduleTimeTests.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
 		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -752,7 +750,6 @@
 				2068F0A819D7745E006F58D7 /* PPRActionNotification.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				2068F0B219D8C683006F58D7 /* PPRNotification.m in Sources */,
-				20A004FA19D2969800799E55 /* PPRShift.m in Sources */,
 				2068F0C219DA1A80006F58D7 /* PPRScheduleItem.m in Sources */,
 				20AE327719BD7F6D0046034E /* PPRScheduledEvent.m in Sources */,
 				20AE328819BEB5520046034E /* PPRClient.m in Sources */,
