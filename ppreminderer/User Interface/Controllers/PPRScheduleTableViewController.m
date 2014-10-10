@@ -35,7 +35,7 @@
         NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
         [[PPRActionManager sharedInstance] updateAction: _currentActionID
                                                                      status: kStatusCompleted completionTime:completionTime
-                                                                    success:^(void)            {
+                                                                    success:^(PPRAction *action)            {
                                                                         [self loadActions];
                                                                         [self.tableView reloadData]
                                                                         ;}
@@ -51,7 +51,7 @@
     // if done then "Undo" done
     if ([_currentAction.status isEqualToString:kStatusCompleted]) {
         [[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusScheduled
-                                                                      success:^(void)            {
+                                                                      success:^(PPRAction *action)            {
                                                                           [self loadActions];
                                                                           [self.tableView reloadData];}
                                                                       failure:^(NSError * dummy) {
@@ -68,7 +68,7 @@
     [[PPRActionManager sharedInstance] updateAction:_currentActionID
      status:kStatusPostponed
      dueTime:newDueTime
-     success:^(void)
+     success:^(PPRAction *action)
      {
          [self loadActions];
          [self.tableView reloadData];

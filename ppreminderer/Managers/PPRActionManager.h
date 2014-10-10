@@ -14,6 +14,7 @@
  *  This class is a singleton that manages access to Actions.
  */
 @interface PPRActionManager : PPRSingleton
+@property (nonatomic,strong) NSMutableDictionary* actions;
 
 /**
  * Given a partially specified action prototype, retrieve a list of matching actions.

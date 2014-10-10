@@ -11,9 +11,6 @@
 
 NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotification";
 
-@interface PPRActionManager ()
-@property (nonatomic,strong) NSMutableDictionary* actions;
-@end
 
 @implementation PPRActionManager
 
@@ -66,18 +63,17 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
 
 - (void) updateStatusOf: (NSString *) actionID
                      to: (NSString *) newStatus
-                success: (void(^)()) success
+                success: (void(^)(PPRAction *action)) success
                 failure: (void(^)(NSError *)) failure
 {
     PPRAction *action = self.actions[actionID];
     [self updateAction:action status:newStatus dueTime:action.dueTime completionTime:action.completionTime success:success failure:failure];
-    success();
 }
 
 - (void) updateAction: (NSString *) actionID
                status: (NSString *) newStatus
               dueTime: (NSDate *)dueTime
-              success: (void(^)()) success
+              success: (void(^)(PPRAction *action)) success
               failure: (void(^)(NSError *)) failure
 {
     PPRAction *action = self.actions[actionID];
@@ -87,7 +83,7 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
 - (void) updateAction: (NSString *) actionID
                status: (NSString *) newStatus
               completionTime:(NSDate *)completionTime
-              success: (void(^)()) success
+              success: (void(^)(PPRAction *action)) success
               failure: (void(^)(NSError *)) failure
 {
     PPRAction *action = self.actions[actionID];
@@ -98,7 +94,7 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
                status: (NSString *) newStatus
               dueTime: (NSDate *)dueTime
        completionTime:(NSDate *)completionTime
-              success: (void(^)()) success
+              success: (void(^)(PPRAction *action)) success
               failure: (void(^)(NSError *)) failure
 {
     action.dueTime = dueTime;
@@ -106,7 +102,7 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
     action.status = newStatus;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:kActionStateChangedNotificationName object:nil userInfo:@{@"ActionId":action.actionId}];
-    success();
+    success(action);
 }
 - (void)insertAction:(PPRAction *)action
              success:(void (^)(PPRAction *))success

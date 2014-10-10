@@ -17,20 +17,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-<<<<<<< HEAD
-		<key>12247B98384A40C2A1A99AEC</key>
-=======
-		<key>6E645CCC57B04D438E9FA305</key>
->>>>>>> notificatio_manager
+		<key>60C7A0E7E81E44D7A563E1CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-<<<<<<< HEAD
-		<key>753DC1628B824F04A478C18A</key>
-=======
-		<key>957AAE5C0FEB4983B515CECA</key>
->>>>>>> notificatio_manager
+		<key>7101735CCA25438581C44007</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E4C127DFEDC4571856B71B0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2B9C8D5C96546DE8F2A0A6B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
