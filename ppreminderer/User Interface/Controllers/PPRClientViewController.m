@@ -9,6 +9,7 @@
 #import "PPRClientViewController.h"
 #import "PPRClientManager.h"
 #import "PPRClientInstruction.h"
+#import "PPRClientScheduleItem.h"
 
 NSString * const kNameKey = @"Name";
 NSString * const kAgeKey = @"Age";
@@ -124,8 +125,11 @@ const size_t intervalAsYears(const NSTimeInterval i)
             [cell.textLabel setText:inst.context];
             [cell.detailTextLabel setText:inst.instruction]; }
             break;
-        case sectionSchedItems:
-            [cell.textLabel setText:@"(fixme)"];
+        case sectionSchedItems: {
+            const PPRClientScheduleItem *const item = self.details.scheduleItems[indexPath.row];
+            [cell.textLabel setText:item.eventName];
+            [cell.detailTextLabel setText:item.scheduled.description];
+            }
             break;
         default:
             return 0;
