@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPRStatusShowingViewController.h"
 
 
-@interface PPRShiftViewController : UIViewController<UITableViewDataSource>
+@interface PPRShiftViewController : PPRStatusShowingViewController<UITableViewDataSource>
 
 @end

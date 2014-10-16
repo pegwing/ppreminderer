@@ -22,6 +22,7 @@ extern NSString * const kDefaultsFacilityIdKey; // Key used to store the facilit
 extern NSString * const kStatusScheduled;   // Has a calculated due time
 extern NSString * const kStatusPostponed;   // Has a delayed due time
 extern NSString * const kStatusCompleted;   // No further action
+extern NSString * const kStatusCompletedAway;   // No further action - away
 
 extern NSString * const kSchedulingStatusScheduled; // Has a calculated due time
 extern NSString * const kSchedulingStatusNotified;  // Has notification pending
