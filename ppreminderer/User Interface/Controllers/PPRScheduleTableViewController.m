@@ -31,7 +31,7 @@
 - (IBAction)tick:(UIStoryboardSegue *) sender
 {
     // If not done then update to done and record completion time
-    if (![_currentAction.status isEqualToString:kStatusCompleted]) {
+    if (![_currentAction.status isEqualToString:kStatusCompleted] && ![_currentAction.status isEqualToString:kStatusCompletedAway]) {
         NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
         [[PPRActionManager sharedInstance] updateAction: _currentActionID
                                                                      status: kStatusCompleted completionTime:completionTime
@@ -49,7 +49,7 @@
 - (IBAction)cross:(UIStoryboardSegue *) sender
 {
     // if done then "Undo" done
-    if ([_currentAction.status isEqualToString:kStatusCompleted]) {
+    if ([_currentAction.status isEqualToString:kStatusCompleted] || [_currentAction.status isEqualToString:kStatusCompletedAway]) {
         [[PPRActionManager sharedInstance] updateStatusOf: _currentActionID to: kStatusScheduled
                                                                       success:^(PPRAction *action)            {
                                                                           [self loadActions];
@@ -75,6 +75,23 @@
      }
      
      failure:^(NSError * dummy) {}];
+}
+
+- (IBAction)away:(UIStoryboardSegue *)sender
+{
+    // If not done then update to done and record completion time
+    if (![_currentAction.status isEqualToString:kStatusCompleted] && ![_currentAction.status isEqualToString:kStatusCompletedAway] ) {
+        NSDate *completionTime = ((PPRScheduler *)[PPRScheduler sharedInstance]).schedulerTime;
+        [[PPRActionManager sharedInstance] updateAction: _currentActionID
+                                                 status: kStatusCompletedAway completionTime:completionTime
+                                                success:^(PPRAction *action)            {
+                                                    [self loadActions];
+                                                    [self.tableView reloadData]
+                                                    ;}
+                                                failure:^(NSError * dummy) {
+                                                    // TODO error handling
+                                                }];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -164,6 +181,34 @@
     return [_scheduleEntries count];
 }
 
+UIColor * colorForStatus(PPRAction *item) {
+    
+
+if ([item.status isEqualToString:        kStatusCompleted]){
+    return [UIColor                          greenColor  ];
+} else if ([item.status isEqualToString:        kStatusCompletedAway]){
+    return [UIColor                          cyanColor   ];
+} else if ([item.status isEqualToString: kStatusPostponed]){
+    return[ UIColor                          orangeColor   ];
+} else if ([item.status isEqualToString: kStatusScheduled]){
+    if ( [item.dueTime compare:[PPRScheduler sharedInstance].schedulerTime] == NSOrderedAscending)
+        return  [UIColor                            redColor];
+    else
+        return [UIColor                          yellowColor  ];
+}
+    return [UIColor clearColor];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    PPRAction *action = (PPRAction *)(_scheduleEntries[indexPath.row]);
+    if ( [action isKindOfClass:[PPRAction class]]) {
+        PPRAction *item = (PPRAction *)action;
+        [cell setBackgroundColor:colorForStatus(item)];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ActionCell";
@@ -174,17 +219,13 @@
         PPRAction *item = (PPRAction *)action;
         
         [cell.detailTextLabel setText:item.dueTimeDescription];
+        //[cell setBackgroundColor:colorForStatus(item)];
+        // For IOS 6
+        //[cell.contentView setBackgroundColor:colorForStatus(item)];
+        //[cell.textLabel setBackgroundColor:colorForStatus(item)];
+       // [cell.detailTextLabel setBackgroundColor:colorForStatus(item)];
         
-        if ([item.status isEqualToString:        kStatusCompleted]){
-            [cell setBackgroundColor: [UIColor                          greenColor  ]];
-        } else if ([item.status isEqualToString: kStatusPostponed]){
-            [cell setBackgroundColor: [UIColor                          orangeColor   ]];
-        } else if ([item.status isEqualToString: kStatusScheduled]){
-            if ( [item.dueTime compare:[PPRScheduler sharedInstance].schedulerTime] == NSOrderedAscending)
-            [cell setBackgroundColor: [UIColor                            redColor]];
-            else
-            [cell setBackgroundColor: [UIColor                          yellowColor  ]];
-        }
+        
     }
     if ( [action isKindOfClass:[PPRClientAction class]]) {
         PPRClientAction *item = (PPRClientAction *)action;
