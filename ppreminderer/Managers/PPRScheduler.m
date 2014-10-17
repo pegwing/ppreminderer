@@ -127,9 +127,9 @@ NSString * const kSchedulingStatusCompleted = @"Completed";
             PPRScheduleItem *item = obj;
             item.dueTime = dueTime;
             item.schedulingStatus = schedulingStatus;
-            [self sortSchedule];
         }
     }];
+    [self sortSchedule];
 }
 
 
