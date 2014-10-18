@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 #import "PPRActionManager.h"
 
 @interface PPRActionManagerTests : XCTestCase
@@ -23,7 +23,7 @@
     
     // Initialised the test shared instance
     // This loads the test shared instance of action manager with 3 actions.
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
 }
 
 - (void)tearDown
@@ -86,7 +86,8 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
     PPRScheduleTime *testScheduleTime = [[PPRScheduleTime alloc] initWithTimeOfDay:testDateComponents];
     PPRScheduledEvent *scheduledEvent = [[PPRScheduledEvent alloc] initWithEventName:testEventName scheduledTime:testScheduleTime];
     
-    PPRAction *action = [[PPRAction alloc] initWithScheduledEvent:scheduledEvent parent:nil actions:nil];
+//    PPRAction *action = [[PPRAction alloc] initWithScheduledEvent:scheduledEvent parent:nil actions:nil];
+    PPRAction *action = [[PPRAction alloc] initWithFacility:nil scheduledEvent:scheduledEvent parent:nil actions:nil];
     action.context = testContext;
     return action;
 }

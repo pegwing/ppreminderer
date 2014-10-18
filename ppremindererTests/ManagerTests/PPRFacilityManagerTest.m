@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PPRFacilityManager.h"
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 
 @interface PPRFacilityManagerTest : XCTestCase
 
@@ -19,7 +19,7 @@
 - (void)setUp
 {
     [super setUp];
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
 }
 
 - (void)tearDown

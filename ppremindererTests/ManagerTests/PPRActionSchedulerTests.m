@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 #import "PPRAction.h"
 #import "PPRActionScheduler.h"
 #import "PPRScheduler.h"
@@ -22,7 +22,7 @@
 {
     [super setUp];
     
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
 }
 
 - (void)tearDown

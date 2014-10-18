@@ -66,7 +66,6 @@
 		20A004F619D2915C00799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
 		20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F519D2915C00799E55 /* PPRShiftManager.m */; };
 		20A004F919D291CC00799E55 /* PPRShiftManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004F819D291CC00799E55 /* PPRShiftManagerTests.m */; };
-		20A004FB19D2B44C00799E55 /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		20A004FD19D2B4D300799E55 /* PPRActionManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004FC19D2B4D300799E55 /* PPRActionManagerTests.m */; };
 		20A0050219D3BB4300799E55 /* PPRStatusBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A004FF19D3BB4300799E55 /* PPRStatusBarButtonItem.m */; };
 		20A0050319D3BB4300799E55 /* PPRStatusShowingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A0050119D3BB4300799E55 /* PPRStatusShowingTableViewController.m */; };
@@ -87,8 +86,6 @@
 		20AE327F19BE99AB0046034E /* PPRFacility.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE327D19BE99AB0046034E /* PPRFacility.m */; };
 		20AE328219BE9A9D0046034E /* PPRClientAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328119BE9A9D0046034E /* PPRClientAction.m */; };
 		20AE328319BE9A9D0046034E /* PPRClientAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328119BE9A9D0046034E /* PPRClientAction.m */; };
-		20AE328619BEA1920046034E /* PPRTestIntialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328519BEA1920046034E /* PPRTestIntialiser.m */; };
-		20AE328719BEA1920046034E /* PPRTestIntialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328519BEA1920046034E /* PPRTestIntialiser.m */; };
 		20AE328819BEB5520046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
 		20E4410419CFD5F800A13175 /* PPRClockTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E4410319CFD5F800A13175 /* PPRClockTabBarItem.m */; };
@@ -110,6 +107,8 @@
 		20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD6E19AD6A1200BDF78A /* select_facility.rb */; };
 		20EAAD7819AD6A1200BDF78A /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = 20EAAD7019AD6A1200BDF78A /* env.rb */; };
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
+		632E2D9619F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
+		632E2D9719F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
@@ -222,8 +221,6 @@
 		20AE327D19BE99AB0046034E /* PPRFacility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRFacility.m; path = ppreminderer/Models/PPRFacility.m; sourceTree = SOURCE_ROOT; };
 		20AE328019BE9A9D0046034E /* PPRClientAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientAction.h; path = ppreminderer/Models/PPRClientAction.h; sourceTree = SOURCE_ROOT; };
 		20AE328119BE9A9D0046034E /* PPRClientAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClientAction.m; path = ppreminderer/Models/PPRClientAction.m; sourceTree = SOURCE_ROOT; };
-		20AE328419BEA1920046034E /* PPRTestIntialiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRTestIntialiser.h; path = Managers/PPRTestIntialiser.h; sourceTree = "<group>"; };
-		20AE328519BEA1920046034E /* PPRTestIntialiser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRTestIntialiser.m; path = Managers/PPRTestIntialiser.m; sourceTree = "<group>"; };
 		20E4410219CFD5F800A13175 /* PPRClockTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClockTabBarItem.h; sourceTree = "<group>"; };
 		20E4410319CFD5F800A13175 /* PPRClockTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClockTabBarItem.m; sourceTree = "<group>"; };
 		20EAAD4319A6DD5A00BDF78A /* PPRClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientManager.h; path = Managers/PPRClientManager.h; sourceTree = "<group>"; };
@@ -240,7 +237,8 @@
 		20EAAD7019AD6A1200BDF78A /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
-		632077A819C9412B006DC100 /* PPRScheduleTimeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRScheduleTimeTests.m; sourceTree = "<group>"; };
+		632E2D9419F0AB06005D6DAE /* PPRTestInitialiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRTestInitialiser.h; sourceTree = "<group>"; };
+		632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRTestInitialiser.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
 		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -399,8 +397,8 @@
 				20AE326E19BD60E40046034E /* PPRScheduler.m */,
 				20A004F419D2914B00799E55 /* PPRShiftManager.h */,
 				20A004F519D2915C00799E55 /* PPRShiftManager.m */,
-				20AE328419BEA1920046034E /* PPRTestIntialiser.h */,
-				20AE328519BEA1920046034E /* PPRTestIntialiser.m */,
+				632E2D9419F0AB06005D6DAE /* PPRTestInitialiser.h */,
+				632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -681,6 +679,7 @@
 				2097452819A30E9300E2FF65 /* PPRShiftViewController.m in Sources */,
 				200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */,
 				20AE326119BD43DA0046034E /* PPRClient.m in Sources */,
+				632E2D9619F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */,
 				205BF521199B0B320070358A /* ppreminderer.xcdatamodeld in Sources */,
 				20AE327E19BE99AB0046034E /* PPRFacility.m in Sources */,
 				20AE328219BE9A9D0046034E /* PPRClientAction.m in Sources */,
@@ -695,7 +694,6 @@
 				20AE327A19BDB4E30046034E /* PPRAction.m in Sources */,
 				20AE326619BD4F490046034E /* PPRScheduleTime.m in Sources */,
 				20A0050319D3BB4300799E55 /* PPRStatusShowingTableViewController.m in Sources */,
-				20AE328619BEA1920046034E /* PPRTestIntialiser.m in Sources */,
 				2068F0AB19D7746E006F58D7 /* PPRNotificationManager.m in Sources */,
 				2068F0BD19D8D8BF006F58D7 /* PPRFacilityInstruction.m in Sources */,
 				205BF544199B10030070358A /* PPRClientTableViewController.m in Sources */,
@@ -725,11 +723,11 @@
 				20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */,
 				201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */,
 				2068F0A219D4E472006F58D7 /* PPRSchedulerTest.m in Sources */,
-				20AE328719BEA1920046034E /* PPRTestIntialiser.m in Sources */,
 				20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */,
 				20AE327B19BDB4E30046034E /* PPRAction.m in Sources */,
 				2068F0C619DA1B8B006F58D7 /* PPRActionScheduleItem.m in Sources */,
 				20AE328319BE9A9D0046034E /* PPRClientAction.m in Sources */,
+				632E2D9719F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */,
 				20EAAD4B19AB0B9B00BDF78A /* PPRFacilityManagerTest.m in Sources */,
 				20AE327F19BE99AB0046034E /* PPRFacility.m in Sources */,
 				20EAAD6319AB0E9400BDF78A /* PPRFacilitySelectionViewController.m in Sources */,
@@ -752,7 +750,6 @@
 				2068F0A819D7745E006F58D7 /* PPRActionNotification.m in Sources */,
 				20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				2068F0B219D8C683006F58D7 /* PPRNotification.m in Sources */,
-				20A004FA19D2969800799E55 /* PPRShift.m in Sources */,
 				2068F0C219DA1A80006F58D7 /* PPRScheduleItem.m in Sources */,
 				20AE327719BD7F6D0046034E /* PPRScheduledEvent.m in Sources */,
 				20AE328819BEB5520046034E /* PPRClient.m in Sources */,

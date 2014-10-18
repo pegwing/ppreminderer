@@ -7,7 +7,7 @@
 //
 
 #import "PPRAppDelegate.h"
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 #import "WBErrorNoticeView.h"
 #import "PPRStickyMessageNoticeView.h"
 #import "PPRNotificationManager.h"
@@ -30,7 +30,7 @@
     // Load clock offset
     [self.scheduler restoreState];
     
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
     
     PPRNotificationManager __block *notificationManager;
     notificationManager = self.notificationManager;
