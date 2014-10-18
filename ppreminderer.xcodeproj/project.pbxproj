@@ -109,6 +109,7 @@
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		632E2D9619F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
 		632E2D9719F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
+		63F1B20819F312C400CFB0CA /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
@@ -714,6 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F1B20819F312C400CFB0CA /* PPRShift.m in Sources */,
 				20EAAD6919AC7D4700BDF78A /* PPRClientManagerTest.m in Sources */,
 				20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */,
 				20AE326919BD534A0046034E /* PPRClientScheduleItemTests.m in Sources */,
