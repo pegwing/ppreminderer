@@ -2,7 +2,8 @@
 //  PPRTestInitialiser.m
 //  ppreminderer
 //
-//  Created by David Vincent on 17/10/14.
+//  Created by David Bernard on 9/09/2014.
+//  Renamed by David Vincent on 17/10/14.
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
