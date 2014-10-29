@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSDate *completionTime;
 @property (nonatomic,strong) PPRScheduledEvent *scheduledEvent;
 @property (nonatomic,weak) PPRAction *parent;
+@property (nonatomic,strong) NSString *parentId;
 @property (nonatomic,strong) NSMutableArray *actions;
 @property (nonatomic,strong) NSMutableArray *history;
 @property (nonatomic,strong) PPRFacility *facility;
@@ -29,5 +30,7 @@
 -(NSString *)notificationDescription;
 
 -(NSArray *)instructionsForAction;
+
+-(BOOL)shouldGroup;
 
 @end

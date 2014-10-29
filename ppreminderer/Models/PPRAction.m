@@ -33,6 +33,13 @@ NSString * const kStatusCompleted = @"Completed";
     return [self dueTimeDescription];
 }
 
+-(BOOL) shouldGroup {
+    const PPRScheduleTime *const t = self.scheduledEvent.scheduled;
+    NSLog(@"shouldGroup entered");
+    NSLog(@"t was %@;",t.description);
+    return t.type != PPRScheduleTimeTimeOfDay;
+}
+
 -(NSString *)dueTimeDescription {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
@@ -48,6 +55,8 @@ NSString * const kStatusCompleted = @"Completed";
         
     }
     NSString *dueTimeDescription = [dateFormatter stringFromDate:time];
+//    NSLog(@"%s:scheduleDescription was %@",__func__,scheduleDescription);
+    //NSLog(@"%s:dueTimeDescription  was %@",__func__,dueTimeDescription);
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
 }
 

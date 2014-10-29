@@ -339,36 +339,4 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                          } ];
 }
 
-NSString *const breakfast =  @"ACT0"; // fixme - remove dependency on ID
-NSString *const davesPills = @"ACT9"; // fixme - remove dependency on ID
-
-- (void)testChildParentNotNil
-{
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
-    [sharedInstance getActionById:davesPills
-                          success:^(PPRAction *childAction) {
-                              XCTAssertNotNil(childAction.parentId,
-                                              "Child had no parentId.");
-                          }failure:^(NSError *error) {
-                              XCTFail("unable to go on because %s didn't get expected child action",__func__);}
-     ];
-}
-
-- (void)testChildsParentIdMatches
-{
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
-    [sharedInstance getActionById:breakfast
-                          success:^(PPRAction *parentAction) {
-                              [sharedInstance getActionById:davesPills
-                                                    success:^(PPRAction *childAction) {
-                                                        XCTAssertEqual(childAction.parentId,
-                                                                       parentAction.actionId);
-                                                    }failure:^(NSError *error) {
-                                                        XCTFail("unable to go on because %s didn't get expected child action",__func__);}
-                               ];}failure:^(NSError *error) {
-                                  XCTFail("unable to go on because %s didn't get expected parent action",__func__);
-                              }];
-}
-
-
 @end

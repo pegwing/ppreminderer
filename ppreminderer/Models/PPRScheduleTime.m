@@ -41,6 +41,7 @@
     return   [self initWithType:type dailyEvent:nil offset:offset];
 }
 
+// Note about the description method.  If the result (a string) talks about a time relative to a Parent, the class user should have other methods to find out about what the parent is.  Or perhaps not.  There is the type property.
 -(NSString *)description
 {
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
@@ -66,15 +67,18 @@
         case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2ld %02.2ld",
                            (long)self.offset.hour, (long)self.offset.minute];
+            NSLog(@"%s: cons'd rel. to parent : %@",__func__, description);
             break;
         case PPRScheduleTimeRelativeToDailyEvent:
             description = [NSString stringWithFormat:@"At %@ +%02.2ld %02.2ld",
                            self.atDailyEvent, (long)self.offset.hour, (long)self.offset.minute];
+            NSLog(@"%s: cons'd rel. to daily event: %@",__func__, description);
             break;
 
         case PPRScheduleTimeRelativeToPreviousItem:
             description = [NSString stringWithFormat:@"At Previous +%02.2ld %02.2ld",
                            (long)self.offset.hour, (long)self.offset.minute];
+            NSLog(@"%s: cons'd rel. to previoust: %@",__func__, description);
             break;
         default:
             description = @"Unknown schedule type";
