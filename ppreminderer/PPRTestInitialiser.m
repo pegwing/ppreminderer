@@ -1,13 +1,13 @@
 //
-//  PPRTestIIntialiser.m
+//  PPRTestInitialiser.m
 //  ppreminderer
 //
 //  Created by David Bernard on 9/09/2014.
+//  Renamed by David Vincent on 17/10/14.
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
-#import "PPRTestIntialiser.h"
-
+#import "PPRTestInitialiser.h"
 
 static PPRFacility * createTestFacility1() {
     
@@ -41,7 +41,7 @@ static PPRFacility * createTestFacility1() {
     NSMutableArray *instructions1 =
     [NSMutableArray arrayWithObjects:
      [[PPRFacilityInstruction alloc]initWithContext:@"Breakfast"
-                                      instruction:@"At outside table if warm"],
+                                        instruction:@"At outside table if warm"],
      nil
      ];
     facility1.instructions = instructions1;
@@ -272,8 +272,8 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     
 }
 
-@implementation PPRTestIntialiser
-- (PPRTestIntialiser *) init {
+@implementation PPRTestInitialiser
+- (PPRTestInitialiser *) init {
     
     self = [super init];
     if (self) {
@@ -294,47 +294,47 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
 }
 
 - (void)loadTestData {
-
-        [self.shiftManager loadShift];
-        
-        self.facility1 = createTestFacility1();
-        
-        [self.facilityManager insertFacility:self.facility1 success:
-         ^{
-         } failure:^(NSError *error) {
-             NSLog(@"Error saving facility 1");
-         }];
-        
-        self.facility2 = createTestFacility2();
-        
-        [self.facilityManager insertFacility:self.facility2 success:
-         ^{
-         } failure:^(NSError *error) {
-             NSLog(@"Error saving facility 2");
-         }];
-        
-        self.client1 = createTestClient1(self.facility1);
-        [self.clientManager insertClient:self.client1 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 1");
-        }];
-        
-        self.client2 = createTestClient2(self.facility1);
-        [self.clientManager insertClient:self.client2 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 2");
-        }];
-        
-        self.client3 = createTestClient3(self.facility2);
-        [self.clientManager insertClient:self.client3 success:^(PPRClient *client){
-            {}
-        } failure:^(NSError *error) {
-            NSLog(@"Error saving client 3");
-        }];
-        
-        
+    
+    [self.shiftManager loadShift];
+    
+    self.facility1 = createTestFacility1();
+    
+    [self.facilityManager insertFacility:self.facility1 success:
+     ^{
+     } failure:^(NSError *error) {
+         NSLog(@"Error saving facility 1");
+     }];
+    
+    self.facility2 = createTestFacility2();
+    
+    [self.facilityManager insertFacility:self.facility2 success:
+     ^{
+     } failure:^(NSError *error) {
+         NSLog(@"Error saving facility 2");
+     }];
+    
+    self.client1 = createTestClient1(self.facility1);
+    [self.clientManager insertClient:self.client1 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 1");
+    }];
+    
+    self.client2 = createTestClient2(self.facility1);
+    [self.clientManager insertClient:self.client2 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 2");
+    }];
+    
+    self.client3 = createTestClient3(self.facility2);
+    [self.clientManager insertClient:self.client3 success:^(PPRClient *client){
+        {}
+    } failure:^(NSError *error) {
+        NSLog(@"Error saving client 3");
+    }];
+    
+    
 }
 - (void) loadSchedule
 {
@@ -346,6 +346,6 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     [self.clientActionScheduler scheduleEventsForClient:self.client1];
     [self.clientActionScheduler scheduleEventsForClient:self.client2];
     [self.clientActionScheduler scheduleEventsForClient:self.client3];
-
+    
 }
 @end

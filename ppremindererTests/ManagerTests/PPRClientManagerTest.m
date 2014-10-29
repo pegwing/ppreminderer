@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PPRClientManager.h"
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 
 @interface PPRClientManagerTest : XCTestCase
 
@@ -22,7 +22,7 @@
     
     // Initialised the test shared instance
     // This loads the test shared instance of client manager with 3 clients.
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
 }
 
 - (void)tearDown

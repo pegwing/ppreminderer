@@ -1,8 +1,9 @@
 //
-//  PPRTestIIntialiser.h
+//  PPRTestInitialiser.h
 //  ppreminderer
 //
 //  Created by David Bernard on 9/09/2014.
+//  Renamed by David Vincent on 17/10/14.
 //  Copyright (c) 2014 Pegwing Pty Ltd. All rights reserved.
 //
 
@@ -20,7 +21,7 @@
 #import "PPRClientActionScheduler.h"
 #import "PPRNotificationManager.h"
 
-@interface PPRTestIntialiser : PPRSingleton
+@interface PPRTestInitialiser : PPRSingleton
 
 @property (nonatomic,strong) PPRActionManager *actionManager;
 @property (nonatomic,strong) PPRNotificationManager *notificationManager;

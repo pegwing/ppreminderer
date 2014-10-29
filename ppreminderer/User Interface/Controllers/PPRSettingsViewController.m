@@ -12,7 +12,7 @@
 #import "PPRActionManager.h"
 #import "PPRShiftManager.h"
 #import "PPRNotificationManager.h"
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 
 @interface PPRSettingsViewController ()
 -(IBAction)resetDefaultSettings:(id)sender;
@@ -64,7 +64,7 @@
     shift.shiftStatus = [NSNumber numberWithInt:PPRShiftStatusOn];
     shift.available = [NSNumber numberWithBool:true];
     shift.facilityId = @"FAC1";
-    [[PPRTestIntialiser sharedInstance] loadSchedule ];
+    [[PPRTestInitialiser sharedInstance] loadSchedule ];
     [self.shiftManager publishShift:self.shiftManager.shift];
 
 }

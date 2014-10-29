@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 #import "PPRActionManager.h"
 
 @interface PPRActionManagerTests : XCTestCase
@@ -23,7 +23,7 @@
     
     // Initialised the test shared instance
     // This loads the test shared instance of action manager with 3 actions.
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
 }
 
 - (void)tearDown
