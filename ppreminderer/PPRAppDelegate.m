@@ -8,7 +8,6 @@
 
 #import "PPRAppDelegate.h"
 #import "PPRTestInitialiser.h"
-#import "WBErrorNoticeView.h"
 #import "PPRStickyMessageNoticeView.h"
 #import "PPRNotificationManager.h"
 #import "PPRScheduler.h"

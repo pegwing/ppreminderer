@@ -11,6 +11,7 @@
 		200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0519CFBA6F00C48BCA /* PPRSettingsViewController.m */; };
 		200E8A0A19CFBBB000C48BCA /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
 		200E8A1619CFD0D000C48BCA /* PPRStickyMessageNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A1519CFD0D000C48BCA /* PPRStickyMessageNoticeView.m */; };
+		201424901A02032400A59B0E /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		201748E619C1069200B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
 		201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E719C110FD00B082D9 /* PPRSingletonTests.m */; };
 		201748E919C1139000B082D9 /* PPRSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 201748E519C1069200B082D9 /* PPRSingleton.m */; };
@@ -91,8 +92,8 @@
 		20AE328819BEB5520046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
 		20E4410419CFD5F800A13175 /* PPRClockTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E4410319CFD5F800A13175 /* PPRClockTabBarItem.m */; };
-		20EA54C919C7A62700A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
-		20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */; };
+		20EA54C919C7A62700A8AFEB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		20EA54CA19C7BB0800A8AFEB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4619A6DD5A00BDF78A /* PPRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4419A6DD5A00BDF78A /* PPRClientManager.m */; };
 		20EAAD4919A6F2AC00BDF78A /* PPRFacilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EAAD4819A6F2AC00BDF78A /* PPRFacilityManager.m */; };
@@ -111,8 +112,6 @@
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		632E2D9619F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
 		632E2D9719F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
-		63F1B20819F312C400CFB0CA /* PPRShift.m in Sources */ = {isa = PBXBuildFile; fileRef = 200E8A0919CFBBB000C48BCA /* PPRShift.m */; };
-		8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
 /* End PBXBuildFile section */
@@ -240,12 +239,15 @@
 		20EAAD6D19AD6A1200BDF78A /* launch_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = launch_steps.rb; sourceTree = "<group>"; };
 		20EAAD6E19AD6A1200BDF78A /* select_facility.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = select_facility.rb; sourceTree = "<group>"; };
 		20EAAD7019AD6A1200BDF78A /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
+		36F9C5B63C8A7C2E6CB5E839 /* Pods-ppreminderer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppreminderer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ppreminderer/Pods-ppreminderer.release.xcconfig"; sourceTree = "<group>"; };
+		4BB6F4009D2132B595A47C58 /* Pods-ppreminderer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppreminderer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ppreminderer/Pods-ppreminderer.debug.xcconfig"; sourceTree = "<group>"; };
 		6307EAED199D977900E721FB /* PPRActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRActionViewController.h; sourceTree = "<group>"; };
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
+		632E2D9419F0AB06005D6DAE /* PPRTestInitialiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRTestInitialiser.h; sourceTree = "<group>"; };
+		632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRTestInitialiser.m; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
 		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppreminderer.xcconfig"; path = "Pods/Pods-ppreminderer.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,7 +294,7 @@
 				205BF530199B0B320070358A /* ppremindererTests */,
 				205BF50A199B0B310070358A /* Frameworks */,
 				205BF509199B0B310070358A /* Products */,
-				E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */,
+				690B2B851C7273F14020EE8E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -531,6 +533,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		690B2B851C7273F14020EE8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4BB6F4009D2132B595A47C58 /* Pods-ppreminderer.debug.xcconfig */,
+				36F9C5B63C8A7C2E6CB5E839 /* Pods-ppreminderer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -610,7 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				205BF541199B0C300070358A /* Main.storyboard in Resources */,
-				20EA54C919C7A62700A8AFEB /* Pods-ppreminderer.xcconfig in Resources */,
+				20EA54C919C7A62700A8AFEB /* (null) in Resources */,
 				205BF518199B0B310070358A /* InfoPlist.strings in Resources */,
 				205BF523199B0B320070358A /* Images.xcassets in Resources */,
 			);
@@ -621,7 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20EAAD7819AD6A1200BDF78A /* env.rb in Resources */,
-				20EA54CA19C7BB0800A8AFEB /* Pods-ppreminderer.xcconfig in Resources */,
+				20EA54CA19C7BB0800A8AFEB /* (null) in Resources */,
 				20EAAD7419AD6A1200BDF78A /* select_facility.feature in Resources */,
 				20EAAD7319AD6A1200BDF78A /* navigation.feature in Resources */,
 				20EAAD7719AD6A1200BDF78A /* select_facility.rb in Resources */,
@@ -646,7 +657,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-ppreminderer-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ppreminderer/Pods-ppreminderer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DBEFA0B835D84FF4BA690134 /* Check Pods Manifest.lock */ = {
@@ -707,9 +718,9 @@
 				2068F09919D4B722006F58D7 /* PPRFacilityActionScheduler.m in Sources */,
 				205BF51E199B0B320070358A /* PPRAppDelegate.m in Sources */,
 				2068F0B919D8D0F2006F58D7 /* PPRInstruction.m in Sources */,
+				201424901A02032400A59B0E /* PPRActionManager.m in Sources */,
 				20E4410419CFD5F800A13175 /* PPRClockTabBarItem.m in Sources */,
 				6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */,
-				8C9E5B0719A6C8BE0011ACE1 /* PPRActionManager.m in Sources */,
 				2068F0B519D8CEC4006F58D7 /* PPRFacilityAction.m in Sources */,
 				2068F09519D4B722006F58D7 /* PPRActionScheduler.m in Sources */,
 				2097452B19A318A100E2FF65 /* PPRFacilitySelectionViewController.m in Sources */,
@@ -720,7 +731,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63F1B20819F312C400CFB0CA /* PPRShift.m in Sources */,
 				20EAAD6919AC7D4700BDF78A /* PPRClientManagerTest.m in Sources */,
 				20A004F719D2916100799E55 /* PPRShiftManager.m in Sources */,
 				20AE326919BD534A0046034E /* PPRClientScheduleItemTests.m in Sources */,
@@ -873,7 +883,7 @@
 		};
 		205BF53B199B0B320070358A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */;
+			baseConfigurationReference = 4BB6F4009D2132B595A47C58 /* Pods-ppreminderer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -900,7 +910,7 @@
 		};
 		205BF53C199B0B320070358A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6035729385B427C989D6E76 /* Pods-ppreminderer.xcconfig */;
+			baseConfigurationReference = 36F9C5B63C8A7C2E6CB5E839 /* Pods-ppreminderer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
