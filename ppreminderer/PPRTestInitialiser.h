@@ -40,6 +40,11 @@
 @property (nonatomic,strong) PPRClient *client1;
 @property (nonatomic,strong) PPRClient *client2;
 @property (nonatomic,strong) PPRClient *client3;
+@property (nonatomic,strong) PPRClient *client4;
+@property (nonatomic,strong) PPRClient *client5;
+@property (nonatomic,strong) PPRClient *client6;
+@property (nonatomic,strong) PPRClient *client7;
+@property (nonatomic,strong) PPRClient *client8;
 
 - (void) loadSchedule;
 

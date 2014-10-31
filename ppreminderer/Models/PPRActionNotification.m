@@ -11,7 +11,7 @@
 @implementation PPRActionNotification
 
 - (PPRActionNotification *)initWithAction:(PPRAction *)action {
-    self = [super initWithId:action.actionId type:@"PPRActionNotification" title:action.context decription:action.notificationDescription dueTime:action.dueTime];
+    self = [super initWithId:action.actionId type:@"PPRActionNotification" title:action.context description:action.notificationDescription dueTime:action.dueTime];
     if (self) {
         _action = action;
     }

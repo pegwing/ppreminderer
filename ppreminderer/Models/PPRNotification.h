@@ -11,7 +11,7 @@
 @interface PPRNotification : NSObject
 
 @property (nonatomic,strong)NSDate *dueTime;
-@property (nonatomic,strong)NSString *description;
+@property (nonatomic,strong)NSString *notificationDescription;
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *notificationId;
 @property (nonatomic,strong)NSString *notificationType;
@@ -22,6 +22,6 @@
  */
 - (UILocalNotification *)asLocalNotification;
 
-- (instancetype)initWithId:(NSString *)notificationId type:(NSString *)notificationType title:(NSString *)title decription:(NSString *)description dueTime:(NSDate *)dueTime;
+- (instancetype)initWithId:(NSString *)notificationId type:(NSString *)notificationType title:(NSString *)title description:(NSString *)notificationDescription dueTime:(NSDate *)dueTime;
 
 @end
