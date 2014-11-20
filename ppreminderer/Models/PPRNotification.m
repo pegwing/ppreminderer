@@ -10,13 +10,13 @@
 
 @implementation PPRNotification
 
-- (instancetype)initWithId:(NSString *)notifiactionId type:(NSString *)notificationType title:(NSString *)title decription:(NSString *)description dueTime:(NSDate *)dueTime {
+- (instancetype)initWithId:(NSString *)notifiactionId type:(NSString *)notificationType title:(NSString *)title description:(NSString *)notificationDescription dueTime:(NSDate *)dueTime {
     self = [super init];
     if (self) {
         _notificationId = notifiactionId;
         _notificationType = notificationType;
         _title = title;
-        _description = description;
+        _notificationDescription = notificationDescription;
         _dueTime = dueTime;
         
     }
@@ -29,7 +29,7 @@
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     localNotification.alertAction = self.title;
     
-    localNotification.alertBody = self.description;
+    localNotification.alertBody = self.notificationDescription;
     localNotification.userInfo = @{@"notificationType":@"PPRNotification", @"notificationId":self.notificationId};
     localNotification.soundName = @"/System/Library/Audio/UISounds/new-mail.caf";
     
