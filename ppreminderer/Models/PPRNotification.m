@@ -10,13 +10,13 @@
 
 @implementation PPRNotification
 
-- (instancetype)initWithId:(NSString *)notifiactionId type:(NSString *)notificationType title:(NSString *)title decription:(NSString *)description dueTime:(NSDate *)dueTime {
+- (instancetype)initWithId:(NSString *)notifiactionId type:(NSString *)notificationType title:(NSString *)title description:(NSString *)notificationDescription dueTime:(NSDate *)dueTime {
     self = [super init];
     if (self) {
         _notificationId = notifiactionId;
         _notificationType = notificationType;
         _title = title;
-        _notificationDescription = description;
+        _notificationDescription = notificationDescription;
         _dueTime = dueTime;
         
     }

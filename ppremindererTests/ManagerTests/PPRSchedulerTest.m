@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "PPRScheduler.h"
 #import "PPRShiftManager.h"
-#import "PPRTestIntialiser.h"
+#import "PPRTestInitialiser.h"
 #import "PPRFacilityManager.h"
 
 @interface PPRSchedulerTest : XCTestCase
@@ -27,7 +27,7 @@ static NSArray *events;
 - (void)setUp
 {
     [super setUp];
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 

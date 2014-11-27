@@ -13,6 +13,7 @@ NSString * const kStatusScheduled = @"Scheduled";
 NSString * const kStatusPostponed = @"Postponed";
 NSString * const kStatusDue =       @"Due";
 NSString * const kStatusCompleted = @"Completed";
+NSString * const kStatusCompletedAway = @"CompletedAway";
 
 
 @implementation PPRAction
@@ -47,7 +48,7 @@ NSString * const kStatusCompleted = @"Completed";
 
     NSString *scheduleDescription = self.scheduledEvent.scheduled.description;
     NSDate *time;
-    if ([self.status isEqualToString:kStatusCompleted]) {
+    if ([self.status isEqualToString:kStatusCompleted] || [self.status isEqualToString:kStatusCompletedAway]) {
         time = self.completionTime;
     } else {
         time = self.dueTime;

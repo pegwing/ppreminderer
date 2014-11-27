@@ -7,8 +7,7 @@
 //
 
 #import "PPRAppDelegate.h"
-#import "PPRTestIntialiser.h"
-#import "WBErrorNoticeView.h"
+#import "PPRTestInitialiser.h"
 #import "PPRStickyMessageNoticeView.h"
 #import "PPRNotificationManager.h"
 #import "PPRScheduler.h"
@@ -30,7 +29,7 @@
     // Load clock offset
     [self.scheduler restoreState];
     
-    (void)[[PPRTestIntialiser sharedInstance] init];
+    (void)[[PPRTestInitialiser sharedInstance] init];
     
     PPRNotificationManager __block *notificationManager;
     notificationManager = self.notificationManager;
@@ -39,7 +38,7 @@
         if ([scheduleItem isKindOfClass:[PPRActionScheduleItem class]]) {
             PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
             // Item has become completed
-            if ([item.action.status isEqualToString:kStatusCompleted])
+            if ([item.action.status isEqualToString:kStatusCompleted] || [item.action.status isEqualToString:kStatusCompletedAway])
                 return kSchedulingStatusCompleted;
             
             // Scheduled item now due so notify and update to due
@@ -67,7 +66,7 @@
         if ([scheduleItem isKindOfClass:[PPRActionScheduleItem class]]) {
             PPRActionScheduleItem *item = (PPRActionScheduleItem *)scheduleItem;
             // Future item already completed
-            if ([item.action.status isEqualToString:kStatusCompleted]) {
+            if ([item.action.status isEqualToString:kStatusCompleted] || [item.action.status isEqualToString:kStatusCompletedAway]) {
                 return kSchedulingStatusCompleted;
             }
             else {
@@ -101,7 +100,7 @@
                                                  success:^(PPRAction *action) {
                                                      // From the action status update the scheduling status
                                                      NSString *schedulingStatus;
-                                                     if ([action.status isEqualToString:kStatusCompleted])
+                                                     if ([action.status isEqualToString:kStatusCompleted] || [action.status isEqualToString:kStatusCompletedAway])
                                                          schedulingStatus = kSchedulingStatusCompleted;
                                                      else if ([action.status isEqualToString:kStatusPostponed])
                                                          schedulingStatus = kSchedulingStatusScheduled;
