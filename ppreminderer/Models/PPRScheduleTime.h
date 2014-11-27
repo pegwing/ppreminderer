@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Mantle.h"
 
 typedef NS_ENUM(int, PPRScheduleTimeType) {
     PPRScheduleTimeRelativeToDailyEvent = 1,
@@ -18,7 +19,7 @@ typedef NS_ENUM(int, PPRScheduleTimeType) {
 /**
  An object that represents when a schedule item is due to be performed.
  */
-@interface PPRScheduleTime : NSObject
+@interface PPRScheduleTime : MTLModel <MTLJSONSerializing>
 
 /**
  Initialise a
@@ -43,5 +44,10 @@ typedef NS_ENUM(int, PPRScheduleTimeType) {
  */
 @property (nonatomic, strong) NSDateComponents *offset;
 
-
+/**
+ Whether this schedule time is equivalent to another
+ @param scheduleTime the schedule time to comment
+ @return true if equivalent, otherwise false
+ */
+- (BOOL)isEquivalentTo:(PPRScheduleTime *)scheduleTime;
 @end

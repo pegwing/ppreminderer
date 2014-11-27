@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-ppreminderer-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ppreminderer-NoticeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -14,25 +19,40 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ppremindererTests-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ppremindererTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>60C7A0E7E81E44D7A563E1CB</key>
+		<key>56382FDECE6FDB6F80908BFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7101735CCA25438581C44007</key>
+		<key>7BE2CAA03EBF4A9261F266FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E4C127DFEDC4571856B71B0</key>
+		<key>C7ADE4E91F13CE14069665F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2B9C8D5C96546DE8F2A0A6B</key>
+		<key>D56D4F3E90015FE7CA3C7A29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D99E78CF5DED6EB38187405D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -26,4 +26,26 @@
     return [self initWithEventName:eventName scheduledTime:scheduledTime parent:nil events:nil];
 
 }
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             
+             
+             };
+    
+}
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
+    return @{
+             @"eventName": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"scheduled": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"parent": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             @"events": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             
+             };
+}
+
+- (BOOL)isEquivalentTo:(PPRScheduledEvent *)scheduledEvent {
+    return [self.eventName isEqualToString:scheduledEvent.eventName] && [self.scheduled isEquivalentTo:scheduledEvent.scheduled];
+}
+
 @end

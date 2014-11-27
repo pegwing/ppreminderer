@@ -768,15 +768,18 @@ static PPRClient *createTestClient8(PPRFacility *facility)
     self = [super init];
     if (self) {
         
+        _dataStore = [[PPRDataStore sharedInstance]init];
         _facilityManager = [[PPRFacilityManager sharedInstance] init];
         _clientManager = [[PPRClientManager sharedInstance] init];
         _actionManager = [[PPRActionManager sharedInstance] init];
+        [_actionManager loadActions];
         
         _shiftManager = [[PPRShiftManager sharedInstance] init];
         
         _facilityActionScheduler =[[PPRFacilityActionScheduler sharedInstance]init];
         _clientActionScheduler =[[PPRClientActionScheduler sharedInstance]init];
         _actionScheduler = [[PPRActionScheduler sharedInstance]init];
+        
         [self loadTestData];
         [self loadSchedule];
     }

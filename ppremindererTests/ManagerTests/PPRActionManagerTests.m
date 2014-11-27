@@ -16,14 +16,20 @@
 
 @implementation PPRActionManagerTests
 
+static NSString *firstActionId ;
+static PPRAction *firstAction;
 
 - (void)setUp
 {
     [super setUp];
     
     // Initialised the test shared instance
-    // This loads the test shared instance of action manager with 3 actions.
+    // This loads the test shared instance of action manager with 41 actions.
     (void)[[PPRTestInitialiser sharedInstance] init];
+    PPRActionManager *sharedInstance = [PPRActionManager sharedInstance];
+    firstAction = ((PPRAction *)(sharedInstance.actions.allValues[0]));
+    firstActionId = firstAction.actionId;
+    
 }
 
 - (void)tearDown
@@ -35,13 +41,13 @@
 
 - (void)testGetActionAll
 {
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    PPRActionManager *sharedInstance = [PPRActionManager sharedInstance];
     [sharedInstance getAction:nil
                       success:^(NSArray *actions) {
                           XCTAssertEqual(
                                          actions.count,
-                                         14,
-                                         @"Test shared instance should return 14 action");
+                                         41,
+                                         @"Test shared instance should return 41 action");
                       } failure:^(NSError *error) {
                           XCTFail("getAction with nil should not fail");
                       }];
@@ -50,7 +56,7 @@
 {
     PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
     PPRAction *actionFilter= [[PPRAction alloc]init];
-    actionFilter.actionId = @"ACT0";
+    actionFilter.actionId = firstActionId;
     [sharedInstance getAction:actionFilter
                       success:^(NSArray *actions) {
                           XCTAssertEqual(
@@ -59,8 +65,8 @@
                                          @"Test shared instance should return 1 matching action");
                           XCTAssertEqualObjects(
                                                 ((PPRAction *)actions[0]).actionId,
-                                                @"ACT0",
-                                                @"actionManager should return ACT1");
+                                                actionFilter.actionId,
+                                                @"actionManager should return correct action");
                       } failure:^(NSError *error) {
                           XCTFail("getAction with known action should not fail");
                       }];
@@ -68,7 +74,7 @@
 
 - (void)testGetactionByIdUnknown
 {
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
+    PPRActionManager *sharedInstance = [PPRActionManager sharedInstance];
     PPRAction *actionFilter= [[PPRAction alloc]init];
     actionFilter.actionId = @"ACTXXX";
     [sharedInstance getAction:actionFilter
@@ -139,10 +145,9 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                                         1,
                                         @"Should return 1 actions");
                          PPRAction *storedAction = (PPRAction *)actions[0];
-                         XCTAssertEqualObjects(
+                         XCTAssertNotNil(
                                                storedAction.actionId,
-                                               @"ACT0",
-                                               @"Assigned action id should be ACT0");
+                                               @"Assigned action id should not be nil");
                          XCTAssertEqualObjects(
                                                storedAction.context,
                                                testContext,
@@ -178,6 +183,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                      }];
     
     // Insert action a second time
+    PPRAction *actionFilter= [[PPRAction alloc]init];
     PPRAction *action2 = createTestAction(testEventName, testContext, testDateComponents);
     [actionManager insertAction:action2
                         success:^(PPRAction *action){
@@ -187,24 +193,23 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                             XCTAssertNotNil(
                                             action.actionId,
                                             "Action id should have been allocated");
+                            actionFilter.actionId = action.actionId;
                         }
                         failure:^(NSError *error) {
                             XCTFail("Insert should not fail");
                             
                         }];
     // Should now be able to retieve action 1
-    PPRAction *actionFilter= [[PPRAction alloc]init];
-    actionFilter.actionId = @"ACT1";
     [actionManager getAction:actionFilter
                      success:^(NSArray *actions) {
                          XCTAssertEqual(
                                         actions.count,
                                         1,
                                         @"getAction should return 1 matching action");
-                         XCTAssertEqualObjects(
+                         XCTAssertNotEqualObjects(
                                                ((PPRAction *)actions[0]).actionId,
-                                               @"ACT1",
-                                               @"getAction should return ACT1");
+                                               firstActionId,
+                                               @"getAction should return first action");
                      }
                      failure:^(NSError *error) {
                          XCTFail("getAction with known action should not fail");
@@ -213,8 +218,8 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
 
 - (void)testGetActionById
 {
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
-    [sharedInstance getActionById:@"ACT0"
+    PPRActionManager *sharedInstance = [PPRActionManager sharedInstance];
+    [sharedInstance getActionById:firstActionId
                           success:^(PPRAction *action) {
                               XCTAssertNotNil(
                                               action,
@@ -222,7 +227,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                               
                               XCTAssertEqualObjects(
                                                     action.actionId,
-                                                    @"ACT0",
+                                                    firstActionId,
                                                     @"Retrieved action should match actionId requested");
                           } failure:^(NSError *errror) {
                               XCTFail("getActionById with known actionId should not fail");
@@ -233,8 +238,8 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
 
 - (void)testUpdateStatusOfTo
 {
-    PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
-    [sharedInstance getActionById:@"ACT0"
+    PPRActionManager *sharedInstance = [PPRActionManager sharedInstance];
+    [sharedInstance getActionById:firstActionId
                           success:^(PPRAction *action) {
                               XCTAssertNotNil(
                                               action,
@@ -248,7 +253,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                               XCTFail("getActionById with known actionId should not fail");
                               
                           }];
-    [sharedInstance updateStatusOf:@"ACT0" to:@"NewStatus"
+    [sharedInstance updateStatusOf:firstActionId to:@"NewStatus"
                            success:^(PPRAction *action){
                                XCTAssertEqualObjects(
                                                      action.status,
@@ -265,7 +270,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
 {
     PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
     NSDate *testDueTime = [NSDate date];
-    [sharedInstance getActionById:@"ACT0"
+    [sharedInstance getActionById:firstActionId
                           success:^(PPRAction *action) {
                               XCTAssertNotNil(
                                               action,
@@ -283,7 +288,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                               XCTFail("getActionById with known actionId should not fail");
                               
                           }];
-    [sharedInstance updateAction:@"ACT0" status:@"NewStatus" dueTime:testDueTime
+    [sharedInstance updateAction:firstActionId status:@"NewStatus" dueTime:testDueTime
                            success:^(PPRAction *action){
                                XCTAssertEqualObjects(
                                                      action.status,
@@ -304,7 +309,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
 {
     PPRActionManager *sharedInstance = (PPRActionManager *)[PPRActionManager sharedInstance];
     NSDate *testCompletionTime = [NSDate date];
-    [sharedInstance getActionById:@"ACT0"
+    [sharedInstance getActionById:firstActionId
                           success:^(PPRAction *action) {
                               XCTAssertNotNil(
                                               action,
@@ -322,7 +327,7 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                               XCTFail("getActionById with known actionId should not fail");
                               
                           }];
-    [sharedInstance updateAction:@"ACT0" status:@"NewStatus" completionTime:testCompletionTime
+    [sharedInstance updateAction:firstActionId status:@"NewStatus" completionTime:testCompletionTime
                          success:^(PPRAction *action){
                              XCTAssertEqualObjects(
                                                    action.status,
@@ -337,6 +342,12 @@ static PPRAction *createTestAction(NSString *testEventName, NSString *testContex
                              XCTFail("updateStatusOfTo with known actionId should not fail");
                              
                          } ];
+}
+
+- (void)testIsEquivalentTo
+{
+
+    XCTAssert([firstAction isEquivalentTo:firstAction], "First action should be equivalent to self");
 }
 
 @end

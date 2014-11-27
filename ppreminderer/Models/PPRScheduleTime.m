@@ -83,4 +83,20 @@
     
     return description;
 }
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
+    return @{
+             @"type": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"offset": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"atDailyEvent": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             
+             };
+}
+
+- (BOOL)isEquivalentTo:(PPRScheduleTime *)scheduleTime {
+    return self.type == scheduleTime.type &&
+    (scheduleTime.offset == nil || [self.offset isEqual:scheduleTime.offset]) &&
+    (scheduleTime.atDailyEvent == nil || [self.atDailyEvent isEqualToString:scheduleTime.atDailyEvent]);
+}
+
 @end

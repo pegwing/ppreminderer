@@ -21,9 +21,10 @@ NSString * const kStatusCompletedAway = @"CompletedAway";
 {
     self = [super init];
     if (self) {
+        _facilityId = facility.facilityId;
         _facility = facility;
         _scheduledEvent = scheduledEvent;
-        _parent = parent;
+        _parentId = parent.actionId;
         _actions = actions;
         _status = nil;
     }
@@ -56,4 +57,36 @@ NSString * const kStatusCompletedAway = @"CompletedAway";
     return [[NSArray alloc]init];
 }
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             
+             
+             };
+
+}
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
+    return @{
+             @"actionId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"context": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"status": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"dueTime": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"completionTime": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"scheduledEvent": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"parentId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"actions": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             @"history": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             @"facilityId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"facility": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded]
+             
+             };
+}
+
+- (BOOL)isEquivalentTo:(PPRAction *)action {
+    // Should match facility and schedule event
+    BOOL equivalent =
+        (action.facilityId == nil || [self.facilityId isEqualToString:action.facilityId]) &&
+        (action.context == nil || [self.context isEqualToString:action.context]) &&
+        (action.scheduledEvent == nil || [self.scheduledEvent isEquivalentTo:action.scheduledEvent]);
+    return equivalent;
+}
 @end

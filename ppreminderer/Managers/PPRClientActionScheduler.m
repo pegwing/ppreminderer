@@ -22,15 +22,36 @@
         // FIXME
         action.context = event.eventName;
         action.client = client;
+        action.clientId = client.clientId;
+        action.facilityId = client.facility.facilityId;
         action.facility = client.facility;
-        [self.actionManager insertAction:action success:^(PPRAction *action) {
-            // FIXME
-            NSLog(@"Inserted action");
-        } failure:^(NSError *error) {
-            NSLog(@"Failure to insert action");
-        }];
-    }];
-}
+        
+        // Check if action already scheduled
+        [self.actionManager getAction:action
+                               success:^(NSArray *actions) {
+                                   // If not matches
+                                   if ([actions count] == 0) {
+                                       [self.actionManager insertAction:action success:^(PPRAction *action) {
+                                           // FIXME
+                                           NSLog(@"Inserted action");
+                                       } failure:^(NSError *error) {
+                                           NSLog(@"Failure to insert action");
+                                       }];
+                                   }
+                                   else {
+                                       // Equivalent action found
+                                       NSLog(@"Equivalent action found");
+                                   }
+                               }
+                               failure:^(NSError *error) {
+                                   NSLog(@"Failure when searching for matching action");
+                                   // Nothing Matching
+                               }
+          ];
+    }
+     ];
 
+    }
+    
 
 @end

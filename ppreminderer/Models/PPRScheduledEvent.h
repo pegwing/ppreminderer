@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PPRScheduleTime.h"
+#import "Mantle.h"
 
-@interface PPRScheduledEvent : NSObject
+@interface PPRScheduledEvent : MTLModel <MTLJSONSerializing>
 @property (nonatomic,strong) NSString *eventName;
 /**
  Time scheduled
@@ -32,4 +33,11 @@
  */
 - (id) initWithEventName:(NSString *)eventName scheduledTime:(PPRScheduleTime *)scheduledTime parent:(PPRScheduledEvent *)parent events:(NSMutableArray *)events;
 - (id) initWithEventName:(NSString *)eventName scheduledTime:(PPRScheduleTime *)scheduledTime;
+
+/**
+ Whether this scheduled event is equivalent to another
+ @param scheduledEvent Schedule event to check for equivalence
+ @return true if equvalent, otherwise false;
+ */
+- (BOOL)isEquivalentTo:(PPRScheduledEvent *)scheduledEvent;
 @end

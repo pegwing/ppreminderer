@@ -15,6 +15,7 @@
     self = [super initWithFacility:client.facility scheduledEvent:scheduledEvent parent:nil actions:nil];
     if (self) {
         _client = client;
+        _clientId = client.clientId;
     }
     return self;
 }
@@ -42,5 +43,11 @@
     NSArray *instructions = [self.client.instructions objectsAtIndexes:instructionSet];
     
     return instructions;
+}
+
+- (BOOL)isEquivalentTo:(PPRClientAction *)clientAction {
+    // Equivalent if clientid same
+    
+    return [super isEquivalentTo:clientAction] && (![clientAction isKindOfClass:self.class] ||  [self.clientId isEqualToString:clientAction.clientId]);
 }
 @end

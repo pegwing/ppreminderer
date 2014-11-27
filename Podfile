@@ -4,9 +4,11 @@ platform :ios, "7.0"
 
 target "ppreminderer" do
   pod 'NoticeView', '~> 3.0'
+  pod 'Mantle', '~> 1.5'
 end
 
 target "ppremindererTests" do
+ pod 'Mantle', '~> 1.5'
 
 end
 

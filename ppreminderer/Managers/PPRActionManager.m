@@ -8,6 +8,9 @@
 
 #import "PPRActionManager.h"
 
+NSString *const  kActionDirectory = @"Actions";
+
+
 
 NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotification";
 
@@ -18,25 +21,27 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
     self = [super init];
     if (self) {
         _actions = [[NSMutableDictionary alloc] init];
+        _dataStore = [PPRDataStore sharedInstance];
+        [_dataStore createPrivateDocsDirFor:kActionDirectory];
     }
     return self;
 }
 
-
+- (void) loadActions {
+    NSArray *actions = [_dataStore loadObjectsFromDirectory:kActionDirectory];
+    for (id object in actions) {
+        // Check type
+        PPRAction *action = (PPRAction *)object;
+        _actions[action.actionId] = action;
+    }
+}
 
 - (void) getAction: (PPRAction *)prototype success: (void(^)(NSArray *))success failure: (void(^)(NSError *)) failure {
     if ( prototype == nil) {
         success(self.actions.allValues);
         
     } else {
-        if (prototype.facility != nil) {
-            NSSet *actionSet = [self.actions keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-                return  [((PPRAction *)(self.actions[key])).facility.facilityId  isEqualToString:prototype.facility.facilityId];
-            }];
-            
-            success([self.actions objectsForKeys:[actionSet allObjects] notFoundMarker:[[PPRAction alloc] init]]);
-        }
-        else if (prototype.actionId != nil){
+        if (prototype.actionId != nil){
             
             PPRAction *foundAction = self.actions[prototype.actionId];
             if (foundAction)
@@ -44,10 +49,14 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
             else
                 failure([NSError errorWithDomain:@"ActionManager" code:1 userInfo:nil]);
         }
-        else {
-            NSLog(@"Unsupported client query %@", prototype.description);
-            failure([[NSError alloc] init]);
+        else  {
+            NSSet *actionSet = [self.actions keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+                return  [(PPRAction *)obj isEquivalentTo:prototype];
+            }];
+            success([self.actions objectsForKeys:[actionSet allObjects] notFoundMarker:[[PPRAction alloc] init]]);
         }
+        
+        
     }
 }
 
@@ -102,6 +111,7 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
     action.status = newStatus;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:kActionStateChangedNotificationName object:nil userInfo:@{@"ActionId":action.actionId}];
+    [self.dataStore saveObject:action objectId:action.actionId directory:kActionDirectory];
     success(action);
 }
 - (void)insertAction:(PPRAction *)action
@@ -109,9 +119,13 @@ NSString *const kActionStateChangedNotificationName = @"ActionStateChangedNotifi
              failure:(void (^)(NSError *))failure {
     
     
-    NSString *actionId = [NSString stringWithFormat:@"ACT%lu", (unsigned long)self.actions.count];
+    NSString *actionId = [@"ACT-" stringByAppendingString:
+                          [[NSUUID UUID] UUIDString]];
     action.actionId = actionId;
     self.actions[actionId] = action;
+    [self.dataStore saveObject:action objectId:action.actionId directory:kActionDirectory];
     success(action);
 }
+
+
 @end

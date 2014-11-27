@@ -33,6 +33,8 @@
 @property (nonatomic,strong) PPRFacilityManager *facilityManager;
 @property (nonatomic,strong) PPRClientManager *clientManager;
 
+@property (nonatomic,strong) PPRDataStore *dataStore;
+
 @property (nonatomic,strong) PPRFacility *facility1;
 @property (nonatomic,strong) PPRFacility *facility2;
 @property (nonatomic,strong) PPRFacility *facility3;

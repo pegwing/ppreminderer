@@ -91,6 +91,8 @@
 		20AE328319BE9A9D0046034E /* PPRClientAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE328119BE9A9D0046034E /* PPRClientAction.m */; };
 		20AE328819BEB5520046034E /* PPRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325C19BD43DA0046034E /* PPRClient.m */; };
 		20AE328919BEB5570046034E /* PPRClientInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AE325E19BD43DA0046034E /* PPRClientInstruction.m */; };
+		20D876171A0AEB0600372750 /* PPRDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D876161A0AEB0600372750 /* PPRDataStore.m */; };
+		20D876181A0AEB0600372750 /* PPRDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D876161A0AEB0600372750 /* PPRDataStore.m */; };
 		20E4410419CFD5F800A13175 /* PPRClockTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E4410319CFD5F800A13175 /* PPRClockTabBarItem.m */; };
 		20EA54C919C7A62700A8AFEB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		20EA54CA19C7BB0800A8AFEB /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -112,6 +114,7 @@
 		6307EAEF199D977900E721FB /* PPRActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6307EAEE199D977900E721FB /* PPRActionViewController.m */; };
 		632E2D9619F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
 		632E2D9719F0AB06005D6DAE /* PPRTestInitialiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */; };
+		67569B004AB07D9E749F7D96 /* libPods-ppremindererTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34C2568F07F981E6858C484 /* libPods-ppremindererTests.a */; };
 		8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */; };
 		B476FD0E215844C7951BA23E /* libPods-ppreminderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */; };
 /* End PBXBuildFile section */
@@ -225,6 +228,8 @@
 		20AE327D19BE99AB0046034E /* PPRFacility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRFacility.m; path = ppreminderer/Models/PPRFacility.m; sourceTree = SOURCE_ROOT; };
 		20AE328019BE9A9D0046034E /* PPRClientAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientAction.h; path = ppreminderer/Models/PPRClientAction.h; sourceTree = SOURCE_ROOT; };
 		20AE328119BE9A9D0046034E /* PPRClientAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRClientAction.m; path = ppreminderer/Models/PPRClientAction.m; sourceTree = SOURCE_ROOT; };
+		20D876151A0AEB0600372750 /* PPRDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRDataStore.h; path = Managers/PPRDataStore.h; sourceTree = "<group>"; };
+		20D876161A0AEB0600372750 /* PPRDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRDataStore.m; path = Managers/PPRDataStore.m; sourceTree = "<group>"; };
 		20E4410219CFD5F800A13175 /* PPRClockTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRClockTabBarItem.h; sourceTree = "<group>"; };
 		20E4410319CFD5F800A13175 /* PPRClockTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRClockTabBarItem.m; sourceTree = "<group>"; };
 		20EAAD4319A6DD5A00BDF78A /* PPRClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRClientManager.h; path = Managers/PPRClientManager.h; sourceTree = "<group>"; };
@@ -245,9 +250,12 @@
 		6307EAEE199D977900E721FB /* PPRActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRActionViewController.m; sourceTree = "<group>"; };
 		632E2D9419F0AB06005D6DAE /* PPRTestInitialiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRTestInitialiser.h; sourceTree = "<group>"; };
 		632E2D9519F0AB06005D6DAE /* PPRTestInitialiser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRTestInitialiser.m; sourceTree = "<group>"; };
+		7C9BB54E1B02177D1DB7E42D /* Pods-ppremindererTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppremindererTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ppremindererTests/Pods-ppremindererTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPRActionManager.h; path = Managers/PPRActionManager.h; sourceTree = "<group>"; };
 		8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPRActionManager.m; path = Managers/PPRActionManager.m; sourceTree = "<group>"; };
 		8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppreminderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DB34E631BAAF4FA5938F28F /* Pods-ppremindererTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ppremindererTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ppremindererTests/Pods-ppremindererTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A34C2568F07F981E6858C484 /* libPods-ppremindererTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ppremindererTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +279,7 @@
 				205BF52D199B0B320070358A /* CoreData.framework in Frameworks */,
 				205BF52C199B0B320070358A /* UIKit.framework in Frameworks */,
 				205BF52B199B0B320070358A /* Foundation.framework in Frameworks */,
+				67569B004AB07D9E749F7D96 /* libPods-ppremindererTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +325,7 @@
 				205BF511199B0B310070358A /* CoreData.framework */,
 				205BF529199B0B320070358A /* XCTest.framework */,
 				8CA5D753136945DAA3D7D34E /* libPods-ppreminderer.a */,
+				A34C2568F07F981E6858C484 /* libPods-ppremindererTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -384,6 +394,8 @@
 		20EAAD4219A6DD1B00BDF78A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				20D876151A0AEB0600372750 /* PPRDataStore.h */,
+				20D876161A0AEB0600372750 /* PPRDataStore.m */,
 				8C9E5B0519A6C8BE0011ACE1 /* PPRActionManager.h */,
 				8C9E5B0619A6C8BE0011ACE1 /* PPRActionManager.m */,
 				2068F08F19D4B722006F58D7 /* PPRActionScheduler.h */,
@@ -538,6 +550,8 @@
 			children = (
 				4BB6F4009D2132B595A47C58 /* Pods-ppreminderer.debug.xcconfig */,
 				36F9C5B63C8A7C2E6CB5E839 /* Pods-ppreminderer.release.xcconfig */,
+				8DB34E631BAAF4FA5938F28F /* Pods-ppremindererTests.debug.xcconfig */,
+				7C9BB54E1B02177D1DB7E42D /* Pods-ppremindererTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -568,9 +582,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 205BF53D199B0B320070358A /* Build configuration list for PBXNativeTarget "ppremindererTests" */;
 			buildPhases = (
+				B00DFBB2B953BF05ED92A85C /* Check Pods Manifest.lock */,
 				205BF524199B0B320070358A /* Sources */,
 				205BF525199B0B320070358A /* Frameworks */,
 				205BF526199B0B320070358A /* Resources */,
+				427AFCD20E8173FF932FEA17 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -645,6 +661,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		427AFCD20E8173FF932FEA17 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ppremindererTests/Pods-ppremindererTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B00DFBB2B953BF05ED92A85C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		DBD1E03CBCA3408BA2165853 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -687,6 +733,7 @@
 				200E8A1619CFD0D000C48BCA /* PPRStickyMessageNoticeView.m in Sources */,
 				20EAAD4519A6DD5A00BDF78A /* PPRClientManager.m in Sources */,
 				205BF547199B10AB0070358A /* PPRScheduleTableViewController.m in Sources */,
+				20D876171A0AEB0600372750 /* PPRDataStore.m in Sources */,
 				2068F0C119DA1A80006F58D7 /* PPRScheduleItem.m in Sources */,
 				2068F09719D4B722006F58D7 /* PPRClientActionScheduler.m in Sources */,
 				200E8A0719CFBA6F00C48BCA /* PPRSettingsViewController.m in Sources */,
@@ -737,6 +784,7 @@
 				8C9E5B0819A6C8BE0011ACE1 /* PPRActionManager.m in Sources */,
 				20AE327119BD6C6B0046034E /* PPRClientScheduleItem.m in Sources */,
 				2068F09A19D4B722006F58D7 /* PPRFacilityActionScheduler.m in Sources */,
+				20D876181A0AEB0600372750 /* PPRDataStore.m in Sources */,
 				20EAAD6619AB0EA200BDF78A /* PPRActionViewController.m in Sources */,
 				201748E819C110FD00B082D9 /* PPRSingletonTests.m in Sources */,
 				2068F0A219D4E472006F58D7 /* PPRSchedulerTest.m in Sources */,
@@ -929,6 +977,7 @@
 		};
 		205BF53E199B0B320070358A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DB34E631BAAF4FA5938F28F /* Pods-ppremindererTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -949,6 +998,7 @@
 		};
 		205BF53F199B0B320070358A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C9BB54E1B02177D1DB7E42D /* Pods-ppremindererTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
