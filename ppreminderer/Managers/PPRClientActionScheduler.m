@@ -11,24 +11,30 @@
 
 @implementation PPRClientActionScheduler
 
-- (void)scheduleEventsForClient:(PPRClient *)client {
+- (void)scheduleEventsForClient:(PPRClient *)client forParentAction:(PPRAction*)parent {
     [client.scheduleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         PPRScheduledEvent * event = (PPRClientScheduleItem *)obj;
-        PPRClientAction *action = [[PPRClientAction alloc] init];
-        action.scheduledEvent = event;
-        action.dueTime = [self.scheduler dueTimeForScheduleTime:event.scheduled parentDueTime:nil previousDueTime:nil events:client.facility.events];
-        action.status = kStatusScheduled;
-        // Promote event name to be context
-        // FIXME
-        action.context = event.eventName;
-        action.client = client;
-        action.facility = client.facility;
-        [self.actionManager insertAction:action success:^(PPRAction *action) {
+        if ((parent != nil &&
+            event.scheduled.type == PPRScheduleTimeRelativeToDailyEvent
+             && [event.scheduled.atDailyEvent isEqualToString: parent.scheduledEvent.eventName])
+             || (parent == nil && event.scheduled.type !=PPRScheduleTimeRelativeToDailyEvent)) {
+            PPRClientAction *action = [[PPRClientAction alloc] init];
+            action.scheduledEvent = event;
+            action.dueTime = [self.scheduler dueTimeForScheduleTime:event.scheduled parentDueTime:nil previousDueTime:nil events:client.facility.events];
+            action.status = kStatusScheduled;
+            // Promote event name to be context
             // FIXME
-            NSLog(@"Inserted action");
-        } failure:^(NSError *error) {
-            NSLog(@"Failure to insert action");
-        }];
+            action.context = event.eventName;
+            action.client = client;
+            action.facility = client.facility;
+            action.parent = parent;
+            [self.actionManager insertAction:action success:^(PPRAction *action) {
+                // FIXME
+                NSLog(@"Inserted action");
+            } failure:^(NSError *error) {
+                NSLog(@"Failure to insert action");
+            }];
+        }
     }];
 }
 

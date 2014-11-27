@@ -11,7 +11,7 @@
 @interface PPRNotification : NSObject
 
 @property (nonatomic,strong)NSDate *dueTime;
-@property (nonatomic,strong)NSString *description;
+@property (nonatomic,strong)NSString *notificationDescription;
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *notificationId;
 @property (nonatomic,strong)NSString *notificationType;

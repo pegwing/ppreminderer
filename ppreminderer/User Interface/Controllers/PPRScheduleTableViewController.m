@@ -1,6 +1,5 @@
 //
-//  PPRScheduleTableViewController.m
-//  Was: PPRScheduleViewController.m
+//  PPRScheduleViewController.m
 //  ppreminderer
 //
 //  Created by David Bernard on 13/08/2014.
@@ -99,44 +98,6 @@
     return self;
 }
 
-BOOL inOrderOld(PPRAction *const a, PPRAction *const b) {
-    return [a.dueTime compare: b.dueTime];
-}
-
-BOOL isParentOf(PPRAction *const a, PPRAction *const b) {
-    // a is parent of b; i.e. b's parent is a.
-    const BOOL r = (a.scheduledEvent == b.scheduledEvent.parent);
-//    const NSString *const rDescribed = r ? @"YES":@"NO";
-//    NSLog(@"isParentOf(%@,%@)?  %@",
-//          a.description,b.description,rDescribed);
-    return r;
-}
-
-BOOL isChildOf(PPRAction *const a, PPRAction *const b) {
-    return isParentOf(b,a);
-}
-
-BOOL inOrder(PPRAction *const a, PPRAction *const b) {
-    BOOL r;
-    if (isParentOf(a,b)) {
-        r = YES;
-    } else {
-        assert(!isParentOf(a,b));
-        if(!isChildOf(a,b)) {
-            r = inOrderOld(a, b);
-        } else {
-            assert(isChildOf(a,b));
-            assert(isParentOf(b,a));
-            r = NO;
-        }
-    }
-    const NSString *const aDescribed = a.description;
-    const NSString *const bDescribed = b.description;
-    const NSString *const rDescribed = r ? @"YES":@"NO";
-    NSLog(@"inOrder(%@, %@?  %@",aDescribed,bDescribed,rDescribed);
-    return r;
-}
-
 - (void)loadActions {
     PPRAction *actionFilter = [[PPRAction alloc]init];
     PPRFacility *facility = [[PPRFacility alloc] init];
@@ -146,18 +107,11 @@ BOOL inOrder(PPRAction *const a, PPRAction *const b) {
     [(PPRActionManager *)[PPRActionManager sharedInstance]
      getAction:actionFilter
      success:^(NSArray * actions) {
-         NSMutableArray * nonChildActions = [NSMutableArray array];
-         for (PPRAction * a in actions) {
-             if (a.parent == nil ) {
-                 [nonChildActions addObject:a];
-             }
-         }
-         const size_t nNotAdded = actions.count - nonChildActions.count;
-         NSLog(@"nNotAdded was %zu", nNotAdded);
-         _scheduleEntries = [nonChildActions sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+         _scheduleEntries = [actions sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
              PPRAction *action1 = (PPRAction *)obj1;
              PPRAction *action2 = obj2;
-             return inOrder/*Old*/(action1,action2);
+             return [action1 compareForSchedule: action2];
+             
          }];
      }
      failure:^(NSError * dummy)   { } ];
@@ -216,18 +170,10 @@ BOOL inOrder(PPRAction *const a, PPRAction *const b) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     PPRAction *action = (PPRAction *)(_scheduleEntries[indexPath.row]);
-    // For hacking grouping by adding spaces at the start of the textLabel and the detailTextLabel.
-    static const NSString *const indent0 = @"";
-    static const NSString *const indent4 = @"    ";
-    static const NSString *const indent8 = @"        ";
     if ( [action isKindOfClass:[PPRAction class]]) {
         PPRAction *item = (PPRAction *)action;
-        const BOOL shouldIndent = item.shouldGroup;
-        NSString *const detailMaybeIndented =
-            [NSString stringWithFormat:@"%@%@",shouldIndent?indent8:indent4, item.dueTimeDescription];
-            [cell.detailTextLabel setText:detailMaybeIndented];
-//        NSLog([NSString stringWithFormat:@"item.dueTimeDescription was %@", item.dueTimeDescription]);
-//        NSLog([NSString stringWithFormat:@"item.parent was %@", item.parent]);
+        
+        [cell.detailTextLabel setText:item.textForDetail];
         
         if ([item.status isEqualToString:        kStatusCompleted]){
             [cell setBackgroundColor: [UIColor                          greenColor  ]];
@@ -240,17 +186,7 @@ BOOL inOrder(PPRAction *const a, PPRAction *const b) {
             [cell setBackgroundColor: [UIColor                          yellowColor  ]];
         }
     }
-    if ( [action isKindOfClass:[PPRClientAction class]]) {
-        PPRClientAction *item = (PPRClientAction *)action;
-        NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
-        NSString *const labelMaybeIndented =
-            [NSString stringWithFormat:@"%@%@",action.shouldGroup?indent4:indent0, label]; // Smaller indent for text rather than detail
-        [cell.textLabel setText:labelMaybeIndented];
-    } else {
-        NSString *const contextMaybeIndented =
-            [NSString stringWithFormat:@"%@%@",action.shouldGroup?indent4:indent0, action.context]; // Smaller indent for text rather than detail
-        [cell.textLabel setText:contextMaybeIndented];
-    }
+    [cell.textLabel setText: action.textForLabel];
     return cell;
 }
 

@@ -16,7 +16,7 @@
         _notificationId = notifiactionId;
         _notificationType = notificationType;
         _title = title;
-        _description = description;
+        _notificationDescription = description;
         _dueTime = dueTime;
         
     }
@@ -29,7 +29,7 @@
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     localNotification.alertAction = self.title;
     
-    localNotification.alertBody = self.description;
+    localNotification.alertBody = self.notificationDescription;
     localNotification.userInfo = @{@"notificationType":@"PPRNotification", @"notificationId":self.notificationId};
     localNotification.soundName = @"/System/Library/Audio/UISounds/new-mail.caf";
     

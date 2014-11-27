@@ -67,18 +67,15 @@
         case PPRScheduleTimeRelativeToStartOfParent:
             description = [NSString stringWithFormat:@"At Parent +%02.2ld %02.2ld",
                            (long)self.offset.hour, (long)self.offset.minute];
-            NSLog(@"%s: cons'd rel. to parent : %@",__func__, description);
             break;
         case PPRScheduleTimeRelativeToDailyEvent:
             description = [NSString stringWithFormat:@"At %@ +%02.2ld %02.2ld",
                            self.atDailyEvent, (long)self.offset.hour, (long)self.offset.minute];
-            NSLog(@"%s: cons'd rel. to daily event: %@",__func__, description);
             break;
 
         case PPRScheduleTimeRelativeToPreviousItem:
             description = [NSString stringWithFormat:@"At Previous +%02.2ld %02.2ld",
                            (long)self.offset.hour, (long)self.offset.minute];
-            NSLog(@"%s: cons'd rel. to previoust: %@",__func__, description);
             break;
         default:
             description = @"Unknown schedule type";

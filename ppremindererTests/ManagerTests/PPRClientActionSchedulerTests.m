@@ -51,7 +51,7 @@
     scheduledEvent.scheduled = scheduleTime;
     [client.scheduleItems addObject:scheduledEvent];
     
-    [clientActionScheduler scheduleEventsForClient:client];
+    [clientActionScheduler scheduleEventsForClient:client forParentAction:nil];
 
     [actionManager getAction:nil success:^(NSArray *actions) {
         XCTAssertEqual(actions.count, 1, "Should be one action");

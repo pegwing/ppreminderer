@@ -31,6 +31,14 @@
 
 -(NSArray *)instructionsForAction;
 
+-(NSString *)textForLabel;
+
+-(NSString *)logTextForLabel;
+
+-(NSString *)textForDetail;
+
+-(NSComparisonResult)compareForSchedule:(PPRAction *)other;
+
 -(BOOL)shouldGroup;
 
 @end

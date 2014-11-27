@@ -284,8 +284,9 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
         
         _shiftManager = [[PPRShiftManager sharedInstance] init];
         
-        _facilityActionScheduler =[[PPRFacilityActionScheduler sharedInstance]init];
         _clientActionScheduler =[[PPRClientActionScheduler sharedInstance]init];
+        _scheduler = [[PPRScheduler sharedInstance] init];
+        _facilityActionScheduler =[[PPRFacilityActionScheduler sharedInstance]initWithScheduler:_scheduler actionManager:_actionManager clientActionScheduler:_clientActionScheduler];
         _actionScheduler = [[PPRActionScheduler sharedInstance]init];
         [self loadTestData];
         [self loadSchedule];
@@ -343,9 +344,9 @@ static PPRClient *createTestClient3(PPRFacility *facility2)
     
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility1];
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility2];
-    [self.clientActionScheduler scheduleEventsForClient:self.client1];
-    [self.clientActionScheduler scheduleEventsForClient:self.client2];
-    [self.clientActionScheduler scheduleEventsForClient:self.client3];
+    [self.clientActionScheduler scheduleEventsForClient:self.client1 forParentAction:nil];
+    [self.clientActionScheduler scheduleEventsForClient:self.client2 forParentAction:nil];
+    [self.clientActionScheduler scheduleEventsForClient:self.client3 forParentAction:nil];
 
 }
 @end
