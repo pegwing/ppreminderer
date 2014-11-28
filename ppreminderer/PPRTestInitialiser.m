@@ -773,9 +773,10 @@ static PPRClient *createTestClient8(PPRFacility *facility)
         _actionManager = [[PPRActionManager sharedInstance] init];
         
         _shiftManager = [[PPRShiftManager sharedInstance] init];
-        
-        _facilityActionScheduler =[[PPRFacilityActionScheduler sharedInstance]init];
+        _scheduler = [[PPRScheduler sharedInstance]init];
         _clientActionScheduler =[[PPRClientActionScheduler sharedInstance]init];
+        _facilityActionScheduler =[[PPRFacilityActionScheduler sharedInstance]
+  initWithScheduler:_scheduler actionManager:_actionManager clientActionScheduler:_clientActionScheduler];
         _actionScheduler = [[PPRActionScheduler sharedInstance]init];
         [self loadTestData];
         [self loadSchedule];
@@ -875,14 +876,14 @@ static PPRClient *createTestClient8(PPRFacility *facility)
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility1];
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility2];
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility3];
-    [self.clientActionScheduler scheduleEventsForClient:self.client1 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client2 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client3 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client4 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client5 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client6 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client7 forParentAction:nil];
-    [self.clientActionScheduler scheduleEventsForClient:self.client8 forParentAction:nil];
+    // [self.clientActionScheduler scheduleEventsForClient:self.client1 forParentAction:nil];
+    // [self.clientActionScheduler scheduleEventsForClient:self.client2 forParentAction:nil];
+    // [self.clientActionScheduler scheduleEventsForClient:self.client3 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client4 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client5 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client6 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client7 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client8 forParentAction:nil];
     
 }
 @end
