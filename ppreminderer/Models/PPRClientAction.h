@@ -11,6 +11,14 @@
 
 @interface PPRClientAction : PPRAction
 @property (nonatomic,strong) PPRClient *client;
+@property (nonatomic,strong) NSString *clientId;
 
 -(id)initWithClient:(PPRClient *)client scheduledEvent:(PPRScheduledEvent *)scheduledEvent;
+
+/**
+ Whether this client  is equivalent to another
+ @param action client action to check for equivalence
+ @return true if equvalent, otherwise false;
+ */
+- (BOOL)isEquivalentTo:(PPRClientAction *)action;
 @end

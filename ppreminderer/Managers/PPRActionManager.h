@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "PPRAction.h"
 #import "PPRSingleton.h"
+#import "PPRDataStore.h"
 
 /**
  *  This class is a singleton that manages access to Actions.
  */
 @interface PPRActionManager : PPRSingleton
 @property (nonatomic,strong) NSMutableDictionary* actions;
+@property (nonatomic,strong) PPRDataStore* dataStore;
 
 /**
  * Given a partially specified action prototype, retrieve a list of matching actions.
@@ -88,4 +90,8 @@
              success:(void (^)(PPRAction *action))success
              failure:(void (^)(NSError *error))failure;
 
+/**
+ * Load actions from file system
+ */
+- (void) loadActions;
 @end

@@ -117,9 +117,7 @@
 
 - (void)loadActions {
     PPRAction *actionFilter = [[PPRAction alloc]init];
-    PPRFacility *facility = [[PPRFacility alloc] init];
-    actionFilter.facility = facility;
-    actionFilter.facility.facilityId =[PPRShiftManager sharedInstance].shift.facilityId;
+    actionFilter.facilityId =[PPRShiftManager sharedInstance].shift.facilityId;
     
     [(PPRActionManager *)[PPRActionManager sharedInstance]
      getAction:actionFilter

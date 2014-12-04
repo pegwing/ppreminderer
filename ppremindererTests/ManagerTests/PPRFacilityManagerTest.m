@@ -37,7 +37,7 @@
     PPRFacilityManager *sharedInstance = (PPRFacilityManager *)[PPRFacilityManager sharedInstance];
     [sharedInstance getFacility:nil
                         success:^(NSArray *facilities) {
-                            XCTAssertEqual(facilities.count, 2, @"Shared instance should return 2 facilities");
+                            XCTAssertEqual(facilities.count, 3, @"Shared instance should return 3 facilities");
                         }
                         failure:^(NSError *error) {
                             XCTFail("getFacility with nil should not fail");

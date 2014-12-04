@@ -39,8 +39,8 @@
                       success:^(NSArray *clients) {
                           XCTAssertEqual(
                                          clients.count,
-                                         3,
-                                         @"Test shared instance should return 3 clients");
+                                         8,
+                                         @"Test shared instance should return 8 clients");
                       } failure:^(NSError *error) {
                           XCTFail("getClient with nil should not fail");
                       }];

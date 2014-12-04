@@ -7,7 +7,6 @@
 //
 
 #import "PPRAction.h"
-#import "PPRClientAction.h"
 
 NSString * const kStatusScheduled = @"Scheduled";
 NSString * const kStatusPostponed = @"Postponed";
@@ -22,9 +21,10 @@ NSString * const kStatusCompletedAway = @"CompletedAway";
 {
     self = [super init];
     if (self) {
+        _facilityId = facility.facilityId;
         _facility = facility;
         _scheduledEvent = scheduledEvent;
-        _parent = parent;
+        _parentId = parent.actionId;
         _actions = actions;
         _status = nil;
     }
@@ -55,8 +55,6 @@ NSString * const kStatusCompletedAway = @"CompletedAway";
         
     }
     NSString *dueTimeDescription = [dateFormatter stringFromDate:time];
-//    NSLog(@"%s:scheduleDescription was %@",__func__,scheduleDescription);
-    //NSLog(@"%s:dueTimeDescription  was %@",__func__,dueTimeDescription);
     return [NSString stringWithFormat:@"%@ - %@", scheduleDescription, dueTimeDescription];
 }
 
@@ -64,16 +62,17 @@ NSString * const kStatusCompletedAway = @"CompletedAway";
     return [[NSArray alloc]init];
 }
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             
+             
+             };
+}
+
 - (NSString *)logTextForLabel {  // cf. textForLabel
-    if([self isKindOfClass:[PPRClientAction class]]) {
-        PPRClientAction *item = (PPRClientAction *)self;
-        NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
-        return label;
-    } else {
-        NSString *const r =
-            [NSString stringWithFormat:@"%@", self.context];
-        return r;
-    }
+    NSString *const r =
+        [NSString stringWithFormat:@"%@", self.context];
+    return r;
 }
 
 // For hacking grouping by adding spaces at the start of the textLabel and the detailTextLabel.
@@ -82,17 +81,9 @@ static const NSString *const ind4 = @"    ";
 static const NSString *const ind8 = @"        ";
 
 - (NSString *)textForLabel {
-    if([self isKindOfClass:[PPRClientAction class]]) {
-        PPRClientAction *item = (PPRClientAction *)self;
-        NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
-        NSString *const labelMaybeIndented =
-        [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, label]; // Smaller indent for text rather than detail
-        return labelMaybeIndented;
-    } else {
-        NSString *const contextMaybeIndented =
-        [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, self.context]; // Smaller indent for text rather than detail
-        return contextMaybeIndented;
-    }
+   NSString *const contextMaybeIndented =
+      [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, self.scheduledEvent.eventName]; // Smaller indent for text rather than detail
+   return contextMaybeIndented;
 }
 
 - (NSString *)textForDetail {
@@ -102,7 +93,31 @@ static const NSString *const ind8 = @"        ";
         // [NSString stringWithFormat:@"%@%@ [%@]",sg?ind8:ind4, self.dueTimeDescription, self.actionId];
     return detailMaybeIndented;
 }
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
+    return @{
+             @"actionId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"context": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"status": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"dueTime": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"completionTime": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"scheduledEvent": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"parentId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"actions": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             @"history": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded],
+             @"facilityId": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],
+             @"facility": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorExcluded]
+             
+             };
+}
 
+- (BOOL)isEquivalentTo:(PPRAction *)action {
+    // Should match facility and schedule event
+    BOOL equivalent =
+        (action.facilityId == nil || [self.facilityId isEqualToString:action.facilityId]) &&
+        (action.context == nil || [self.context isEqualToString:action.context]) &&
+        (action.scheduledEvent == nil || [self.scheduledEvent isEquivalentTo:action.scheduledEvent]);
+    return equivalent;
+}
 
 // Helpers for compareForSchedule.
 BOOL isParentOf(const PPRAction *const p, const PPRAction *const c);

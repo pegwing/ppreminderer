@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "PPRClientScheduleItem.h"
 #import "PPRFacility.h"
+#import "Mantle.h"
 
-@interface PPRAction : NSObject
+@interface PPRAction : MTLModel <MTLJSONSerializing>
 @property (nonatomic,strong) NSString *actionId;
 @property (nonatomic,strong) NSString *context;
 @property (nonatomic,strong) NSString *status;
@@ -21,7 +22,8 @@
 @property (nonatomic,strong) NSString *parentId;
 @property (nonatomic,strong) NSMutableArray *actions;
 @property (nonatomic,strong) NSMutableArray *history;
-@property (nonatomic,strong) PPRFacility *facility;
+@property (nonatomic,strong) NSString *facilityId;
+@property (nonatomic, strong) PPRFacility *facility;
 
 -(id)initWithFacility:(PPRFacility *)facility scheduledEvent:(PPRScheduledEvent *)scheduledEvent parent:(PPRAction *)parent actions:(NSMutableArray *)actions;
 
@@ -31,6 +33,12 @@
 
 -(NSArray *)instructionsForAction;
 
+/**
+ Whether this action is equivalent to another
+ @param action Action to check for equivalence
+ @return true if equvalent, otherwise false;
+ */
+- (BOOL)isEquivalentTo:(PPRAction *)action;
 -(NSString *)textForLabel;
 
 -(NSString *)logTextForLabel;

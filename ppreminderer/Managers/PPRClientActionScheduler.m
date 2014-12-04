@@ -27,6 +27,8 @@
             action.context = event.eventName;
             action.client = client;
             action.facility = client.facility;
+            action.clientId = client.clientId;
+            action.facilityId = client.facility.facilityId;
             action.parent = parent;
             [self.actionManager insertAction:action success:^(PPRAction *action) {
                 // FIXME
@@ -38,5 +40,7 @@
     }];
 }
 
+
+    
 
 @end

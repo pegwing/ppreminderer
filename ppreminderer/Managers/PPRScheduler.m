@@ -80,9 +80,7 @@ NSString * const kSchedulingStatusCompleted = @"Completed";
                                   }];
     // Filter actions by facility
     PPRAction *actionFilter = [[PPRAction alloc]init];
-    PPRFacility *facility = [[PPRFacility alloc] init];
-    actionFilter.facility = facility;
-    actionFilter.facility.facilityId = facilityId;
+    actionFilter.facilityId = facilityId;
     
     [self.actionManager getAction:actionFilter
                           success:^(NSArray *actions) {
