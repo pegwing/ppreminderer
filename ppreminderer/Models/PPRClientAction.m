@@ -22,7 +22,7 @@
 - (NSString *)notificationDescription {
     NSString *description = [NSString stringWithFormat:@"Client:%@ Action:%@\n%@\n",
                              self.client.name,
-                             self.context,
+                             self.scheduledEvent.eventName,
                              [self dueTimeDescription]
                              ];
     
@@ -47,7 +47,7 @@
 
 - (NSString *)logTextForLabel {  // cf. textForLabel
     PPRClientAction *item = (PPRClientAction *)self;
-    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
+    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.scheduledEvent.eventName];
      return label;
  
 }
@@ -57,7 +57,7 @@ static const NSString *const ind8 = @"        ";
 
 - (NSString *)textForLabel {
     PPRClientAction *item = (PPRClientAction *)self;
-    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
+    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.scheduledEvent.eventName];
     NSString *const labelMaybeIndented =
    [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, label]; // Smaller indent for text rather than detail
    return labelMaybeIndented;

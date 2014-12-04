@@ -82,7 +82,7 @@ static const NSString *const ind8 = @"        ";
 
 - (NSString *)textForLabel {
    NSString *const contextMaybeIndented =
-      [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, self.context]; // Smaller indent for text rather than detail
+      [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, self.scheduledEvent.eventName]; // Smaller indent for text rather than detail
    return contextMaybeIndented;
 }
 

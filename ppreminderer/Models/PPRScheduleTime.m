@@ -85,6 +85,12 @@
     return description;
 }
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+             
+             
+             };
+}
 + (NSDictionary *)encodingBehaviorsByPropertyKey {
     return @{
              @"type": [NSNumber numberWithUnsignedInt:MTLModelEncodingBehaviorUnconditional],

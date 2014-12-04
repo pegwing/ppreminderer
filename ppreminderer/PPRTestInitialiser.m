@@ -879,8 +879,8 @@ static PPRClient *createTestClient8(PPRFacility *facility)
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility1];
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility2];
     [self.facilityActionScheduler scheduleEventsForFacility:self.facility3];
-    // [self.clientActionScheduler scheduleEventsForClient:self.client1 forParentAction:nil];
-    // [self.clientActionScheduler scheduleEventsForClient:self.client2 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client1 forParentAction:nil];
+    //[self.clientActionScheduler scheduleEventsForClient:self.client2 forParentAction:nil];
     // [self.clientActionScheduler scheduleEventsForClient:self.client3 forParentAction:nil];
     //[self.clientActionScheduler scheduleEventsForClient:self.client4 forParentAction:nil];
     //[self.clientActionScheduler scheduleEventsForClient:self.client5 forParentAction:nil];
