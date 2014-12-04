@@ -125,7 +125,7 @@
          _scheduleEntries = [actions sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
              PPRAction *action1 = (PPRAction *)obj1;
              PPRAction *action2 = obj2;
-             return [action1.dueTime compare: action2.dueTime ];
+             return [action1 compareForSchedule: action2];
              
          }];
      }
@@ -182,7 +182,8 @@
 UIColor * colorForStatus(PPRAction *item) {
     
 
-if ([item.status isEqualToString:        kStatusCompleted]){
+if ([item.status isEqualToString:        kStatusCompleted] ||
+    [item.status isEqualToString: kStatusCompletedAway]){
     return [UIColor                          greenColor  ];
 } else if ([item.status isEqualToString:        kStatusCompletedAway]){
     return [UIColor                          cyanColor   ];
@@ -216,23 +217,11 @@ if ([item.status isEqualToString:        kStatusCompleted]){
     if ( [action isKindOfClass:[PPRAction class]]) {
         PPRAction *item = (PPRAction *)action;
         
-        [cell.detailTextLabel setText:item.dueTimeDescription];
-        //[cell setBackgroundColor:colorForStatus(item)];
-        // For IOS 6
-        //[cell.contentView setBackgroundColor:colorForStatus(item)];
-        //[cell.textLabel setBackgroundColor:colorForStatus(item)];
-       // [cell.detailTextLabel setBackgroundColor:colorForStatus(item)];
+        [cell.detailTextLabel setText:item.textForDetail];
         
         
     }
-    if ( [action isKindOfClass:[PPRClientAction class]]) {
-        PPRClientAction *item = (PPRClientAction *)action;
-        NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
-        [cell.textLabel setText:label ];
-    }
-    else {
-        [cell.textLabel setText:action.context];
-    }
+    [cell.textLabel setText: action.textForLabel];
     return cell;
 }
 

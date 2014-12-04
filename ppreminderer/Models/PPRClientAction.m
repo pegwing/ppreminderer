@@ -45,6 +45,25 @@
     return instructions;
 }
 
+- (NSString *)logTextForLabel {  // cf. textForLabel
+    PPRClientAction *item = (PPRClientAction *)self;
+    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
+     return label;
+ 
+}
+static const NSString *const ind0 = @"";
+static const NSString *const ind4 = @"    ";
+static const NSString *const ind8 = @"        ";
+
+- (NSString *)textForLabel {
+    PPRClientAction *item = (PPRClientAction *)self;
+    NSString *label = [NSString stringWithFormat:@"%@ - %@", item.client.name, item.context];
+    NSString *const labelMaybeIndented =
+   [NSString stringWithFormat:@"%@%@",self.shouldGroup?ind4:ind0, label]; // Smaller indent for text rather than detail
+   return labelMaybeIndented;
+}
+
+
 - (BOOL)isEquivalentTo:(PPRClientAction *)clientAction {
     // Equivalent if clientid same
     

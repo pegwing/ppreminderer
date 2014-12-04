@@ -18,7 +18,8 @@
 @property (nonatomic,strong) NSDate *dueTime;
 @property (nonatomic,strong) NSDate *completionTime;
 @property (nonatomic,strong) PPRScheduledEvent *scheduledEvent;
-@property (nonatomic,weak) NSString *parentId;
+@property (nonatomic,weak) PPRAction *parent;
+@property (nonatomic,strong) NSString *parentId;
 @property (nonatomic,strong) NSMutableArray *actions;
 @property (nonatomic,strong) NSMutableArray *history;
 @property (nonatomic,strong) NSString *facilityId;
@@ -38,4 +39,14 @@
  @return true if equvalent, otherwise false;
  */
 - (BOOL)isEquivalentTo:(PPRAction *)action;
+-(NSString *)textForLabel;
+
+-(NSString *)logTextForLabel;
+
+-(NSString *)textForDetail;
+
+-(NSComparisonResult)compareForSchedule:(PPRAction *)other;
+
+-(BOOL)shouldGroup;
+
 @end

@@ -12,6 +12,6 @@
 
 
 @interface PPRClientActionScheduler : PPRActionScheduler
-- (void)scheduleEventsForClient:(PPRClient *)client;
+- (void)scheduleEventsForClient:(PPRClient *)client forParentAction:(PPRAction*)parent;
 
 @end

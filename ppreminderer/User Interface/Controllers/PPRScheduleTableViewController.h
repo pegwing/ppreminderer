@@ -1,5 +1,6 @@
 //
-//  PPRScheduleViewController.h
+//  PPRScheduleTableViewController.h
+//  Was: PPRScheduleViewController.h
 //  ppreminderer
 //
 //  Created by David Bernard on 13/08/2014.

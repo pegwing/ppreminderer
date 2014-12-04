@@ -41,6 +41,7 @@
     return   [self initWithType:type dailyEvent:nil offset:offset];
 }
 
+// Note about the description method.  If the result (a string) talks about a time relative to a Parent, the class user should have other methods to find out about what the parent is.  Or perhaps not.  There is the type property.
 -(NSString *)description
 {
     NSDateFormatter * df = [[NSDateFormatter alloc] init];

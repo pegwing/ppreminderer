@@ -91,4 +91,38 @@
     
 }
 
+- (void)testTextForDetail
+{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc]init];
+    dateComponents.hour = 9;
+    dateComponents.minute = 15;
+    
+    PPRScheduleTime *scheduleTime = [[PPRScheduleTime alloc]initWithTimeOfDay:dateComponents
+                                     ];
+    PPRScheduledEvent *scheduledEvent =
+    [[PPRScheduledEvent alloc]initWithEventName:@"TestEventName" scheduledTime:scheduleTime];
+    PPRFacility *facility = [[PPRFacility alloc]init];
+    
+    PPRAction *action = [[PPRAction alloc ]initWithFacility:facility scheduledEvent:scheduledEvent parent:nil actions:nil];
+    action.status = kStatusCompleted;
+    XCTAssertEqualObjects(action.textForDetail, @"    At 9:15 AM - (null)");
+}
+
+- (void)testTextForLabel
+{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc]init];
+    dateComponents.hour = 9;
+    dateComponents.minute = 15;
+    
+    PPRScheduleTime *scheduleTime = [[PPRScheduleTime alloc]initWithTimeOfDay:dateComponents
+                                     ];
+    PPRScheduledEvent *scheduledEvent =
+    [[PPRScheduledEvent alloc]initWithEventName:@"TestEventName" scheduledTime:scheduleTime];
+    PPRFacility *facility = [[PPRFacility alloc]init];
+    
+    PPRAction *action = [[PPRAction alloc ]initWithFacility:facility scheduledEvent:scheduledEvent parent:nil actions:nil];
+    action.status = kStatusCompleted;
+    XCTAssertEqualObjects(action.textForLabel, @"TestEventName");
+}
+
 @end
